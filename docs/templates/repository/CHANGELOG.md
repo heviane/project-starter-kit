@@ -8,7 +8,11 @@ Todas as alterações notáveis a este projeto serão documentadas neste arquivo
 
 ## [Pending]
 
-### Added or Changed
+### Added
+
+- ...
+
+### Changed
 
 - ...
 
@@ -18,14 +22,17 @@ Todas as alterações notáveis a este projeto serão documentadas neste arquivo
 
 ## [v1.0.0] - 2025-08-07
 
-### Added or Changed
+### Added
 
 - Added this changelog
+- Added more "Built With" frameworks/libraries
+- Added checkboxes for major features on roadmap
+
+### Changed
+
+- Changed table of contents to start collapsed
 - Fixed typos in both templates
 - Back to top links
-- Added more "Built With" frameworks/libraries
-- Changed table of contents to start collapsed
-- Added checkboxes for major features on roadmap
 
 ### Removed
 
