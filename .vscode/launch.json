@@ -5,7 +5,7 @@
       "type": "node",
       "request": "launch",
       "name": "Debugar Aplicação Node.js",
-      "program": "${workspaceFolder}/src/index.js", // Caminho para o arquivo de entrada da sua aplicação
+      "program": "${workspaceFolder}/src/index.js",
       "skipFiles": ["<node_internals>/**"],
       "console": "integratedTerminal"
     }
