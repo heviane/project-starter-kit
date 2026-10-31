@@ -23,14 +23,13 @@ Antes de escrever qualquer código de funcionalidade:
 
 ## 🛡️ Regras de Ouro (Invioláveis)
 
-1. **Human-in-the-Loop (Aprovação Prévia Obrigatória):** O agente DEVE SEMPRE apresentar o plano e solicitar aprovação explícita do desenvolvedor humano antes de executar modificações em arquivos, rodar comandos que alterem o ambiente ou realizar commits/pushes. Nunca execute alterações práticas sem validação prévia.
-2. **Preservação de Contexto:** Não remova comentários explicativos, documentações existentes ou configurações sem instrução explícita.
-3. **Sem Alucinação de Dependências:** Não instale novas bibliotecas ou ferramentas de terceiros sem validação ou alinhamento prévio. Prefira sempre recursos nativos da stack quando aplicável.
-4. **Segurança Primeiro:**
-   * Nunca exponha credenciais, tokens, senhas ou segredos no código ou em logs.
-   * Utilize variáveis de ambiente (`.env.example`) para qualquer parâmetro sensível.
-   * Valide e sanitize todas as entradas de dados.
-5. **Verificação de Compilação e Testes:** Antes de considerar uma tarefa concluída, execute o comando de build e a suíte de testes do projeto para garantir zero quebras.
+1. **Human-in-the-Loop (Aprovação Prévia Obrigatória):** O agente DEVE SEMPRE apresentar o plano e solicitar aprovação explícita da desenvolvedora antes de executar modificações em arquivos, rodar comandos que alterem o ambiente ou realizar commits/pushes.
+2. **Anti-Lazy Code (Implementação Completa):** Nunca omita código com reticências ou comentários de atalho (`// ... restante da função ...`). Entregue código completo, funcional e pronto para execução.
+3. **Modificação Cirúrgica (Minimal Diff):** Faça edições pontuais e focadas. Não reescreva módulos inteiros apenas para ajustar trechos específicos e preserve a formatação existente.
+4. **Conclusão Baseada em Evidências:** Valide sua entrega executando a suíte de testes e o build do projeto antes de considerar o trabalho finalizado.
+5. **Parcimônia de Dependências:** Não instale dependências ou bibliotecas de terceiros sem aprovação prévia e sem provar que o recurso nativo não atende.
+6. **Segurança Primeiro:** Nunca exponha credenciais, chaves ou senhas. Utilize variáveis de ambiente com suporte a `.env.example`.
+7. **Documentação Viva:** Mantenha especificações (`SPEC.md`), contratos de API e documentação sempre sincronizados com as alterações de código.
 
 ---
 
