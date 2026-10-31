@@ -1,56 +1,61 @@
-# Templates para Projetos de Software
+# AI-Assisted Project Starter Kit & Standards
 
-Este repositório é uma coleção centralizada de templates, guias e configurações projetados para acelerar o início de novos projetos de software. O objetivo é fornecer uma base sólida e padronizada, garantindo consistência no ambiente de desenvolvimento, na estrutura do projeto e nas práticas de colaboração desde o primeiro dia.
-
----
-
-## 🚀 O que você encontrará aqui?
-
-Este "starter kit" inclui os seguintes recursos para facilitar sua vida:
-
-### 📁 `/.vscode` - Ambiente de Desenvolvimento Padronizado
-
-Configurações para o Visual Studio Code que garantem que toda a equipe utilize os mesmos padrões.
-
-- **`settings.json`**: Formatação ao salvar, linter e configurações do editor.
-- **`extensions.json`**: Recomendações de extensões essenciais para o projeto.
-- **`launch.json`**: Configurações de depuração prontas para uso (ex: Node.js).
-- **`tasks.json`**: Tarefas automatizadas para build, teste e outras operações.
-
-### 📁 `/.github` - Guias de Colaboração
-
-Templates para facilitar a gestão da comunidade e das contribuições no GitHub.
-
-- **`CONTRIBUTING.md`**: Um guia claro sobre como contribuir com o projeto.
-- **`ISSUE_TEMPLATE.md`**: Modelos para reportar bugs e sugerir funcionalidades.
-- **`PULL_REQUEST_TEMPLATE.md`**: Um modelo para garantir que os PRs sejam claros e completos.
-
-### 📁 `/docs` - Documentação e Guias
-
-Documentos úteis para guiar os desenvolvedores.
-
-- **Sugestões de Estrutura de Projetos**: Exemplos de como organizar projetos (Node.js, Front-end/Back-end).
-- **Guias Práticos**: Tutoriais passo a passo para tarefas comuns, como versionar um novo projeto no GitHub.
-- **Modelos de Templates**: Exemplos e modelos prontos para uso.
-
-### 📄 `.editorconfig` - Consistência de Código
-
-Um arquivo de configuração para manter um estilo de código consistente (indentação, final de linha, etc.) em diferentes editores e IDEs.
+> **Base padronizada para criação acelerada de novos projetos de software, com suporte nativo a Desenvolvimento Assistido por IA, Spec-Driven Development (SDD) e Governança Docs-as-Code.**
 
 ---
 
-## 🛠️ Como Usar
+## 🎯 Por que este Starter Kit?
 
-1. **Clone ou baixe** este repositório.
-2. **Copie** os arquivos e diretórios desejados (como `.vscode`, `.github`, `.editorconfig`) para a raiz do seu novo projeto.
-3. **Adapte** os arquivos conforme necessário. Por exemplo, atualize os nomes e descrições no `CONTRIBUTING.md` e outros documentos.
+Iniciar um novo projeto de software hoje não significa apenas configurar linters e editores: significa **alinhar a colaboração entre desenvolvedores humanos e agentes de IA**.
 
-Com isso, seu novo projeto já começará com uma base organizada e padronizada!
+Este repositório fornece a base operacional completa para garantir que:
+1. **Agentes de IA** (Copilot, Antigravity, Claude, etc.) sigam padrões estritos de arquitetura, testes e commits antes de sugerir código.
+2. O time adote **Spec-Driven Development (SDD)**, validando requisitos antes da codificação.
+3. Decisões arquiteturais sejam documentadas formalmente via **ADRs (Architecture Decision Records)**.
+4. O ambiente no **Visual Studio Code** e no **Git/GitHub** inicie padronizado desde o primeiro commit.
 
 ---
 
-## 🤝 Como Contribuir
+## 📂 O que está incluído?
 
-Contribuições são muito bem-vindas! Se você tem um template útil, uma melhoria para um guia existente ou uma nova ideia, sinta-se à vontade para abrir uma Issue ou um Pull Request.
+### 🤖 1. Camada de Inteligência Artificial & Engenharia
+* **[`AGENTS.md`](./AGENTS.md):** Diretrizes de ouro operacionais para agentes de IA (regras de contexto, proibição de alucinação de dependências, requisitos de testes e padrão Conventional Commits).
+* **[`.github/copilot-instructions.md`](./.github/copilot-instructions.md):** Instruções nativas lidas automaticamente pelo GitHub Copilot no VS Code.
 
-Por favor, leia nosso guia de contribuição em [Guia de Contribuição](.github/CONTRIBUTING.md) para mais detalhes.
+### 📑 2. Modelos e Templates (`/docs/templates/`)
+* **[`SPEC.md`](./docs/templates/SPEC.md):** Modelo completo para especificação guiada por requisitos (SDD) com critérios de aceite em formato Gherkin e plano de execução em fases.
+* **[`ADR.md`](./docs/templates/ADR.md):** Modelo para registro de decisões arquiteturais (Contexto, Forças, Decisão, Consequências e Alternativas).
+* **[`README-PROJECT.md`](./docs/templates/README-PROJECT.md):** Template moderno e profissional para o README do seu novo projeto.
+
+### 🛠️ 3. Configurações de Ambiente (`/.vscode`)
+* **`settings.json`:** Formatação automática ao salvar, regras de quebra de linha e linter.
+* **`extensions.json`:** Recomendações de extensões essenciais para produtividade.
+* **`launch.json` & `tasks.json`:** Perfis de execução e compilação para depuração rápida.
+
+### 🐙 4. Governança e Colaboração no GitHub (`/.github`)
+* **`ISSUE_TEMPLATE/`:** Modelos estruturados para bug reports, feature requests e tarefas técnicas.
+* **`PULL_REQUEST_TEMPLATE.md`:** Checklist de qualidade para abertura e revisão de PRs.
+* **`CONTRIBUTING.md` & `CODE_OF_CONDUCT.md`:** Guias de contribuição e conduta comunitária.
+* **`.editorconfig`:** Padronização de indentação e espaçamento entre diferentes IDEs e sistemas operacionais.
+
+---
+
+## 🚀 Como Usar este Starter Kit
+
+### Opção A: Como Template Repository no GitHub (Recomendado)
+1. No topo deste repositório no GitHub, clique no botão verde **"Use this template"** > **"Create a new repository"**.
+2. Dê um nome ao seu novo projeto e clone-o na sua máquina.
+3. Preencha a seção de comandos no `AGENTS.md` e adapte o `README.md` usando o modelo [`README-PROJECT.md`](./docs/templates/README-PROJECT.md).
+
+### Opção B: Cópia Manual para Projeto Existente
+1. Copie os arquivos de governança para o seu projeto:
+   * `AGENTS.md` para a raiz.
+   * Pastas `.vscode/` e `.github/` para a raiz.
+   * Pasta `docs/templates/` para dentro do seu diretório `docs/`.
+2. Adapte os arquivos à stack específica do seu projeto.
+
+---
+
+## 📄 Licença
+
+Distribuído sob a licença [MIT](LICENSE).
