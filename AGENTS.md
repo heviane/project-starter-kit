@@ -23,13 +23,14 @@ Antes de escrever qualquer código de funcionalidade:
 
 ## 🛡️ Regras de Ouro (Invioláveis)
 
-1. **Preservação de Contexto:** Não remova comentários explicativos, documentações existentes ou configurações sem instrução explícita.
-2. **Sem Alucinação de Dependências:** Não instale novas bibliotecas ou ferramentas de terceiros sem validação ou alinhamento prévio. Prefira sempre recursos nativos da stack quando aplicável.
-3. **Segurança Primeiro:**
+1. **Human-in-the-Loop (Aprovação Prévia Obrigatória):** O agente DEVE SEMPRE apresentar o plano e solicitar aprovação explícita do desenvolvedor humano antes de executar modificações em arquivos, rodar comandos que alterem o ambiente ou realizar commits/pushes. Nunca execute alterações práticas sem validação prévia.
+2. **Preservação de Contexto:** Não remova comentários explicativos, documentações existentes ou configurações sem instrução explícita.
+3. **Sem Alucinação de Dependências:** Não instale novas bibliotecas ou ferramentas de terceiros sem validação ou alinhamento prévio. Prefira sempre recursos nativos da stack quando aplicável.
+4. **Segurança Primeiro:**
    * Nunca exponha credenciais, tokens, senhas ou segredos no código ou em logs.
    * Utilize variáveis de ambiente (`.env.example`) para qualquer parâmetro sensível.
    * Valide e sanitize todas as entradas de dados.
-4. **Verificação de Compilação e Testes:** Antes de considerar uma tarefa concluída, execute o comando de build e a suíte de testes do projeto para garantir zero quebras.
+5. **Verificação de Compilação e Testes:** Antes de considerar uma tarefa concluída, execute o comando de build e a suíte de testes do projeto para garantir zero quebras.
 
 ---
 
