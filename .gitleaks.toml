@@ -1,4 +1,4 @@
-title = "nfse-nacional-api gitleaks config"
+title = "nome-do-projeto gitleaks config"
 
 [extend]
 useDefault = true
