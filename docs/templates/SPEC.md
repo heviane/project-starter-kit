@@ -1,68 +1,102 @@
 # SPEC-[NUM]: [Título da Funcionalidade / Épico]
 
 > **Status:** `Rascunho` | `Em Revisão` | `Aprovado` | `Implementado`  
-> **Autor(a):** [Nome do Autor]  
+> **Item do Backlog Relacionado:** `[ID-DO-BACKLOG]` &bull; **ADRs Vinculadas:** `[ADR-XXX]`  
 > **Data de Criação:** AAAA-MM-DD &bull; **Última Atualização:** AAAA-MM-DD  
-> **Issue / Tarefa Relacionada:** [Link ou ID da Issue no GitHub]
+> **Autor(a):** [Nome do Autor / Pair AI]  
 
 ---
 
-## 1. 🎯 Contexto e Objetivo de Negócio
+## 1. 🎯 Contexto e Valor de Negócio
 
 * **Contexto:** Qual é o cenário atual ou a dor existente?
 * **Objetivo:** O que esta especificação propõe construir ou resolver?
-* **Valor Entregue:** Qual é o impacto esperado para o usuário final ou para o sistema?
+* **Valor Entregue:** Qual é o impacto esperado para o usuário final, cliente ou integrador do sistema?
 
 ---
 
-## 2. 📋 Requisitos Funcionais (RF)
+## 2. 📋 Requisitos Funcionais (RF) & Critérios de Aceite (BDD)
 
-| ID | Requisito | Prioridade | Critérios de Aceite (Gherkin / Cenários) |
+| ID | Requisito | Prioridade | Cenário / Critério de Aceite (Dado / Quando / Então) |
 | :--- | :--- | :---: | :--- |
-| **RF-01** | *Ex: O sistema deve permitir login via JWT* | `P0` | **Dado** credenciais válidas, **Quando** enviar para `/auth/login`, **Então** retornar token JWT com validade de 24h. |
-| **RF-02** | *Ex: O sistema deve rejeitar credenciais inválidas* | `P0` | **Dado** senha incorreta, **Quando** enviar para `/auth/login`, **Então** retornar HTTP 401 com mensagem descritiva. |
+| **RF-01** | *Ex: Emissão síncrona de DPS* | `P0` | **Dado** payload XML válido de DPS assinado,<br>**Quando** enviar requisição para `/api/v1/dps/emitir`,<br>**Então** retornar HTTP 200 com chave de acesso e XML da NFS-e autorizada. |
+| **RF-02** | *Ex: Rejeição de payload com divergência de ambiente* | `P0` | **Dado** XML com `<tpAmb>` diferente do configurado no servidor,<br>**Quando** requisitar emissão,<br>**Então** retornar HTTP 400 com erro descritivo e rejeitar a transmissão. |
 
 ---
 
-## 3. ⚙️ Requisitos Não-Funcionais (RNF)
+## 3. ⚠️ Casos de Borda e Modos de Falha (Failure Modes)
 
-* **Performance:** Tempo de resposta esperado (ex: < 200ms para requisições de leitura).
-* **Segurança:** Autenticação necessária, permissões/roles, sanitização de inputs contra injeção de código.
-* **Observabilidade:** Logs estruturados e métricas necessárias para monitoramento.
-* **Compatibilidade:** Ambientes suportados (navegadores, versões de runtimes).
+*Como o sistema deve se comportar quando condições adversas ou falhas ocorrerem:*
+
+* **Timeout / Indisponibilidade Externa:** [ex: Iniciar reconciliação síncrona/assíncrona ou retornar código 502/504 preservando idempotência].
+* **Entrada Malformada ou Incompleta:** [ex: Validar contra schema antes de processar e retornar detalhes dos campos faltantes].
+* **Duplicidade / Concorrência:** [ex: Mecanismo de chave de idempotência ou rejeição com erro de duplicidade fiscal].
+* **Respostas Assíncronas de Terceiros:** [ex: Polling transparente ou retorno de protocolo pendente com orientação de consulta].
 
 ---
 
-## 4. 🏛️ Arquitetura e Design da Solução
+## 4. ⚙️ Requisitos Não-Funcionais (RNF)
 
-### 4.1. Contrato de API / Endpoints (se aplicável)
+* **Performance & Latência:** [ex: Tempo de processamento interno < 100ms excluindo rede externa].
+* **Segurança & Criptografia:** [ex: Autenticação via header `X-API-Key`, sanitização de logs contra dados sensíveis e manipulação de certificados em memória].
+* **Observabilidade:** [ex: Injeção de `X-Correlation-ID` no MDC de logs e métricas de latência via Micrometer].
+* **Compatibilidade & Padrões:** [ex: Compatibilidade com Java 17+, Tomcat 10+ e schemas XSD oficiais versão X.XX].
+
+---
+
+## 5. 🏛️ Arquitetura e Contratos de Interface
+
+### 5.1. Contrato de API (REST / SOAP / Mensageria)
+
 ```http
 POST /api/v1/recurso
 Content-Type: application/json
-Authorization: Bearer <token>
+X-API-Key: {chave}
+X-Correlation-ID: {uuid}
 
 {
   "campo": "valor"
 }
 ```
 
-### 4.2. Modelo de Dados / Entidades
-* **Entidade Principal:** Descreva os campos essenciais, tipos e restrições.
+**Resposta de Sucesso (HTTP 200/201):**
+```json
+{
+  "sucesso": true,
+  "dados": { ... }
+}
+```
+
+**Resposta de Falha (HTTP 4xx/5xx):**
+```json
+{
+  "sucesso": false,
+  "erro": "MENSAGEM_DESCRITIVA",
+  "detalhes": [ ... ]
+}
+```
+
+### 5.2. Modelo de Dados / DTOs
+* **Entidade de Domínio:** Descreva os campos imutáveis, tipos primitivos/records e restrições de validação.
 
 ---
 
-## 5. 🧪 Estratégia de Testes
+## 6. 🍰 Plano de Execução em Fatias Verticais (Vertical Slices)
 
-- [ ] **Testes Unitários:** Quais regras de negócio centrais serão cobertas isoladamente.
-- [ ] **Testes de Integração:** Interações com banco de dados ou serviços externos simulados.
-- [ ] **Testes de Borda:** Tratamento de entradas nulas, valores inválidos e timeouts.
+Divida a entrega em incrementos pequenos, testáveis e funcionais:
+
+- [ ] **Fatia 1 (Contrato & Domínio):** Criação dos DTOs/Records, validações puras de schema/regras e testes unitários de domínio.
+- [ ] **Fatia 2 (Core Business Logic):** Caso de uso central, orquestração das regras de negócio e testes com dublês (Mocks).
+- [ ] **Fatia 3 (Adaptador & Integração):** Controller web / filtro de transporte, mapeamento de exceções e serialização.
+- [ ] **Fatia 4 (End-to-End & Smoke):** Testes de integração de ponta a ponta e atualização da documentação OpenAPI.
 
 ---
 
-## 6. 🚀 Plano de Execução em Fases
+## 7. ✅ Checklist de Fechamento (Definition of Done - DoD)
 
-- [ ] **Fase 1:** Criação dos modelos de domínio e contratos de interface.
-- [ ] **Fase 2:** Implementação da lógica de negócio e testes unitários.
-- [ ] **Fase 3:** Implementação dos endpoints / adaptadores de infraestrutura.
-- [ ] **Fase 4:** Testes integrados e documentação final da API.
-
+Antes de considerar esta especificação concluída e implementada:
+- [ ] Toda a suíte de testes automatizados está passando com sucesso (`mvn test` / `npm test`).
+- [ ] Nenhuma credencial, segredo ou dado sensível exposto em código ou log.
+- [ ] Cobertura de testes unitários para o caminho feliz e para todos os casos de borda mapeados.
+- [ ] Contratos de API (Swagger/OpenAPI/WSDL) atualizados e sincronizados com a implementação.
+- [ ] Status da spec atualizado para `Implementado` e tarefa marcada no `docs/backlog.md`.

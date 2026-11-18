@@ -1,0 +1,16 @@
+title = "nfse-nacional-api gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Permitir exemplos em documentacao, scripts de exemplo e commit historico"
+commits = [
+    "83ee2a975810ab944bc6f99075efe64d9d15a9b3"
+]
+paths = [
+    '''(^|/)docs/''',
+    '''\.example$''',
+    '''(^|/)scripts/samples/''',
+    '''\.env\.example$'''
+]

@@ -1,5 +1,10 @@
 # Análise para atualização
 
+> **Status:** `Concluído e Implementado` (2026-11-18)  
+> Todas as diretrizes deste plano de evolução foram formalizadas no [Playbook Metodológico](./playbook-engenharia-ia.md), na biblioteca de templates em [docs/templates/](./templates/) e nos scripts de automação [scripts/bootstrap.ps1](../scripts/bootstrap.ps1).
+
+---
+
 O repositório já tem uma base muito boa para “starter kit tradicional”, mas ainda está mais no estilo “padronização de setup” do que no estilo “kit pronto para desenvolvimento com IA”.
 
 O que ele já tem de bom:
