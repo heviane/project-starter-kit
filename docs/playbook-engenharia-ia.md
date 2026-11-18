@@ -1,4 +1,4 @@
-# 🧭 Etapa 3: Playbook Metodológico de Condução do Agente de IA
+# 🧭 Playbook Metodológico de Condução do Agente de IA
 
 > **Nome Oficial:** _The AI-Aided Software Engineering Playbook_  
 > **Propósito:** Definir o método operacional exato para conduzir o agente de IA do "commit zero" até a entrega em produção, garantindo controle humano absoluto, qualidade técnica sênior e zero alucinação.
