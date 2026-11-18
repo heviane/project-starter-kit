@@ -1,27 +1,26 @@
 ---
-name: 📝 Tarefa Técnica
-about: Para tarefas internas como refatoração, CI/CD, ou atualização de dependências.
-title: "[TASK] - "
-labels: 'chore, refactoring'
+name: 📝 Tarefa Técnica / Refatoração
+about: Manutenção interna, melhoria de arquitetura, CI/CD ou atualização de dependências.
+title: "[TECH]: "
+labels: [chore, refactor]
 assignees: ''
-
 ---
 
-### Qual é a tarefa a ser realizada?
+### 🎯 Descrição da Tarefa
+Descrição clara da mudança técnica a ser realizada.
 
-Uma descrição clara e objetiva da tarefa técnica.
+### 💡 Justificativa e Impacto
+Por que esta tarefa é necessária?
+- [ ] Redução de débito técnico / Limpeza de código
+- [ ] Resiliência / Desempenho
+- [ ] Atualização de segurança / Dependências
+- [ ] Automação de CI/CD / Infraestrutura
 
-### Por que esta tarefa é necessária? (Justificativa)
+### 🔗 Rastreabilidade
+* **ID no Backlog:** `[ex: SET-02, OPS-01]`
+* **ADR Vinculada:** `[ex: docs/adrs/ADR-0002.md (se aplicável)]`
 
-Explique o motivo desta tarefa. Por exemplo:
-
-- Reduzir débito técnico.
-- Melhorar a performance de uma query.
-- Preparar o terreno para uma futura feature.
-- Atualizar uma biblioteca por questões de segurança.
-
-### Critérios de Aceitação / Definição de "Pronto"
-
-- [ ] O pipeline de CI está configurado e executando com sucesso.
-- [ ] A biblioteca X foi atualizada para a versão Y em todos os microserviços.
-- [ ] O módulo de autenticação foi refatorado e os testes unitários continuam passando.
+### ✅ Critérios de Pronto (Definition of Done)
+- [ ] Modificação cirúrgica realizada sem quebra de retrocompatibilidade.
+- [ ] Suíte de testes automatizados verde (`test`).
+- [ ] Documentação viva e backlog atualizados.

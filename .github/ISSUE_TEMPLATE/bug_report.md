@@ -1,33 +1,29 @@
 ---
 name: 🐞 Relatório de Bug
-about: Crie um relatório para nos ajudar a melhorar o projeto.
-title: "[BUG] - "
-labels: 'bug'
+about: Relate um comportamento inesperado ou erro com evidências e passos de reprodução.
+title: "[BUG]: "
+labels: [bug]
 assignees: ''
-
 ---
 
-### Descreva o Bug
+### 📌 Descrição do Bug
+Uma descrição clara e concisa do comportamento incorreto identificado.
 
-Uma descrição clara e concisa do que é o bug.
+### 🔁 Passos para Reproduzir
+1. Acessar / Chamar endpoint '...'
+2. Enviar payload '....'
+3. Observar a falha ou status HTTP retornado.
 
-### Passos para Reproduzir
+### 🎯 Comportamento Esperado vs. Atual
+* **Esperado:** O que o sistema deveria fazer de acordo com a especificação.
+* **Atual:** O que o sistema realmente fez.
 
-1. Vá para '...'
-2. Clique em '....'
-3. Role para baixo até '....'
-4. Veja o erro
+### 📋 Evidências & Logs Sanitizados
+```text
+[Cole aqui o stack trace ou trecho relevante do log — NUNCA inclua dados sensíveis ou senhas]
+```
 
-### Comportamento Esperado
-
-Uma descrição clara e concisa do que você esperava que acontecesse.
-
-### Screenshots
-
-Se aplicável, adicione screenshots para ajudar a explicar o seu problema.
-
-### Contexto Adicional
-
-- **Microserviço Afetado**: (ex: Estoque, Vendas, API Gateway)
-- **Versão do .NET**:
-- Adicione qualquer outro contexto sobre o problema aqui.
+### 💻 Ambiente e Stack
+* **Componente / Módulo:** [ex: Core, Adaptador REST, Banco de Dados]
+* **Ambiente:** [ex: Local, Homologação, Docker, CI]
+* **Versão / Commit:** [ex: commit hash ou v0.1.0]

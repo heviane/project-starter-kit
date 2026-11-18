@@ -1,24 +1,22 @@
 ---
-name: 📖 Melhoria na Documentação
-about: Sugira uma melhoria para a documentação do projeto.
-title: "[DOCS] - "
-labels: 'documentation'
+name: 📖 Melhoria de Documentação
+about: Proponha ajustes, correções ou expansões na documentação do projeto.
+title: "[DOCS]: "
+labels: [documentation]
 assignees: ''
-
 ---
 
-### Qual parte da documentação precisa ser melhorada?
+### 📑 Arquivo(s) Afetado(s)
+Indique com precisão os arquivos:
+* [ ] `README.md`
+* [ ] `AGENTS.md`
+* [ ] `docs/backlog.md`
+* [ ] `docs/specs/SPEC-XXXX.md`
+* [ ] `docs/adrs/ADR-XXXX.md`
+* [ ] Outro: `[caminho do arquivo]`
 
-Por favor, seja específico. Forneça o nome do arquivo (ex: `README.md`, `docs/Especificação de Requisitos de Software (ERS).md`) ou a localização no código.
+### 🔍 Problema Identificado
+O que está desatualizado, incorreto ou ausente em relação ao código real?
 
-### Qual é o problema com a documentação atual?
-
-Descreva o que está faltando, incorreto, desatualizado ou pouco claro.
-
-### Qual é a sua sugestão de melhoria?
-
-Por favor, descreva a mudança que você sugere. Se possível, forneça o texto ou o conteúdo exato que deveria ser adicionado ou alterado.
-
-### Contexto Adicional
-
-Adicione qualquer outro contexto ou screenshots sobre a melhoria da documentação aqui.
+### ✍️ Sugestão de Alteração
+Descreva ou cole o trecho de texto proposto para inclusão/correção.

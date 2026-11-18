@@ -1,26 +1,24 @@
 ---
-name: ✨ Sugestão de Feature
-about: Sugira uma ideia ou melhoria para este projeto.
-title: "[FEATURE] - "
-labels: 'feature'
+name: ✨ Nova Funcionalidade (SPEC / SDD)
+about: Proponha uma nova funcionalidade ou caso de uso orientado a especificação.
+title: "[FEAT]: "
+labels: [enhancement, sdd]
 assignees: ''
-
 ---
 
-### O seu pedido de feature está relacionado a um problema?
+### 🎯 Contexto e Valor de Negócio
+Qual é a dor ou necessidade do usuário/cliente que esta funcionalidade resolve?
 
-Uma descrição clara e concisa de qual é o problema. Ex: "Fico frustrado quando..."
+### 📋 Requisitos & Critérios de Aceite (BDD)
+- [ ] **Dado** [contexto inicial], **Quando** [ação executada], **Então** [resultado esperado].
+- [ ] **Dado** [cenário de borda/erro], **Quando** [ação inválida], **Então** [código/mensagem de erro].
 
-### Descreva a Solução que Você Gostaria
+### 📑 Especificação Técnica (SDD)
+* **Spec Vinculada:** `docs/specs/SPEC-XXXX-[nome].md` *(se já criada ou a criar)*
+* **Item do Backlog:** `[ex: CORE-01, API-02]`
 
-Uma descrição clara e concisa do que você quer que aconteça.
-
-### Critérios de Aceitação
-
-- [ ] Critério 1
-- [ ] Critério 2
-- [ ] Critério 3
-
-### Contexto Adicional
-
-Adicione qualquer outro contexto ou screenshots sobre o pedido de feature aqui.
+### 🍰 Fatias Verticais de Implementação
+- [ ] Fatia 1: Modelos de domínio e validações unitárias.
+- [ ] Fatia 2: Caso de uso central (Core Business Logic).
+- [ ] Fatia 3: Adaptadores de entrada/saída (Controller, persistência).
+- [ ] Fatia 4: Teste integrado e documentação de contrato.
