@@ -193,8 +193,9 @@ paths = [
     Write-Host "  ✓ .gitleaks.toml configurado para o novo projeto." -ForegroundColor Cyan
 }
 
-# 8. Garantir .env.example
-if (-not (Test-Path ".env.example")) {
+# 8. Garantir e Hidratar .env.example
+$envPath = ".env.example"
+if (-not (Test-Path $envPath)) {
     $envContent = @"
 # ==============================================================================
 # VARIÁVEIS DE AMBIENTE — $projectName
@@ -203,8 +204,13 @@ if (-not (Test-Path ".env.example")) {
 APP_PORT=8080
 APP_ENV=local
 "@
-    Set-Content -Path ".env.example" -Value $envContent -Encoding UTF8
+    Set-Content -Path $envPath -Value $envContent -Encoding UTF8
     Write-Host "  ✓ .env.example criado." -ForegroundColor Cyan
+} else {
+    $envContent = Get-Content $envPath -Raw -Encoding UTF8
+    $envContent = $envContent -replace '\[Nome do Projeto\]', $projectName
+    Set-Content -Path $envPath -Value $envContent -Encoding UTF8
+    Write-Host "  ✓ .env.example configurado para o novo projeto." -ForegroundColor Cyan
 }
 
 # 9. Hidratação do .vscode/tasks.json

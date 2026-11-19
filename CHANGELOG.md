@@ -7,6 +7,9 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ## [Unreleased]
 
+### Added
+- Arquivo base `.env.example` na raiz do starter kit com suporte a cópia manual e hidratação dinâmica no bootstrap.
+
 ## [0.1.0] - 2026-11-19
 
 ### Added

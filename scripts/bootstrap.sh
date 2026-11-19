@@ -203,6 +203,9 @@ APP_PORT=8080
 APP_ENV=local
 EOF
   echo -e "  \033[36m✓ .env.example criado.\033[0m"
+else
+  sed -e "s/\[Nome do Projeto\]/$PROJECT_NAME_ESC/g" .env.example > .env.example.tmp && mv .env.example.tmp .env.example
+  echo -e "  \033[36m✓ .env.example configurado para o novo projeto.\033[0m"
 fi
 
 # 9. .vscode/tasks.json
