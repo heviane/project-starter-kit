@@ -37,3 +37,9 @@ indent_size = 4
 # Makefiles e scripts com tabs obrigatórias
 [Makefile]
 indent_style = tab
+
+# PowerShell (exige UTF-8 com BOM no Windows PowerShell 5.1 para suporte estável a Unicode)
+[*.ps1]
+charset = utf-8-bom
+indent_style = space
+indent_size = 4
