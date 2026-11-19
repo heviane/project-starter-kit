@@ -105,7 +105,18 @@ if (-not (Test-Path "docs/adrs")) { New-Item -ItemType Directory -Path "docs/adr
 
 # 2. Hidratação do README.md
 $readmeTemplatePath = "docs/templates/README-PROJECT.md"
-if (Test-Path $readmeTemplatePath) {
+$shouldGenerateReadme = $true
+if ((Test-Path "README.md") -and -not (Select-String -Path "README.md" -Pattern "AI-Assisted Project Starter Kit" -Quiet)) {
+    if (-not $NonInteractive) {
+        $overwriteReadme = Read-Host "Arquivo README.md já existe e parece personalizado. Deseja sobrescrever? (s/N)"
+        if ($overwriteReadme -ne "s" -and $overwriteReadme -ne "S") {
+            $shouldGenerateReadme = $false
+            Write-Host "  ! README.md existente mantido sem alterações." -ForegroundColor Yellow
+        }
+    }
+}
+
+if ($shouldGenerateReadme -and (Test-Path $readmeTemplatePath)) {
     $readmeContent = Get-Content $readmeTemplatePath -Raw -Encoding UTF8
     $readmeContent = $readmeContent -replace '\[Nome do Projeto\]', $projectName
     $readmeContent = $readmeContent -replace '\[Breve descrição em uma ou duas frases sobre o objetivo e o valor do projeto\]\.', $projectDesc
@@ -169,10 +180,10 @@ title = "$projectName gitleaks config"
 useDefault = true
 
 [allowlist]
-description = "Permitir exemplos em documentacao e arquivos de exemplo"
+description = "Permitir exemplos em templates e arquivos de exemplo"
 commits = []
 paths = [
-    '''(^|/)docs/''',
+    '''(^|/)docs/templates/''',
     '''\.example$''',
     '''(^|/)scripts/samples/''',
     '''\.env\.example$'''
@@ -210,17 +221,23 @@ if (Test-Path $vscodeTasksPath) {
 Write-Host ""
 if ($NonInteractive) {
     if (-not $NoCleanup) {
-        Remove-Item -Path "scripts" -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item -Path "scripts/bootstrap.ps1", "scripts/bootstrap.sh" -Force -ErrorAction SilentlyContinue
         Remove-Item -Path "docs/templates/README-PROJECT.md" -Force -ErrorAction SilentlyContinue
         Remove-Item -Path "docs/templates/AGENTS.md" -Force -ErrorAction SilentlyContinue
+        if ((Test-Path "scripts") -and ((Get-ChildItem -Path "scripts" -Force).Count -eq 0)) {
+            Remove-Item -Path "scripts" -Force -ErrorAction SilentlyContinue
+        }
         Write-Host "  ✓ Scripts de bootstrap e templates iniciais removidos (repositório limpo)." -ForegroundColor Yellow
     }
 } else {
     $cleanup = Read-Host "Deseja remover os scripts de bootstrap e templates iniciais agora? (S/n)"
     if ($cleanup -ne "n" -and $cleanup -ne "N") {
-        Remove-Item -Path "scripts" -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item -Path "scripts/bootstrap.ps1", "scripts/bootstrap.sh" -Force -ErrorAction SilentlyContinue
         Remove-Item -Path "docs/templates/README-PROJECT.md" -Force -ErrorAction SilentlyContinue
         Remove-Item -Path "docs/templates/AGENTS.md" -Force -ErrorAction SilentlyContinue
+        if ((Test-Path "scripts") -and ((Get-ChildItem -Path "scripts" -Force).Count -eq 0)) {
+            Remove-Item -Path "scripts" -Force -ErrorAction SilentlyContinue
+        }
         Write-Host "  ✓ Scripts de bootstrap e templates iniciais removidos (repositório limpo)." -ForegroundColor Yellow
     }
 }

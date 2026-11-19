@@ -113,7 +113,19 @@ mkdir -p docs/specs docs/adrs
 touch docs/specs/.gitkeep docs/adrs/.gitkeep
 
 # 2. README.md
-if [ -f "docs/templates/README-PROJECT.md" ]; then
+SHOULD_GENERATE_README=true
+if [ -f "README.md" ] && ! grep -q "AI-Assisted Project Starter Kit" README.md; then
+  if [ "$NON_INTERACTIVE" = false ]; then
+    read -rp "Arquivo README.md já existe e parece personalizado. Deseja sobrescrever? (s/N): " OVERWRITE_README
+    OVERWRITE_README=${OVERWRITE_README:-"n"}
+    if [[ ! "$OVERWRITE_README" =~ ^[sSyY]$ ]]; then
+      SHOULD_GENERATE_README=false
+      echo -e "  \033[33m! README.md existente mantido sem alterações.\033[0m"
+    fi
+  fi
+fi
+
+if [ "$SHOULD_GENERATE_README" = true ] && [ -f "docs/templates/README-PROJECT.md" ]; then
   sed -e "s/\[Nome do Projeto\]/$PROJECT_NAME_ESC/g" \
       -e "s/\[Breve descrição em uma ou duas frases sobre o objetivo e o valor do projeto\]\./$PROJECT_DESC_ESC/g" \
       -e "s/\[usuario\]/$GITHUB_OWNER_ESC/g" \
@@ -168,10 +180,10 @@ title = "$PROJECT_NAME gitleaks config"
 useDefault = true
 
 [allowlist]
-description = "Permitir exemplos em documentacao e arquivos de exemplo"
+description = "Permitir exemplos em templates e arquivos de exemplo"
 commits = []
 paths = [
-    '''(^|/)docs/''',
+    '''(^|/)docs/templates/''',
     '''\.example$''',
     '''(^|/)scripts/samples/''',
     '''\.env\.example$'''
@@ -211,8 +223,9 @@ else
 fi
 
 if [[ "$CLEANUP" =~ ^[sSyY]$ ]]; then
-  rm -rf scripts
+  rm -f scripts/bootstrap.sh scripts/bootstrap.ps1
   rm -f docs/templates/README-PROJECT.md docs/templates/AGENTS.md
+  rmdir scripts 2>/dev/null || true
   echo -e "  \033[33m✓ Scripts de bootstrap e templates iniciais removidos (repositório limpo).\033[0m"
 fi
 

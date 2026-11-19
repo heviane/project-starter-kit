@@ -1,6 +1,6 @@
 # SPEC-[NUM]: [Título da Funcionalidade / Épico]
 
-> **Status:** `Rascunho` | `Em Revisão` | `Aprovado` | `Implementado`  
+> **Status:** `Rascunho` | `Em Revisão` | `Aprovado para Implementação` | `Implementado` | `Validado`  
 > **Item do Backlog Relacionado:** `[ID-DO-BACKLOG]` &bull; **ADRs Vinculadas:** `[ADR-XXX]`  
 > **Data de Criação:** AAAA-MM-DD &bull; **Última Atualização:** AAAA-MM-DD  
 > **Autor(a):** [Nome do Autor / Pair AI]
@@ -12,6 +12,12 @@
 - **Contexto:** Qual é o cenário atual ou a dor existente?
 - **Objetivo:** O que esta especificação propõe construir ou resolver?
 - **Valor Entregue:** Qual é o impacto esperado para o usuário final, cliente ou integrador do sistema?
+
+### 1.1. 📌 Premissas e Dependências Externas
+
+- **Premissas do Sistema:** [ex: O usuário já deve possuir sessão autenticada com perfil de operador].
+- **Dependências Externas:** [ex: Gateway parceiro (API v2), serviço de envio de e-mails transacionais].
+- **Limitações Técnicas / Fora de Escopo:** [ex: Esta fatia não contempla suporte a processamento em lote offline].
 
 ---
 
@@ -95,7 +101,16 @@ Divida a entrega em incrementos pequenos, testáveis e funcionais:
 
 ---
 
-## 7. ✅ Checklist de Fechamento (Definition of Done - DoD)
+## 7. 🔗 Matriz de Rastreabilidade (Traceability Matrix)
+
+| Requisito | Cenário BDD Vinculado | Teste Automatizado | Arquivo(s) de Implementação | Evidência de Validação |
+| :--- | :--- | :--- | :--- | :---: |
+| **RF-01** | Cadastro síncrono de recurso | `tests/.../RecursoTest.*` | `src/.../RecursoService.*` | Suíte de testes verde |
+| **RF-02** | Rejeição por dados ausentes | `tests/.../RecursoValidationTest.*` | `src/.../RecursoValidator.*` | Suíte de testes verde |
+
+---
+
+## 8. ✅ Checklist de Fechamento (Definition of Done - DoD)
 
 Antes de considerar esta especificação concluída e implementada:
 
@@ -103,4 +118,4 @@ Antes de considerar esta especificação concluída e implementada:
 - [ ] Nenhuma credencial, segredo ou dado sensível exposto em código ou log.
 - [ ] Cobertura de testes unitários para o caminho feliz e para todos os casos de borda mapeados.
 - [ ] Contratos de API (Swagger/OpenAPI/WSDL) atualizados e sincronizados com a implementação.
-- [ ] Status da spec atualizado para `Implementado` e tarefa marcada no `docs/backlog.md`.
+- [ ] Status da spec atualizado para `Implementado` (ou `Validado`) e tarefa marcada no `docs/backlog.md`.
