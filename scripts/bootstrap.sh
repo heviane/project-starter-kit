@@ -212,7 +212,7 @@ fi
 
 if [[ "$CLEANUP" =~ ^[sSyY]$ ]]; then
   rm -rf scripts
-  rm -f docs/templates/README-PROJECT.md
+  rm -f docs/templates/README-PROJECT.md docs/templates/AGENTS.md
   echo -e "  \033[33m✓ Scripts de bootstrap e templates iniciais removidos (repositório limpo).\033[0m"
 fi
 

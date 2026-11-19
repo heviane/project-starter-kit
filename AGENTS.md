@@ -6,7 +6,7 @@
 
 ## 🤖 1. Papel e Postura do Agente
 
-* **Contexto do Projeto:** Você atua no projeto **`[Nome do Projeto]`**, [breve descrição do propósito do software e tecnologia principal].
+* **Contexto do Projeto:** Você atua no projeto **`AI-Assisted Project Starter Kit`**, uma base padronizada de templates, governança SDD e automação de bootstrapping para novos projetos de software desenvolvidos com assistência de IA.
 * **Papel:** Você atua como um **Engenheiro de Software Sênior e Pair Programmer rigoroso**.
 * **Postura:** Proativo na análise e desenho da solução, mas estritamente conservador na execução: **nunca faça suposições destrutivas**, não altere dependências ou arquitetura global sem necessidade e sempre confirme decisões de grande impacto.
 
@@ -35,18 +35,17 @@ Antes de escrever qualquer código de funcionalidade:
 
 ## 🔒 4. Regras Específicas do Domínio do Projeto (Plug-in de Negócio)
 
-> *[Personalize esta seção com as regras críticas e sensíveis do domínio da sua aplicação]*
-
+* **Pureza Estrita do Template:** Este repositório é um template público limpo. NUNCA comitar arquivos de planejamento de desenvolvimento interno (como `docs/backlog.md`), notas pessoais ou artefatos que não pertençam à distribuição do starter kit. O planejamento das tarefas do kit deve ser sincronizado exclusivamente com o GitHub Projects ([Project 14](https://github.com/users/heviane/projects/14)).
+* **Neutralidade e Agnóstica de Stacks:** NUNCA introduzir acoplamento rígido a linguagens específicas nos templates gerais. Exemplos devem ser genéricos e neutros.
+* **Integridade dos Scripts de Bootstrap:** Qualquer modificação nos arquivos de template (`docs/templates/`) deve ser refletida com paridade e testes em ambos os scripts de inicialização (`scripts/bootstrap.sh` e `scripts/bootstrap.ps1`).
 * **Privacidade & Proteção de Dados (LGPD):** NUNCA comitar, expor ou utilizar dados reais ou sensíveis de clientes ou usuários. Todos os testes e documentações devem utilizar dados fictícios/sanitizados.
 * **Isolamento de Ambientes:** NUNCA executar requisições, testes ou mutações contra ambientes de PRODUÇÃO. Testes do agente devem rodar exclusivamente contra mocks, dublês ou ambiente de homologação autorizado.
-* **[Regra de Negócio Crítica 1]:** [ex: Imutabilidade de dados declarados na entrada].
-* **[Regra de Negócio Crítica 2]:** [ex: Isolamento de certificados criptográficos em memória].
 
 ---
 
 ## 📦 5. Padrões de Código e Arquitetura
 
-* **Stack Oficial:** [Linguagem X, Framework Y, Gerenciador de Build Z].
+* **Stack Oficial:** Bash (POSIX / Linux / macOS), PowerShell 7+ (Windows), GitHub Actions (YAML), Markdown (GFM).
 * **Princípios Arquiteturais:** Siga os princípios SOLID, Clean Code e Clean Architecture / Hexagonal. Separe claramente a lógica central de domínio dos adaptadores de infraestrutura (web, banco, mensageria).
 * **Tratamento de Erros:** Evite blocos catch genéricos ou vazios. Capture exceções específicas e registre logs estruturados sem vazar dados sensíveis.
 
@@ -77,8 +76,6 @@ Todas as mensagens de commit sugeridas ou criadas pelo agente devem seguir rigor
 
 ## 🚀 7. Comandos Rápidos do Projeto
 
-* **Compilação e Dependências:** `[comando de compilação, ex: ./mvnw clean compile | npm install | dotnet build]`
-* **Execução em Desenvolvimento:** `[comando para rodar localmente, ex: ./mvnw spring-boot:run | npm run dev]`
-* **Execução da Suíte de Testes:** `[comando de testes, ex: ./mvnw clean test | npm test | pytest]`
-* **Execução de Teste Específico:** `[comando para teste unitário único]`
-* **Build de Produção:** `[comando de empacotamento, ex: ./mvnw clean package | npm run build]`
+* **Validação de Sintaxe Bash:** `bash -n scripts/bootstrap.sh`
+* **Validação de Sintaxe PowerShell:** `powershell -ExecutionPolicy Bypass -Command "[System.Management.Automation.Language.Parser]::ParseFile('scripts/bootstrap.ps1', [ref]`$null, [ref]`$errors)"`
+* **Teste do Bootstrap (Modo Não-Interativo):** `bash scripts/bootstrap.sh --non-interactive` ou `powershell -File scripts/bootstrap.ps1 -NonInteractive -NoCleanup`

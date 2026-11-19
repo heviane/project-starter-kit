@@ -3,6 +3,8 @@
 > **Base operacional padronizada para inicialização acelerada de novos projetos de software, com suporte nativo a Desenvolvimento Assistido por IA, Spec-Driven Development (SDD), Playbook Metodológico e Governança Docs-as-Code.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/heviane/project-starter-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/heviane/project-starter-kit/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/badge/version-v0.1.0--mvp-blue.svg)](CHANGELOG.md)
 [![Security: Gitleaks](https://img.shields.io/badge/Security-Gitleaks-green.svg)](.gitleaks.toml)
 
 ---

@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Script de inicialização (Bootstrapping) para novos projetos baseados no project-starter-kit.
 .DESCRIPTION
@@ -212,6 +212,7 @@ if ($NonInteractive) {
     if (-not $NoCleanup) {
         Remove-Item -Path "scripts" -Recurse -Force -ErrorAction SilentlyContinue
         Remove-Item -Path "docs/templates/README-PROJECT.md" -Force -ErrorAction SilentlyContinue
+        Remove-Item -Path "docs/templates/AGENTS.md" -Force -ErrorAction SilentlyContinue
         Write-Host "  ✓ Scripts de bootstrap e templates iniciais removidos (repositório limpo)." -ForegroundColor Yellow
     }
 } else {
@@ -219,6 +220,7 @@ if ($NonInteractive) {
     if ($cleanup -ne "n" -and $cleanup -ne "N") {
         Remove-Item -Path "scripts" -Recurse -Force -ErrorAction SilentlyContinue
         Remove-Item -Path "docs/templates/README-PROJECT.md" -Force -ErrorAction SilentlyContinue
+        Remove-Item -Path "docs/templates/AGENTS.md" -Force -ErrorAction SilentlyContinue
         Write-Host "  ✓ Scripts de bootstrap e templates iniciais removidos (repositório limpo)." -ForegroundColor Yellow
     }
 }
