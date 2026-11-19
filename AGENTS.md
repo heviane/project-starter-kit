@@ -16,8 +16,9 @@
 
 Antes de escrever qualquer código de funcionalidade:
 1. **Consulte a Especificação:** Verifique se existe uma especificação ativa no diretório `docs/specs/` (baseada no modelo `docs/templates/SPEC.md`).
-2. **Entenda os Critérios de Aceite:** Trabalhe estritamente orientado aos cenários de teste e critérios de aceite BDD/Gherkin descritos na spec.
-3. **Pequenos Ciclos de Entrega:** Implemente em fatias verticais incrementais, testando e validando a cada passo.
+2. **Portão de Aprovação de Spec:** NUNCA inicie a codificação de uma funcionalidade se a especificação estiver marcada como `Rascunho` ou `Em Revisão`. Apenas especificações com status `Aprovado para Implementação` autorizam a escrita de código de produção.
+3. **Entenda os Critérios de Aceite & Modos de Falha:** Trabalhe estritamente orientado aos cenários de teste BDD/Gherkin descritos na spec e implemente testes cobrindo os Modos de Falha descritos na Seção 3 da spec (timeouts, concorrência, payloads inválidos, idempotência).
+4. **Pequenos Ciclos de Entrega:** Implemente em fatias verticais incrementais, testando e validando a cada passo antes de avançar para a próxima fatia.
 
 ---
 
@@ -26,10 +27,12 @@ Antes de escrever qualquer código de funcionalidade:
 1. **Human-in-the-Loop (Aprovação Prévia Obrigatória):** O agente DEVE SEMPRE apresentar o plano e solicitar aprovação explícita da pessoa desenvolvedora antes de executar modificações em arquivos, rodar comandos que alterem o ambiente ou realizar commits/pushes.
 2. **Anti-Lazy Code (Implementação Completa):** Nunca omita código com reticências ou comentários de atalho (`// ... restante da função ...`). Entregue código completo, funcional e pronto para execução.
 3. **Modificação Cirúrgica (Minimal Diff):** Faça edições pontuais e focadas. Não reescreva módulos inteiros apenas para ajustar trechos específicos e preserve a formatação e convenções existentes.
-4. **Conclusão Baseada em Evidências:** Valide sua entrega executando a suíte de testes e o build do projeto antes de considerar o trabalho finalizado.
-5. **Parcimônia de Dependências:** Não instale dependências ou bibliotecas de terceiros sem aprovação prévia e sem provar que o recurso nativo não atende.
+4. **Conclusão Baseada em Evidências:** Valide sua entrega executando a suíte de testes e o build do projeto antes de considerar o trabalho finalizado. Nunca declare uma tarefa concluída sem evidência real de saída do terminal.
+5. **Parcimônia de Dependências & Segurança:** Não instale dependências ou bibliotecas de terceiros sem aprovação prévia, sem provar que o recurso nativo não atende e sem checar compatibilidade com a versão do runtime oficial.
 6. **Segurança Primeiro:** Nunca exponha credenciais, chaves, certificados ou senhas. Utilize variáveis de ambiente com suporte a `.env.example`.
-7. **Documentação Viva:** Mantenha especificações (`SPEC.md`), contratos de API e documentação sempre sincronizados com as alterações de código.
+7. **Documentação Viva no Ciclo do Commit:** Ao concluir uma fatia ou correção, mantenha as especificações (`SPEC.md`), o roadmap (`docs/backlog.md`), o changelog (`CHANGELOG.md` via Keep a Changelog) e os contratos de API perfeitamente sincronizados com o código.
+8. **Preservação Defensiva de Ativos:** Nunca sobrescreva ou delete arquivos de configuração locais (`.env`), arquivos customizados pelo usuário ou scripts utilitários sem consentimento explícito.
+9. **Integridade Multiplataforma e Encoding:** Respeite rigorosamente as convenções de quebra de linha (LF) e encoding do `.editorconfig`. Scripts PowerShell (`.ps1`) devem ser salvos com UTF-8 BOM para garantir compatibilidade com o Windows PowerShell 5.1.
 
 ---
 
@@ -47,7 +50,8 @@ Antes de escrever qualquer código de funcionalidade:
 
 * **Stack Oficial:** Bash (POSIX / Linux / macOS), PowerShell 7+ (Windows), GitHub Actions (YAML), Markdown (GFM).
 * **Princípios Arquiteturais:** Siga os princípios SOLID, Clean Code e Clean Architecture / Hexagonal. Separe claramente a lógica central de domínio dos adaptadores de infraestrutura (web, banco, mensageria).
-* **Tratamento de Erros:** Evite blocos catch genéricos ou vazios. Capture exceções específicas e registre logs estruturados sem vazar dados sensíveis.
+* **Tratamento Defensivo de Erros:** Evite blocos catch genéricos ou silenciosos. Capture exceções específicas e registre logs estruturados sem vazar dados sensíveis.
+* **Tipagem Estrita:** Utilize tipagem forte e estrita em todos os contratos de entrada e saída (DTOs, Records, Schemas de validação).
 
 ---
 
