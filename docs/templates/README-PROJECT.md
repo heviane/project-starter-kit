@@ -22,7 +22,8 @@
 ├── docs/               # Governança Docs-as-Code (backlog.md, specs/, adrs/, glossário)
 │   ├── backlog.md      # Épicos, tarefas e roadmap ágil
 │   ├── specs/          # Especificações técnicas e contratos (SDD)
-│   └── adrs/           # Registros de decisões de arquitetura
+│   ├── adrs/           # Registros de decisões de arquitetura
+│   └── glossario-engenharia.md # Glossário conceitual de engenharia e IA
 ├── .github/            # Workflows de CI/CD e templates de issues/PRs
 └── AGENTS.md           # Regras de ouro para desenvolvimento assistido por IA
 ```
