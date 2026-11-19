@@ -196,7 +196,17 @@ APP_ENV=local
     Write-Host "  ✓ .env.example criado." -ForegroundColor Cyan
 }
 
-# 9. Autolimpeza (Self-Cleanup)
+# 9. Hidratação do .vscode/tasks.json
+$vscodeTasksPath = ".vscode/tasks.json"
+if (Test-Path $vscodeTasksPath) {
+    $vscodeTasks = Get-Content $vscodeTasksPath -Raw -Encoding UTF8
+    $vscodeTasks = $vscodeTasks -replace '\[comando-build\]', $cmdBuild
+    $vscodeTasks = $vscodeTasks -replace '\[comando-testes\]', $cmdTest
+    Set-Content -Path $vscodeTasksPath -Value $vscodeTasks -Encoding UTF8
+    Write-Host "  ✓ .vscode/tasks.json configurado para a stack." -ForegroundColor Cyan
+}
+
+# 10. Autolimpeza (Self-Cleanup)
 Write-Host ""
 if ($NonInteractive) {
     if (-not $NoCleanup) {

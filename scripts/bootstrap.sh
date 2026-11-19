@@ -193,7 +193,15 @@ EOF
   echo -e "  \033[36m✓ .env.example criado.\033[0m"
 fi
 
-# 9. Autolimpeza
+# 9. .vscode/tasks.json
+if [ -f ".vscode/tasks.json" ]; then
+  sed -e "s/\[comando-build\]/$CMD_BUILD_ESC/g" \
+      -e "s/\[comando-testes\]/$CMD_TEST_ESC/g" \
+      .vscode/tasks.json > .vscode/tasks.json.tmp && mv .vscode/tasks.json.tmp .vscode/tasks.json
+  echo -e "  \033[36m✓ .vscode/tasks.json configurado para a stack.\033[0m"
+fi
+
+# 10. Autolimpeza
 echo ""
 if [ "$NON_INTERACTIVE" = true ]; then
   CLEANUP="s"

@@ -1,9 +1,6 @@
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "ritwickdey.liveserver",
-    "ms-vscode.powershell",
+    "editorconfig.editorconfig",
     "github.vscode-pull-request-github"
   ]
 }

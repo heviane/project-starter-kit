@@ -2,19 +2,24 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Instalar dependências",
-      "type": "npm",
-      "script": "install",
+      "label": "Compilar / Build",
+      "type": "shell",
+      "command": "[comando-build]",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
       "problemMatcher": []
     },
     {
-      "label": "Executar testes",
-      "type": "npm",
-      "script": "test",
+      "label": "Executar Testes",
+      "type": "shell",
+      "command": "[comando-testes]",
       "group": {
         "kind": "test",
         "isDefault": true
-      }
+      },
+      "problemMatcher": []
     }
   ]
 }

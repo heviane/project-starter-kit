@@ -28,3 +28,33 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_CONFIG: .gitleaks.toml
+
+  # ----------------------------------------------------------------------------
+  # JOB 2: Validação Automatizada de Bootstrapping e Integridade
+  # ----------------------------------------------------------------------------
+  bootstrap-test:
+    name: Bootstrap & Scaffolding Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Test bootstrap execution (non-interactive)
+        run: |
+          mkdir -p /tmp/test-project
+          cp -r . /tmp/test-project/
+          cd /tmp/test-project
+          bash scripts/bootstrap.sh --non-interactive
+
+          echo "Validando ausência de placeholders não hidratados..."
+          if grep -rn "\[Nome do Projeto\]" README.md AGENTS.md docs/backlog.md; then
+            echo "❌ Erro: Foram encontrados placeholders não hidratados!"
+            exit 1
+          fi
+
+          if [ ! -d "docs/specs" ] || [ ! -d "docs/adrs" ]; then
+            echo "❌ Erro: Pastas docs/specs ou docs/adrs não foram preservadas!"
+            exit 1
+          fi
+
+          echo "✅ Bootstrap executado com sucesso e repositório limpo validado."
