@@ -7,7 +7,7 @@
 
 ## 🎭 1. Filosofia de Atuação: O Modelo Tech Lead & Senior Pair
 
-A colaboração com agentes de IA falha quando o humano se comporta como um mero espectador ou quando a IA é tratada como oráculo onisciente. O sucesso demonstrado no `nfse-nacional-api` é fruto de um modelo de **papeis bem definidos**:
+A colaboração com agentes de IA falha quando o humano se comporta como um mero espectador ou quando a IA é tratada como oráculo onisciente. O sucesso deste modelo de engenharia é fruto de **papeis bem definidos**:
 
 ```mermaid
 flowchart LR
@@ -78,8 +78,8 @@ flowchart LR
   2. **Aprovação Explícita (_Human-in-the-Loop_):** O humano responde _"ok"_ ou refina o plano antes que qualquer arquivo seja tocado.
   3. **Edição Cirúrgica (_Minimal Diff_):** O agente altera apenas o bloco estritamente necessário. Nunca reescreve arquivos inteiros nem apaga código não relacionado.
   4. **Implementação Completa (_Anti-Lazy Code_):** Proibição total de `// ... restante do código`.
-  5. **Execução Imediata de Testes:** O agente roda `./mvnw test` e só considera a fatia concluída se a suíte estiver 100% verde.
-  6. **Commit Atômico com Conventional Commits:** Exemplo: `feat(core): validar coerencia estrita do id da dps`.
+  5. **Execução Imediata de Testes:** O agente roda o comando de testes do projeto e só considera a fatia concluída se a suíte estiver 100% verde.
+  6. **Commit Atômico com Conventional Commits:** Exemplo: `feat(core): validar regra de negocio da fatia vertical`.
 
 ---
 
@@ -87,7 +87,7 @@ flowchart LR
 
 - **Quando acionar:** Ao concluir um épico ou estabilizar um marco (ex: antes de ir para homologação).
 - **Como conduzir a revisão:**
-  1. Exportar ou submeter o repositório a um segundo modelo de IA (ex: Claude 3.5 Sonnet, GPT-4o, DeepSeek ou Gemini) com um prompt de auditoria fria.
+  1. Exportar ou submeter o repositório a um segundo modelo de IA (ex: Claude, GPT, DeepSeek ou Gemini) com um prompt de auditoria fria.
   2. Estruturar a análise utilizando o template `docs/templates/ANALYSIS-AI.md`.
   3. O modelo auditor avalia:
      - Vulnerabilidades de segurança (XXE, injeção de logs, credenciais).
@@ -103,8 +103,8 @@ flowchart LR
 
 - **Quando acionar:** Antes de criar a tag de release ou realizar o deploy.
 - **Checklist de Fechamento (_Definition of Done_):**
-  - [ ] Build completo e limpo (`mvn clean compile`).
-  - [ ] Suíte de testes 100% verde (`mvn clean test`).
+  - [ ] Build completo e limpo (ex: `./mvnw clean compile` / `npm run build` / `dotnet build`).
+  - [ ] Suíte de testes 100% verde (ex: `./mvnw clean test` / `npm test` / `dotnet test`).
   - [ ] Varredura do Gitleaks sem nenhum segredo ou dado de cliente detectado.
   - [ ] Inspeção de dependências sem vulnerabilidades críticas (OWASP).
   - [ ] `docs/backlog.md` atualizado com as tarefas marcadas como 🟢 `[Concluído]`.
@@ -119,10 +119,10 @@ Para extrair máxima produtividade e qualidade do agente:
 
 | Situação          | Prompt Incorreto (Vago / Arriscado) ❌       | Prompt Correto (Direcionado e Seguro) ✅                                                                                                                                           |
 | :---------------- | :------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Nova Feature**  | _"Crie a emissão de notas fiscais pra mim."_ | _"Consulte a `SPEC-001.md`. Implemente a Fatia 2 (método `assinar(xml, cert)` no `AssinadorDpsService`). Apresente o plano e os testes unitários antes de editar."_                |
-| **Refatoração**   | _"Melhore esse controller que tá feio."_     | _"No `LegacySoapController`, substitua a decodificação global de entidades por decodificação condicional apenas quando `<DPS` não estiver presente. Preserve o resto do arquivo."_ |
-| **Erro de Teste** | _"Deu erro no teste, conserta aí."_          | _"O teste `deveValidarAssinatura` falhou com `XMLSignatureException` na linha 42. Analise a causa raiz no log do Surefire e proponha a correção cirúrgica."_                       |
-| **Auditoria**     | _"O que você acha do meu código?"_           | _"Atue como Engenheiro de Segurança Sênior. Analise o `CertificadoProvider.java` procurando potenciais vazamentos de memória, falta de `close()` e concorrência."_                 |
+| **Nova Feature**  | _"Crie o cadastro de pedidos pra mim."_      | _"Consulte a `SPEC-001.md`. Implemente a Fatia 2 (método `processar(pedido)` no `ProcessadorPedidoService`). Apresente o plano e os testes unitários antes de editar."_            |
+| **Refatoração**   | _"Melhore esse controller que tá feio."_     | _"No `PedidoController`, substitua a validação manual pela regra semântica do domínio. Preserve o resto do arquivo."_                                                            |
+| **Erro de Teste** | _"Deu erro no teste, conserta aí."_          | _"O teste `deveValidarPedido` falhou com `PedidoInvalidoException` na linha 42. Analise a causa raiz no log e proponha a correção cirúrgica."_                                   |
+| **Auditoria**     | _"O que você acha do meu código?"_           | _"Atue como Engenheiro de Segurança Sênior. Analise o `AuthTokenProvider.java` procurando potenciais vazamentos de memória, falta de `close()` e concorrência."_                 |
 
 ---
 
@@ -130,14 +130,14 @@ Para extrair máxima produtividade e qualidade do agente:
 
 1. **Sessões Focadas em um Único Tópico:** Nunca tente resolver uma spec inteira, um refactor de infraestrutura e uma limpeza de documentação na mesma sessão. Mantenha uma tarefa por conversa.
 2. **Docs como Memória Externa:** O agente tem janela de contexto finita. Sempre que um ponto importante for decidido, **escreva no disco** (`ADR`, `SPEC` ou `backlog.md`). O arquivo em disco é a memória de longo prazo da IA.
-3. **Comandos em Background e Assíncronos:** Comandos longos (como builds Maven ou suítes de testes pesadas) devem rodar de forma assíncrona com monitoramento de conclusão, sem bloquear a linha de raciocínio.
+3. **Comandos em Background e Assíncronos:** Comandos longos (como builds ou suítes de testes pesadas) devem rodar de forma assíncrona com monitoramento de conclusão, sem bloquear a linha de raciocínio.
 
 ---
 
-### 🎯 Conclusão da Trilogia de Engenharia
+### 🎯 Estrutura Integrada do Starter Kit
 
-Com a conclusão destas 3 etapas, estabelecemos um ecossistema completo:
+O ecossistema do kit é composto de forma integrada por:
 
-1. **Etapa 1:** Os 5 Templates Refinados e Integrados em `docs/templates/`.
-2. **Etapa 2:** O Desenho Canônico e o Scaffolding Inteligente do `project-starter-kit`.
-3. **Etapa 3:** O Playbook Metodológico de Condução Operacional do Agente de IA.
+1. **Governança & Templates:** Modelos estruturados em `docs/templates/` (`SPEC.md`, `ADR.md`, `BACKLOG.md`, `ANALYSIS-AI.md`, `AGENTS.md`, `CHANGELOG.md`).
+2. **Diretórios Canônicos:** O scaffolding em `docs/specs/` e `docs/adrs/`.
+3. **Playbook Metodológico:** A condução operacional rigorosa do agente de IA em todas as fases do ciclo de vida.

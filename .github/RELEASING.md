@@ -76,7 +76,7 @@ git commit -m "docs: Prepara para a release v1.0.0"
 Vamos criar uma "tag" anotada no Git. Tags anotadas são preferíveis porque armazenam metadados extras, como autor, data e uma mensagem.
 
 ```bash
-git tag -a v1.0.0 -m "Release v1.0.0: Lançamento inicial do sistema de estacionamento"
+git tag -a v1.0.0 -m "Release v1.0.0: Lançamento inicial do projeto"
 ```
 
 *Novamente, substitua `v1.0.0` e a mensagem conforme a necessidade.*

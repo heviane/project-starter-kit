@@ -13,7 +13,7 @@ Descreva o problema que exigiu esta decisão arquitetural e as forças que influ
 
 - _Força 1: [ex: Alta volumetria esperada com baixa latência]._
 - _Força 2: [ex: Necessidade de isolamento estrito de certificados em memória sem persistência em disco]._
-- _Força 3: [ex: Compatibilidade obrigatória com servlet container legado Tomcat]._
+- _Força 3: [ex: Compatibilidade com infraestrutura existente ou nuvem pública]._
 
 ---
 
@@ -34,8 +34,8 @@ Toda decisão arquitetural traz contrapartidas (_trade-offs_). Documente o impac
 ### Consequências Positivas (Ganhos):
 
 - [Ganho 1: ex: Redução de complexidade no código de domínio].
-- [Ganho 2: ex: Desacoplamento do Core Fiscal em relação a frameworks web].
-- [Ganho 3: ex: Alta testabilidade unitária sem necessidade de subir contexto Spring].
+- [Ganho 2: ex: Desacoplamento da lógica de domínio em relação a frameworks web].
+- [Ganho 3: ex: Alta testabilidade unitária sem necessidade de inicializar contexto de framework pesado].
 
 ### Consequências Negativas (Custos / Desafios Aceitos):
 
@@ -49,7 +49,7 @@ Toda decisão arquitetural traz contrapartidas (_trade-offs_). Documente o impac
 
 ### Impacto em Segurança e Conformidade:
 
-- [ex: Total alinhamento com a LGPD e padrões de segurança fiscal do Sefin Nacional].
+- [ex: Total alinhamento com a LGPD e padrões de conformidade de segurança da informação].
 
 ---
 
@@ -67,5 +67,5 @@ Toda decisão arquitetural traz contrapartidas (_trade-offs_). Documente o impac
 Documente explicitamente as condições que exigirão que esta decisão seja reaberta e reavaliada no futuro:
 
 - _Gatilho 1: [ex: Se o volume diário ultrapassar 50.000 requisições simultâneas]._
-- _Gatilho 2: [ex: Se o cliente descontinuar o ERP legado, tornando obsoleta a camada ACL]._
-- _Gatilho 3: [ex: Se houver mudança nos requisitos regulatórios ou nos schemas do Sefin]._
+- _Gatilho 2: [ex: Se o sistema legado for descontinuado, tornando obsoleta a camada ACL]._
+- _Gatilho 3: [ex: Se houver mudança nos requisitos regulatórios ou nos contratos de integração externos]._
