@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# Script de exemplo para execucao local com carregamento de ambiente (Bash).
+# ==============================================================================
+# SEGURANCA:
+# O arquivo real 'run-local.sh' esta no .gitignore para evitar o commit acidental de
+# credenciais locais, chaves de API ou parametros especificos da maquina de desenvolvimento.
+#
+# INSTRUCOES DE USO:
+# 1. Copie este arquivo para 'scripts/run-local.sh' (ou 'run-local.sh' na raiz):
+#    cp scripts/run-local.sh.example scripts/run-local.sh
+#    chmod +x scripts/run-local.sh
+# 2. Certifique-se de que o arquivo .env existe e contem as variaveis do seu ambiente:
+#    cp .env.example .env
+# 3. Execute o script:
+#    ./scripts/run-local.sh
+# ==============================================================================
+
+set -euo pipefail
+
+# 1. Resolucao dinamica da raiz do projeto
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -f "$SCRIPT_DIR/../.env.example" ]; then
+  PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+elif [ -f ".env.example" ]; then
+  PROJECT_ROOT="$(pwd)"
+else
+  PROJECT_ROOT="$SCRIPT_DIR"
+fi
+
+# 2. Verificacao previa do arquivo de variaveis de ambiente (.env)
+ENV_FILE="$PROJECT_ROOT/.env"
+if [ ! -f "$ENV_FILE" ]; then
+  echo -e "\033[33m⚠️ Arquivo .env não encontrado em: $ENV_FILE\033[0m"
+  echo -e "\033[36mℹ️ Copie o modelo .env.example para .env e preencha as variáveis locais:\033[0m"
+  echo "   cp .env.example .env"
+  exit 1
+fi
+
+# 3. Carregamento seguro das variaveis do .env no processo atual
+echo -e "\033[36m📦 Carregando variáveis de ambiente de .env...\033[0m"
+set -a
+# shellcheck disable=SC1090
+source "$ENV_FILE"
+set +a
+
+# 4. Execucao da aplicacao em desenvolvimento
+echo -e "\033[32m🚀 Iniciando a aplicação em modo de desenvolvimento...\033[0m"
+cd "$PROJECT_ROOT"
+DEV_COMMAND="[comando-execucao-local]"
+echo -e "\033[90mExecutando: $DEV_COMMAND\033[0m"
+eval "$DEV_COMMAND"

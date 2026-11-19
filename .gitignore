@@ -85,3 +85,11 @@ htmlcov/
 logs/
 *.tmp
 *.temp
+
+# ==============================================================================
+# SCRIPTS LOCAIS & DESENVOLVIMENTO (podem conter credenciais ou portas locais)
+# ==============================================================================
+scripts/run-local.ps1
+scripts/run-local.sh
+*.local.ps1
+*.local.sh

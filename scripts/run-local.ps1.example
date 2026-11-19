@@ -1,0 +1,55 @@
+﻿<#
+.SYNOPSIS
+    Script de exemplo para execução local com carregamento de ambiente (Windows PowerShell).
+.DESCRIPTION
+    SEGURANÇA:
+    O arquivo real 'run-local.ps1' está no .gitignore para evitar o commit acidental de
+    credenciais locais, chaves de API ou parâmetros específicos da máquina de desenvolvimento.
+
+    INSTRUÇÕES DE USO:
+    1. Copie este arquivo para 'scripts/run-local.ps1' (ou 'run-local.ps1' na raiz):
+       Copy-Item scripts/run-local.ps1.example scripts/run-local.ps1
+    2. Certifique-se de que o arquivo .env existe e contém as variáveis do seu ambiente:
+       Copy-Item .env.example .env
+    3. Execute o script:
+       .\scripts\run-local.ps1
+#>
+
+$ErrorActionPreference = "Stop"
+
+# 1. Resolução dinâmica da raiz do projeto
+$ProjectRoot = if (Test-Path "$PSScriptRoot\..\.env.example") {
+    (Resolve-Path "$PSScriptRoot\..").Path
+} elseif (Test-Path ".env.example") {
+    (Get-Location).Path
+} else {
+    $PSScriptRoot
+}
+
+# 2. Verificação prévia do arquivo de variáveis de ambiente (.env)
+$EnvFile = Join-Path $ProjectRoot ".env"
+if (-not (Test-Path $EnvFile)) {
+    Write-Host "⚠️ Arquivo .env não encontrado em: $EnvFile" -ForegroundColor Yellow
+    Write-Host "ℹ️ Copie o modelo .env.example para .env e preencha as variáveis locais:" -ForegroundColor Cyan
+    Write-Host "   cp .env.example .env" -ForegroundColor White
+    exit 1
+}
+
+# 3. Carregamento seguro das variáveis do .env no processo atual
+Write-Host "📦 Carregando variáveis de ambiente de .env..." -ForegroundColor Cyan
+Get-Content $EnvFile | Where-Object { $_ -match '^\s*([^#=]+)=(.*)$' } | ForEach-Object {
+    $key = $matches[1].Trim()
+    $val = $matches[2].Trim()
+    [System.Environment]::SetEnvironmentVariable($key, $val, [System.EnvironmentVariableTarget]::Process)
+}
+
+# 4. Execução da aplicação em desenvolvimento
+Write-Host "🚀 Iniciando a aplicação em modo de desenvolvimento..." -ForegroundColor Green
+Push-Location $ProjectRoot
+try {
+    $devCommand = "[comando-execucao-local]"
+    Write-Host "Executando: $devCommand" -ForegroundColor Gray
+    Invoke-Expression $devCommand
+} finally {
+    Pop-Location
+}

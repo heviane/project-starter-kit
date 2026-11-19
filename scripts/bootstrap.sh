@@ -231,7 +231,20 @@ if [ -f ".vscode/tasks.json" ]; then
   echo -e "  \033[36m✓ .vscode/tasks.json configurado para a stack.\033[0m"
 fi
 
-# 10. Autolimpeza
+# 10. scripts/run-local.*.example
+if [ -f "scripts/run-local.sh.example" ]; then
+  sed -e "s/\[comando-execucao-local\]/$CMD_RUN_ESC/g" \
+      scripts/run-local.sh.example > scripts/run-local.sh.example.tmp && mv scripts/run-local.sh.example.tmp scripts/run-local.sh.example
+fi
+if [ -f "scripts/run-local.ps1.example" ]; then
+  sed -e "s/\[comando-execucao-local\]/$CMD_RUN_ESC/g" \
+      scripts/run-local.ps1.example > scripts/run-local.ps1.example.tmp && mv scripts/run-local.ps1.example.tmp scripts/run-local.ps1.example
+fi
+if [ -f "scripts/run-local.sh.example" ] || [ -f "scripts/run-local.ps1.example" ]; then
+  echo -e "  \033[36m✓ scripts/run-local.*.example configurados para a stack.\033[0m"
+fi
+
+# 11. Autolimpeza
 echo ""
 if [ "$NON_INTERACTIVE" = true ]; then
   CLEANUP="s"

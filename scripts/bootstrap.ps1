@@ -239,7 +239,24 @@ if (Test-Path $vscodeTasksPath) {
     Write-Host "  ✓ .vscode/tasks.json configurado para a stack." -ForegroundColor Cyan
 }
 
-# 10. Autolimpeza (Self-Cleanup)
+# 10. Hidratação de scripts/run-local.*.example
+$runLocalPs1Path = "scripts/run-local.ps1.example"
+if (Test-Path $runLocalPs1Path) {
+    $runLocalPs1 = Get-Content $runLocalPs1Path -Raw -Encoding UTF8
+    $runLocalPs1 = $runLocalPs1 -replace '\[comando-execucao-local\]', $cmdRun
+    Set-Content -Path $runLocalPs1Path -Value $runLocalPs1 -Encoding UTF8
+}
+$runLocalShPath = "scripts/run-local.sh.example"
+if (Test-Path $runLocalShPath) {
+    $runLocalSh = Get-Content $runLocalShPath -Raw -Encoding UTF8
+    $runLocalSh = $runLocalSh -replace '\[comando-execucao-local\]', $cmdRun
+    Set-Content -Path $runLocalShPath -Value $runLocalSh -Encoding UTF8
+}
+if ((Test-Path $runLocalPs1Path) -or (Test-Path $runLocalShPath)) {
+    Write-Host "  ✓ scripts/run-local.*.example configurados para a stack." -ForegroundColor Cyan
+}
+
+# 11. Autolimpeza (Self-Cleanup)
 Write-Host ""
 if ($NonInteractive) {
     if (-not $NoCleanup) {
