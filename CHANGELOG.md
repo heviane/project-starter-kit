@@ -12,6 +12,8 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - Diretrizes operacionais avançadas em `docs/templates/AGENTS.md` e `AGENTS.md` (portão de aprovação de spec, cobertura de modos de falha, preservação defensiva de ativos e integridade multiplataforma/encoding).
 - Arquivo base `.gitleaksignore` na raiz e suporte à inicialização limpa no bootstrap para gestão de falsos positivos históricos.
 - Scripts utilitários de execução local segura (`scripts/run-local.ps1.example` e `run-local.sh.example`) com carregamento de ambiente `.env`, blindagem preventiva no `.gitignore` e hidratação no bootstrap.
+- Arquivo `.gitattributes` para normalização canônica de quebras de linha (LF universal e CRLF para scripts Windows).
+- Adaptadores multi-agente enxutos (`CLAUDE.md` e `.cursor/rules/sdd.mdc`) com apontamento centralizado para `@AGENTS.md` (compatibilidade nativa com Claude Code e Cursor AI).
 
 ### Changed
 - Limpeza e calibração estrita do `.gitleaks.toml` (remoção de caminhos órfãos e hash de commit alheio) com paridade nos scripts de bootstrap.
