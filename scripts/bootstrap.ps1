@@ -1,13 +1,21 @@
 <#
 .SYNOPSIS
-    Script interativo de inicialização (Bootstrapping) para novos projetos baseados no project-starter-kit.
+    Script de inicialização (Bootstrapping) para novos projetos baseados no project-starter-kit.
 .DESCRIPTION
-    Coleta metadados essenciais, hidrata os arquivos README.md, AGENTS.md e docs/backlog.md com os parâmetros
-    do seu novo projeto e realiza a autolimpeza dos arquivos transitórios do template.
+    Coleta metadados essenciais, hidrata os arquivos README.md, AGENTS.md, docs/backlog.md,
+    .github/CONTRIBUTING.md, CHANGELOG.md e .gitleaks.toml com os parâmetros do seu novo projeto
+    e realiza a autolimpeza dos arquivos transitórios do template.
 #>
 
 [CmdletBinding()]
-param()
+param(
+    [switch]$NonInteractive,
+    [string]$ProjectName,
+    [string]$ProjectDesc,
+    [string]$GithubOwner,
+    [string]$StackOption,
+    [switch]$NoCleanup
+)
 
 $ErrorActionPreference = "Stop"
 
@@ -18,23 +26,31 @@ Write-Host ""
 
 # 1. Coleta de Metadados
 $defaultProjectName = (Get-Item .).Name
-$projectName = Read-Host "Nome do novo projeto [$defaultProjectName]"
-if ([string]::IsNullOrWhiteSpace($projectName)) { $projectName = $defaultProjectName }
 
-$projectDesc = Read-Host "Breve descrição do valor do software"
-if ([string]::IsNullOrWhiteSpace($projectDesc)) { $projectDesc = "Sistema de alta qualidade desenvolvido com assistência de IA." }
+if ($NonInteractive) {
+    if ([string]::IsNullOrWhiteSpace($ProjectName)) { $projectName = $defaultProjectName } else { $projectName = $ProjectName }
+    if ([string]::IsNullOrWhiteSpace($ProjectDesc)) { $projectDesc = "Sistema de alta qualidade desenvolvido com assistência de IA." } else { $projectDesc = $ProjectDesc }
+    if ([string]::IsNullOrWhiteSpace($GithubOwner)) { $githubOwner = "heviane" } else { $githubOwner = $GithubOwner }
+    if ([string]::IsNullOrWhiteSpace($StackOption)) { $stackOption = "1" } else { $stackOption = $StackOption }
+} else {
+    $projectName = Read-Host "Nome do novo projeto [$defaultProjectName]"
+    if ([string]::IsNullOrWhiteSpace($projectName)) { $projectName = $defaultProjectName }
 
-$githubOwner = Read-Host "Usuário ou Organização do GitHub [heviane]"
-if ([string]::IsNullOrWhiteSpace($githubOwner)) { $githubOwner = "heviane" }
+    $projectDesc = Read-Host "Breve descrição do valor do software"
+    if ([string]::IsNullOrWhiteSpace($projectDesc)) { $projectDesc = "Sistema de alta qualidade desenvolvido com assistência de IA." }
 
-Write-Host "`nSelecione a Stack Tecnológica Principal:" -ForegroundColor Yellow
-Write-Host "  1) Java 17+ / Spring Boot 3 / Maven"
-Write-Host "  2) Node.js 20+ / TypeScript / Vitest"
-Write-Host "  3) Python 3.12+ / FastAPI / Pytest"
-Write-Host "  4) .NET 9 / C# / xUnit"
-Write-Host "  5) Personalizada / Agnóstica"
-$stackOption = Read-Host "Opção [1-5, padrão: 1]"
-if ([string]::IsNullOrWhiteSpace($stackOption)) { $stackOption = "1" }
+    $githubOwner = Read-Host "Usuário ou Organização do GitHub [heviane]"
+    if ([string]::IsNullOrWhiteSpace($githubOwner)) { $githubOwner = "heviane" }
+
+    Write-Host "`nSelecione a Stack Tecnológica Principal:" -ForegroundColor Yellow
+    Write-Host "  1) Java 17+ / Spring Boot 3 / Maven"
+    Write-Host "  2) Node.js 20+ / TypeScript / Vitest"
+    Write-Host "  3) Python 3.12+ / FastAPI / Pytest"
+    Write-Host "  4) .NET 9 / C# / xUnit"
+    Write-Host "  5) Personalizada / Agnóstica"
+    $stackOption = Read-Host "Opção [1-5, padrão: 1]"
+    if ([string]::IsNullOrWhiteSpace($stackOption)) { $stackOption = "1" }
+}
 
 switch ($stackOption) {
     "1" {
@@ -69,7 +85,7 @@ switch ($stackOption) {
         $cmdTestSingle = "dotnet test --filter FullyQualifiedName~NomeDoTeste"
         $cmdBuild = "dotnet publish -c Release"
     }
-    default {
+    Default {
         $stackName = "Stack Customizada"
         $cmdCompile = "[comando de compilação]"
         $cmdRun = "[comando para rodar localmente]"
@@ -83,6 +99,10 @@ $currentDate = (Get-Date).ToString("yyyy-MM-dd")
 
 Write-Host "`n📝 Hidratando arquivos do projeto..." -ForegroundColor Green
 
+# 1. Garantir diretórios de governança
+if (-not (Test-Path "docs/specs")) { New-Item -ItemType Directory -Path "docs/specs" -Force | Out-Null }
+if (-not (Test-Path "docs/adrs")) { New-Item -ItemType Directory -Path "docs/adrs" -Force | Out-Null }
+
 # 2. Hidratação do README.md
 $readmeTemplatePath = "docs/templates/README-PROJECT.md"
 if (Test-Path $readmeTemplatePath) {
@@ -91,7 +111,7 @@ if (Test-Path $readmeTemplatePath) {
     $readmeContent = $readmeContent -replace '\[Breve descrição em uma ou duas frases sobre o objetivo e o valor do projeto\]\.', $projectDesc
     $readmeContent = $readmeContent -replace '\[usuario\]', $githubOwner
     $readmeContent = $readmeContent -replace '\[nome-repositorio\]', $projectName
-    $readmeContent = $readmeContent -replace '\[ex: Java 17/21, Node.js 22, \.NET 9, Python 3\.12\]', $stackName
+    $readmeContent = $readmeContent -replace '\[ex: Java 17/21, Node\.js 22, \.NET 9, Python 3\.12\]', $stackName
     Set-Content -Path "README.md" -Value $readmeContent -Encoding UTF8
     Write-Host "  ✓ README.md gerado com sucesso." -ForegroundColor Cyan
 }
@@ -124,7 +144,45 @@ if (Test-Path $backlogTemplatePath) {
     Write-Host "  ✓ docs/backlog.md inicializado." -ForegroundColor Cyan
 }
 
-# 5. Garantir .env.example
+# 5. Hidratação de .github/CONTRIBUTING.md
+$contributingPath = ".github/CONTRIBUTING.md"
+if (Test-Path $contributingPath) {
+    $contributingContent = Get-Content $contributingPath -Raw -Encoding UTF8
+    $contributingContent = $contributingContent -replace '\[Nome do Projeto\]', $projectName
+    Set-Content -Path $contributingPath -Value $contributingContent -Encoding UTF8
+    Write-Host "  ✓ .github/CONTRIBUTING.md configurado com o nome do projeto." -ForegroundColor Cyan
+}
+
+# 6. Inicialização do CHANGELOG.md
+$changelogTemplatePath = "docs/templates/CHANGELOG.md"
+if (Test-Path $changelogTemplatePath) {
+    Copy-Item $changelogTemplatePath -Destination "CHANGELOG.md" -Force
+    Write-Host "  ✓ CHANGELOG.md inicializado para o novo projeto." -ForegroundColor Cyan
+}
+
+# 7. Configuração limpa do .gitleaks.toml
+if (Test-Path ".gitleaks.toml") {
+    $gitleaksContent = @"
+title = "$projectName gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Permitir exemplos em documentacao e arquivos de exemplo"
+commits = []
+paths = [
+    '''(^|/)docs/''',
+    '''\.example$''',
+    '''(^|/)scripts/samples/''',
+    '''\.env\.example$'''
+]
+"@
+    Set-Content -Path ".gitleaks.toml" -Value $gitleaksContent -Encoding UTF8
+    Write-Host "  ✓ .gitleaks.toml configurado para o novo projeto." -ForegroundColor Cyan
+}
+
+# 8. Garantir .env.example
 if (-not (Test-Path ".env.example")) {
     $envContent = @"
 # ==============================================================================
@@ -138,12 +196,21 @@ APP_ENV=local
     Write-Host "  ✓ .env.example criado." -ForegroundColor Cyan
 }
 
-# 6. Autolimpeza (Self-Cleanup)
+# 9. Autolimpeza (Self-Cleanup)
 Write-Host ""
-$cleanup = Read-Host "Deseja remover os scripts de bootstrap agora para finalizar o setup? (S/n)"
-if ($cleanup -ne "n" -and $cleanup -ne "N") {
-    Remove-Item -Path "scripts" -Recurse -Force -ErrorAction SilentlyContinue
-    Write-Host "  ✓ Pasta scripts/ de bootstrap removida (repositório limpo)." -ForegroundColor Yellow
+if ($NonInteractive) {
+    if (-not $NoCleanup) {
+        Remove-Item -Path "scripts" -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item -Path "docs/templates/README-PROJECT.md" -Force -ErrorAction SilentlyContinue
+        Write-Host "  ✓ Scripts de bootstrap e templates iniciais removidos (repositório limpo)." -ForegroundColor Yellow
+    }
+} else {
+    $cleanup = Read-Host "Deseja remover os scripts de bootstrap e templates iniciais agora? (S/n)"
+    if ($cleanup -ne "n" -and $cleanup -ne "N") {
+        Remove-Item -Path "scripts" -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item -Path "docs/templates/README-PROJECT.md" -Force -ErrorAction SilentlyContinue
+        Write-Host "  ✓ Scripts de bootstrap e templates iniciais removidos (repositório limpo)." -ForegroundColor Yellow
+    }
 }
 
 Write-Host "`n🎉 Projeto '$projectName' inicializado com sucesso!" -ForegroundColor Green
