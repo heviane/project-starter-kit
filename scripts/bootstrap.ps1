@@ -180,12 +180,11 @@ title = "$projectName gitleaks config"
 useDefault = true
 
 [allowlist]
-description = "Permitir exemplos em templates e arquivos de exemplo"
+description = "Permitir apenas templates e arquivos de exemplo"
 commits = []
 paths = [
     '''(^|/)docs/templates/''',
     '''\.example$''',
-    '''(^|/)scripts/samples/''',
     '''\.env\.example$'''
 ]
 "@

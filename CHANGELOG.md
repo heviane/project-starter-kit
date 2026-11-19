@@ -13,6 +13,9 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 - Arquivo base `.gitleaksignore` na raiz e suporte à inicialização limpa no bootstrap para gestão de falsos positivos históricos.
 - Scripts utilitários de execução local segura (`scripts/run-local.ps1.example` e `run-local.sh.example`) com carregamento de ambiente `.env`, blindagem preventiva no `.gitignore` e hidratação no bootstrap.
 
+### Changed
+- Limpeza e calibração estrita do `.gitleaks.toml` (remoção de caminhos órfãos e hash de commit alheio) com paridade nos scripts de bootstrap.
+
 ## [0.1.0] - 2026-11-19
 
 ### Added

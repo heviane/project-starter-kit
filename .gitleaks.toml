@@ -4,14 +4,10 @@ title = "project-starter-kit gitleaks config"
 useDefault = true
 
 [allowlist]
-description = "Permitir exemplos em templates, documentacao de analise e arquivos de exemplo"
-commits = [
-    "83ee2a975810ab944bc6f99075efe64d9d15a9b3"
-]
+description = "Permitir apenas templates e arquivos de exemplo"
+commits = []
 paths = [
     '''(^|/)docs/templates/''',
-    '''(^|/)docs/analises-ai/''',
     '''\.example$''',
-    '''(^|/)scripts/samples/''',
     '''\.env\.example$'''
 ]
