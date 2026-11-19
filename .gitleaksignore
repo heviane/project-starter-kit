@@ -1,0 +1,12 @@
+# ==============================================================================
+# GITLEAKS IGNORE FILE (.gitleaksignore)
+# ==============================================================================
+# Utilize este arquivo para registrar falsos positivos ou excecoes pontuais
+# de commits historicos detectados pelo scanner de segredos Gitleaks.
+#
+# Formato padrao aceito pelo Gitleaks:
+# commit-sha:file-path:rule-id:line-number
+#
+# Exemplo:
+# a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2:docs/specs/SPEC-001.md:generic-api-key:42
+# ==============================================================================

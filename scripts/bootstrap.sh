@@ -171,7 +171,7 @@ if [ -f "docs/templates/CHANGELOG.md" ]; then
   echo -e "  \033[36m✓ CHANGELOG.md inicializado para o novo projeto.\033[0m"
 fi
 
-# 7. .gitleaks.toml
+# 7. .gitleaks.toml e .gitleaksignore
 if [ -f ".gitleaks.toml" ]; then
   cat <<EOF > .gitleaks.toml
 title = "$PROJECT_NAME gitleaks config"
@@ -190,6 +190,21 @@ paths = [
 ]
 EOF
   echo -e "  \033[36m✓ .gitleaks.toml configurado para o novo projeto.\033[0m"
+fi
+
+if [ -f ".gitleaksignore" ]; then
+  cat <<EOF > .gitleaksignore
+# ==============================================================================
+# GITLEAKS IGNORE FILE (.gitleaksignore) — $PROJECT_NAME
+# ==============================================================================
+# Utilize este arquivo para registrar falsos positivos ou excecoes pontuais
+# de commits historicos detectados pelo scanner de segredos Gitleaks.
+#
+# Formato:
+# commit-sha:file-path:rule-id:line-number
+# ==============================================================================
+EOF
+  echo -e "  \033[36m✓ .gitleaksignore configurado para o novo projeto.\033[0m"
 fi
 
 # 8. .env.example

@@ -171,7 +171,7 @@ if (Test-Path $changelogTemplatePath) {
     Write-Host "  ✓ CHANGELOG.md inicializado para o novo projeto." -ForegroundColor Cyan
 }
 
-# 7. Configuração limpa do .gitleaks.toml
+# 7. Configuração limpa do .gitleaks.toml e .gitleaksignore
 if (Test-Path ".gitleaks.toml") {
     $gitleaksContent = @"
 title = "$projectName gitleaks config"
@@ -191,6 +191,22 @@ paths = [
 "@
     Set-Content -Path ".gitleaks.toml" -Value $gitleaksContent -Encoding UTF8
     Write-Host "  ✓ .gitleaks.toml configurado para o novo projeto." -ForegroundColor Cyan
+}
+
+if (Test-Path ".gitleaksignore") {
+    $gitleaksIgnoreContent = @"
+# ==============================================================================
+# GITLEAKS IGNORE FILE (.gitleaksignore) — $projectName
+# ==============================================================================
+# Utilize este arquivo para registrar falsos positivos ou excecoes pontuais
+# de commits historicos detectados pelo scanner de segredos Gitleaks.
+#
+# Formato:
+# commit-sha:file-path:rule-id:line-number
+# ==============================================================================
+"@
+    Set-Content -Path ".gitleaksignore" -Value $gitleaksIgnoreContent -Encoding UTF8
+    Write-Host "  ✓ .gitleaksignore configurado para o novo projeto." -ForegroundColor Cyan
 }
 
 # 8. Garantir e Hidratar .env.example
