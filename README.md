@@ -34,7 +34,7 @@ Este repositório fornece a base operacional completa para garantir que:
 * **[`ADR.md`](./docs/templates/ADR.md):** Registro de decisões arquiteturais com tabela de alternativas e gatilhos de reavaliação (*Review Triggers*).
 * **[`BACKLOG.md`](./docs/templates/BACKLOG.md):** Roadmap vivo Docs-as-Code com taxonomia de IDs (`SET-`, `CORE-`, `API-`, `OPS-`).
 * **[`docs/reviews/`](./docs/reviews/):** Guia operacional do **Multi-Agent Review Framework (MARF)** para auditorias cruzadas com múltiplos modelos de IA.
-* **[`AI_REVIEW_TEMPLATE.md`](./docs/templates/AI_REVIEW_TEMPLATE.md) & [`MASTER_ACTION_PLAN_TEMPLATE.md`](./docs/templates/MASTER_ACTION_PLAN_TEMPLATE.md):** Modelos de parecer individual e dossiê mestre consolidador em lotes dinâmicos (`Lote 1..N`).
+* **Templates MARF:** [`REVIEW_BRIEFING_TEMPLATE.md`](./docs/templates/REVIEW_BRIEFING_TEMPLATE.md) (briefing), [`AI_REVIEW_TEMPLATE.md`](./docs/templates/AI_REVIEW_TEMPLATE.md) (parecer individual) e [`MASTER_ACTION_PLAN_TEMPLATE.md`](./docs/templates/MASTER_ACTION_PLAN_TEMPLATE.md) (dossiê mestre consolidador em lotes dinâmicos `1..N`).
 * **[`AGENTS.md`](./docs/templates/AGENTS.md):** Template universal para instanciar diretrizes em novos projetos.
 * **[`README-PROJECT.md`](./docs/templates/README-PROJECT.md):** Template moderno e profissional para o README do seu novo projeto.
 
