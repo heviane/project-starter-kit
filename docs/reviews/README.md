@@ -30,9 +30,9 @@ flowchart LR
 
 ### Fase 1: Briefing & Coleta Divergente (Review)
 
-1. Crie um documento de briefing com o contexto, propósito, stack e escopo da análise.
+1. Crie um documento de briefing com o contexto, propósito, stack e escopo da análise utilizando o modelo [`docs/reviews/templates/REVIEW_BRIEFING_TEMPLATE.md`](./templates/REVIEW_BRIEFING_TEMPLATE.md).
 2. Submeta o mesmo briefing de forma independente para 2 ou mais modelos de IA.
-3. Registre os retornos brutos utilizando o template [`docs/templates/AI_REVIEW_TEMPLATE.md`](../templates/AI_REVIEW_TEMPLATE.md).
+3. Registre os retornos brutos utilizando o template [`docs/reviews/templates/AI_REVIEW_TEMPLATE.md`](./templates/AI_REVIEW_TEMPLATE.md).
 
 ### Fase 2: Síntese & Confronto Crítico (Consolidation)
 
@@ -41,7 +41,7 @@ flowchart LR
    * **Consensos Unânimes:** Ações prioritárias apontadas por todos os modelos.
    * **Divergências Conceituais:** Pontos onde os modelos sugerem caminhos opostos.
    * **Achados Exclusivos:** Bugs ou riscos específicos detectados por apenas um agente.
-3. Estrutura o **Plano de Ação Mestre** fatiado em **Lotes Dinâmicos (`Lote 1..N`)** utilizando o modelo [`docs/templates/MASTER_ACTION_PLAN_TEMPLATE.md`](../templates/MASTER_ACTION_PLAN_TEMPLATE.md).
+3. Estrutura o **Plano de Ação Mestre** fatiado em **Lotes Dinâmicos (`Lote 1..N`)** utilizando o modelo [`docs/reviews/templates/MASTER_ACTION_PLAN_TEMPLATE.md`](./templates/MASTER_ACTION_PLAN_TEMPLATE.md).
 
 ### Fase 3: Alinhamento Human-in-the-Loop (Decision)
 
@@ -68,6 +68,10 @@ Para manter o ambiente de trabalho desacoplado e limpo:
 ```text
 reviews/
 ├── README.md                      # Guia do processo no projeto
+├── templates/                     # Modelos oficiais do MARF
+│   ├── REVIEW_BRIEFING_TEMPLATE.md
+│   ├── AI_REVIEW_TEMPLATE.md
+│   └── MASTER_ACTION_PLAN_TEMPLATE.md
 ├── active/                        # Revisão ou auditoria em andamento
 └── archive/                       # Histórico de auditorias finalizadas
     ├── 001-<data>-<alvo>/

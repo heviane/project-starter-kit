@@ -19,7 +19,7 @@ Antes de escrever qualquer código de funcionalidade:
 2. **Portão de Aprovação de Spec:** NUNCA inicie a codificação de uma funcionalidade se a especificação estiver marcada como `Rascunho` ou `Em Revisão`. Apenas especificações com status `Aprovado para Implementação` autorizam a escrita de código de produção.
 3. **Entenda os Critérios de Aceite & Modos de Falha:** Trabalhe estritamente orientado aos cenários de teste BDD/Gherkin descritos na spec e implemente testes cobrindo os Modos de Falha descritos na Seção 3 da spec (timeouts, concorrência, payloads inválidos, idempotência).
 4. **Pequenos Ciclos de Entrega:** Implemente em fatias verticais incrementais, testando e validando a cada passo antes de avançar para a próxima fatia.
-5. **Revisões e Auditorias Multi-Modelo (MARF):** Quando solicitado para revisar, auditar ou consolidar pareceres de múltiplos modelos de IA (ChatGPT, Claude, Copilot), consulte o manual em `docs/reviews/README.md` e adote os modelos `AI_REVIEW_TEMPLATE.md` e `MASTER_ACTION_PLAN_TEMPLATE.md`, estruturando o plano de ação em lotes dinâmicos (`Lote 1..N`).
+5. **Revisões e Auditorias Multi-Modelo (MARF):** Quando solicitado para revisar, auditar ou consolidar pareceres de múltiplos modelos de IA (ChatGPT, Claude, Copilot), consulte o manual em `docs/reviews/README.md` e adote os modelos disponíveis na pasta dedicada `docs/reviews/templates/` (`AI_REVIEW_TEMPLATE.md`, `REVIEW_BRIEFING_TEMPLATE.md` e `MASTER_ACTION_PLAN_TEMPLATE.md`), estruturando o plano de ação em lotes dinâmicos (`Lote 1..N`).
 
 ---
 
