@@ -34,6 +34,7 @@ Antes de escrever qualquer código de funcionalidade:
 7. **Documentação Viva no Ciclo do Commit:** Ao concluir uma fatia ou correção, mantenha as especificações (`SPEC.md`), o roadmap (`docs/backlog.md`), o changelog (`CHANGELOG.md` via Keep a Changelog) e os contratos de API perfeitamente sincronizados com o código.
 8. **Preservação Defensiva de Ativos:** Nunca sobrescreva ou delete arquivos de configuração locais (`.env`), arquivos customizados pelo usuário ou scripts utilitários sem consentimento explícito.
 9. **Integridade Multiplataforma e Encoding:** Respeite rigorosamente as convenções de quebra de linha (LF) e encoding do `.editorconfig`. Scripts PowerShell (`.ps1`) devem ser salvos com UTF-8 BOM para garantir compatibilidade com o Windows PowerShell 5.1.
+10. **Gatilho de Documentação em Novos Diretórios (Heurística de README):** Ao criar qualquer novo diretório significativo (módulos, templates, suítes de testes, automações ou diretórios de governança), o agente DEVE SEMPRE avaliar a necessidade de criar um `README.md` explicativo. O objetivo é evitar "pastas mudas" no repositório, documentando de forma enxuta o propósito, instruções de execução e convenções. Evite criar READMEs em subpastas internas óbvias de código-fonte (ex: `src/components`, `src/utils`) para preservar o princípio DRY.
 
 ---
 
