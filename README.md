@@ -29,7 +29,7 @@ Este repositório fornece a base operacional completa para garantir que:
 * **[`docs/playbook-engenharia-ia.md`](./docs/playbook-engenharia-ia.md):** *The AI-Aided Software Engineering Playbook* — o guia em 5 fases para conduzir o agente do commit zero até a produção.
 * **[`docs/glossario-engenharia.md`](./docs/glossario-engenharia.md):** Glossário técnico com alinhamento conceitual sobre SDLC, Engenharia de Software Assistida por IA e Padrões de Qualidade.
 
-### 📑 2. Modelos e Templates Refinados (`/docs/templates/`)
+### 📑 2. Modelos e Templates Refinados ([`docs/templates/`](./docs/templates/README.md))
 * **[`SPEC.md`](./docs/templates/SPEC.md):** Modelo completo para especificação guiada por requisitos (SDD) com fatias verticais, modos de falha (*Failure Modes*) e Definition of Done (DoD).
 * **[`ADR.md`](./docs/templates/ADR.md):** Registro de decisões arquiteturais com tabela de alternativas e gatilhos de reavaliação (*Review Triggers*).
 * **[`BACKLOG.md`](./docs/templates/BACKLOG.md):** Roadmap vivo Docs-as-Code com taxonomia de IDs (`SET-`, `CORE-`, `API-`, `OPS-`).
