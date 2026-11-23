@@ -1,9 +1,9 @@
-# Parecer Técnico de Análise: `[Nome do Projeto]` por [Nome da IA]
+# Parecer Técnico de Análise: `[NOME_DO_PROJETO]` por [NOME_DO_MODELO_IA]
 
-> **Agente / Modelo Avaliador:** `[ex: Claude 3.5 Sonnet / ChatGPT GPT-4o / GitHub Copilot]`  
-> **Data da Avaliação:** `[YYYY-MM-DD]`  
-> **Repositório / Alvo:** `[ex: https://github.com/usuario/projeto]`  
-> **Commit / Versão Avaliada:** `[hash-ou-tag]`  
+> **Agente / Modelo Avaliador:** `[NOME_DO_MODELO_IA]`  
+> **Data da Avaliação:** `[DATA_AVALIACAO]`  
+> **Repositório / Alvo:** `https://github.com/[ORGANIZACAO_OU_USUARIO]/[NOME_DO_PROJETO]`  
+> **Commit / Versão Avaliada:** `[HASH_DO_COMMIT]`  
 > **Status:** `Coletado / Aguardando Consolidação`
 
 ---

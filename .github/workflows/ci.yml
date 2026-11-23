@@ -47,7 +47,7 @@ jobs:
           bash scripts/bootstrap.sh --non-interactive
 
           echo "Validando ausência de placeholders não hidratados..."
-          if grep -rn "\[Nome do Projeto\]" README.md AGENTS.md docs/backlog.md .env.example; then
+          if grep -rn "\[NOME_DO_PROJETO\]" README.md AGENTS.md docs/backlog.md .env.example; then
             echo "❌ Erro: Foram encontrados placeholders não hidratados!"
             exit 1
           fi

@@ -87,11 +87,11 @@ switch ($stackOption) {
     }
     Default {
         $stackName = "Stack Customizada"
-        $cmdCompile = "[comando de compilação]"
-        $cmdRun = "[comando para rodar localmente]"
-        $cmdTest = "[comando de testes]"
-        $cmdTestSingle = "[comando de teste específico]"
-        $cmdBuild = "[comando de build de produção]"
+        $cmdCompile = "[COMANDO_COMPILAR]"
+        $cmdRun = "[COMANDO_RODAR_LOCAL]"
+        $cmdTest = "[COMANDO_TESTAR]"
+        $cmdTestSingle = "[COMANDO_TESTE_UNICO]"
+        $cmdBuild = "[COMANDO_BUILD]"
     }
 }
 
@@ -118,11 +118,10 @@ if ((Test-Path "README.md") -and -not (Select-String -Path "README.md" -Pattern 
 
 if ($shouldGenerateReadme -and (Test-Path $readmeTemplatePath)) {
     $readmeContent = Get-Content $readmeTemplatePath -Raw -Encoding UTF8
-    $readmeContent = $readmeContent -replace '\[Nome do Projeto\]', $projectName
-    $readmeContent = $readmeContent -replace '\[Breve descrição em uma ou duas frases sobre o objetivo e o valor do projeto\]\.', $projectDesc
-    $readmeContent = $readmeContent -replace '\[usuario\]', $githubOwner
-    $readmeContent = $readmeContent -replace '\[nome-repositorio\]', $projectName
-    $readmeContent = $readmeContent -replace '\[ex: Java 17/21, Node\.js 22, \.NET 9, Python 3\.12\]', $stackName
+    $readmeContent = $readmeContent -replace '\[NOME_DO_PROJETO\]', $projectName
+    $readmeContent = $readmeContent -replace '\[DESCRICAO_DO_PROJETO\]', $projectDesc
+    $readmeContent = $readmeContent -replace '\[ORGANIZACAO_OU_USUARIO\]', $githubOwner
+    $readmeContent = $readmeContent -replace '\[TECNOLOGIAS_UTILIZADAS\]', $stackName
     Set-Content -Path "README.md" -Value $readmeContent -Encoding UTF8
     Write-Host "  ✓ README.md gerado com sucesso." -ForegroundColor Cyan
 }
@@ -131,14 +130,14 @@ if ($shouldGenerateReadme -and (Test-Path $readmeTemplatePath)) {
 $agentsTemplatePath = "docs/templates/AGENTS.md"
 if (Test-Path $agentsTemplatePath) {
     $agentsContent = Get-Content $agentsTemplatePath -Raw -Encoding UTF8
-    $agentsContent = $agentsContent -replace '\[Nome do Projeto\]', $projectName
-    $agentsContent = $agentsContent -replace '\[breve descrição do propósito do software e tecnologia principal\]', "$projectDesc ($stackName)"
-    $agentsContent = $agentsContent -replace '\[Linguagem X, Framework Y, Gerenciador de Build Z\]', $stackName
-    $agentsContent = $agentsContent -replace '\[comando de compilação, ex: \./mvnw clean compile \| npm install \| dotnet build\]', $cmdCompile
-    $agentsContent = $agentsContent -replace '\[comando para rodar localmente, ex: \./mvnw spring-boot:run \| npm run dev\]', $cmdRun
-    $agentsContent = $agentsContent -replace '\[comando de testes, ex: \./mvnw clean test \| npm test \| pytest\]', $cmdTest
-    $agentsContent = $agentsContent -replace '\[comando para teste unitário único\]', $cmdTestSingle
-    $agentsContent = $agentsContent -replace '\[comando de empacotamento, ex: \./mvnw clean package \| npm run build\]', $cmdBuild
+    $agentsContent = $agentsContent -replace '\[NOME_DO_PROJETO\]', $projectName
+    $agentsContent = $agentsContent -replace '\[DESCRICAO_DO_PROJETO\]', "$projectDesc ($stackName)"
+    $agentsContent = $agentsContent -replace '\[TECNOLOGIAS_UTILIZADAS\]', $stackName
+    $agentsContent = $agentsContent -replace '\[COMANDO_COMPILAR\]', $cmdCompile
+    $agentsContent = $agentsContent -replace '\[COMANDO_RODAR_LOCAL\]', $cmdRun
+    $agentsContent = $agentsContent -replace '\[COMANDO_TESTAR\]', $cmdTest
+    $agentsContent = $agentsContent -replace '\[COMANDO_TESTE_UNICO\]', $cmdTestSingle
+    $agentsContent = $agentsContent -replace '\[COMANDO_BUILD\]', $cmdBuild
     Set-Content -Path "AGENTS.md" -Value $agentsContent -Encoding UTF8
     Write-Host "  ✓ AGENTS.md configurado com as diretrizes da stack." -ForegroundColor Cyan
 }
@@ -147,10 +146,9 @@ if (Test-Path $agentsTemplatePath) {
 $backlogTemplatePath = "docs/templates/BACKLOG.md"
 if (Test-Path $backlogTemplatePath) {
     $backlogContent = Get-Content $backlogTemplatePath -Raw -Encoding UTF8
-    $backlogContent = $backlogContent -replace '\[Nome do Projeto\]', $projectName
-    $backlogContent = $backlogContent -replace '\[usuario\]', $githubOwner
-    $backlogContent = $backlogContent -replace '\[nome-repositorio\]', $projectName
-    $backlogContent = $backlogContent -replace 'AAAA-MM-DD', $currentDate
+    $backlogContent = $backlogContent -replace '\[NOME_DO_PROJETO\]', $projectName
+    $backlogContent = $backlogContent -replace '\[ORGANIZACAO_OU_USUARIO\]', $githubOwner
+    $backlogContent = $backlogContent -replace '\[DATA_ATUALIZACAO\]', $currentDate
     Set-Content -Path "docs/backlog.md" -Value $backlogContent -Encoding UTF8
     Write-Host "  ✓ docs/backlog.md inicializado." -ForegroundColor Cyan
 }
@@ -159,7 +157,7 @@ if (Test-Path $backlogTemplatePath) {
 $contributingPath = ".github/CONTRIBUTING.md"
 if (Test-Path $contributingPath) {
     $contributingContent = Get-Content $contributingPath -Raw -Encoding UTF8
-    $contributingContent = $contributingContent -replace '\[Nome do Projeto\]', $projectName
+    $contributingContent = $contributingContent -replace '\[NOME_DO_PROJETO\]', $projectName
     Set-Content -Path $contributingPath -Value $contributingContent -Encoding UTF8
     Write-Host "  ✓ .github/CONTRIBUTING.md configurado com o nome do projeto." -ForegroundColor Cyan
 }
@@ -223,7 +221,7 @@ APP_ENV=local
     Write-Host "  ✓ .env.example criado." -ForegroundColor Cyan
 } else {
     $envContent = Get-Content $envPath -Raw -Encoding UTF8
-    $envContent = $envContent -replace '\[Nome do Projeto\]', $projectName
+    $envContent = $envContent -replace '\[NOME_DO_PROJETO\]', $projectName
     Set-Content -Path $envPath -Value $envContent -Encoding UTF8
     Write-Host "  ✓ .env.example configurado para o novo projeto." -ForegroundColor Cyan
 }
@@ -232,8 +230,8 @@ APP_ENV=local
 $vscodeTasksPath = ".vscode/tasks.json"
 if (Test-Path $vscodeTasksPath) {
     $vscodeTasks = Get-Content $vscodeTasksPath -Raw -Encoding UTF8
-    $vscodeTasks = $vscodeTasks -replace '\[comando-build\]', $cmdBuild
-    $vscodeTasks = $vscodeTasks -replace '\[comando-testes\]', $cmdTest
+    $vscodeTasks = $vscodeTasks -replace '\[COMANDO_BUILD\]', $cmdBuild
+    $vscodeTasks = $vscodeTasks -replace '\[COMANDO_TESTAR\]', $cmdTest
     Set-Content -Path $vscodeTasksPath -Value $vscodeTasks -Encoding UTF8
     Write-Host "  ✓ .vscode/tasks.json configurado para a stack." -ForegroundColor Cyan
 }
@@ -242,13 +240,13 @@ if (Test-Path $vscodeTasksPath) {
 $runLocalPs1Path = "scripts/run-local.ps1.example"
 if (Test-Path $runLocalPs1Path) {
     $runLocalPs1 = Get-Content $runLocalPs1Path -Raw -Encoding UTF8
-    $runLocalPs1 = $runLocalPs1 -replace '\[comando-execucao-local\]', $cmdRun
+    $runLocalPs1 = $runLocalPs1 -replace '\[COMANDO_RODAR_LOCAL\]', $cmdRun
     Set-Content -Path $runLocalPs1Path -Value $runLocalPs1 -Encoding UTF8
 }
 $runLocalShPath = "scripts/run-local.sh.example"
 if (Test-Path $runLocalShPath) {
     $runLocalSh = Get-Content $runLocalShPath -Raw -Encoding UTF8
-    $runLocalSh = $runLocalSh -replace '\[comando-execucao-local\]', $cmdRun
+    $runLocalSh = $runLocalSh -replace '\[COMANDO_RODAR_LOCAL\]', $cmdRun
     Set-Content -Path $runLocalShPath -Value $runLocalSh -Encoding UTF8
 }
 if ((Test-Path $runLocalPs1Path) -or (Test-Path $runLocalShPath)) {

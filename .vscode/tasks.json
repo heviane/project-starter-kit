@@ -4,7 +4,7 @@
     {
       "label": "Compilar / Build",
       "type": "shell",
-      "command": "[comando-build]",
+      "command": "[COMANDO_BUILD]",
       "group": {
         "kind": "build",
         "isDefault": true
@@ -14,7 +14,7 @@
     {
       "label": "Executar Testes",
       "type": "shell",
-      "command": "[comando-testes]",
+      "command": "[COMANDO_TESTAR]",
       "group": {
         "kind": "test",
         "isDefault": true

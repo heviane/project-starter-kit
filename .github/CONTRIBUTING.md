@@ -1,6 +1,6 @@
 # 🤝 Como Contribuir
 
-Olá, contribuidor(a). Ficamos muito felizes com seu interesse em contribuir com o **[Nome do Projeto]**, sua participação é muito bem-vinda!
+Olá, contribuidor(a). Ficamos muito felizes com seu interesse em contribuir com o **[NOME_DO_PROJETO]**, sua participação é muito bem-vinda!
 
 Ao participar, você concorda em seguir nosso [Código de Conduta](./CODE_OF_CONDUCT.md). É importante notar também que todas as contribuições que você fizer serão disponibilizadas sob a [Licença MIT](../LICENSE) do projeto.
 

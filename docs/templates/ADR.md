@@ -1,9 +1,9 @@
-# ADR-[NUM]: [Título Sucinto da Decisão Arquitetural]
+# ADR-[NUMERO_ADR]: [TITULO_DA_DECISAO]
 
 > **Status:** `Proposto` | `Aprovado` | `Substituído por ADR-XXX` | `Deprecado`  
-> **Data:** AAAA-MM-DD &bull; **Última Atualização:** AAAA-MM-DD  
-> **Decisores:** [Nomes dos envolvidos na decisão / Pair AI]  
-> **Contexto Técnico:** [ex: Escolha de Banco de Dados, Padrão de Assinatura, Estratégia de Cache, Runtime]
+> **Data:** [DATA_CRIACAO] &bull; **Última Atualização:** [DATA_ATUALIZACAO]  
+> **Decisores:** [NOMES_DOS_DECISORES]  
+> **Contexto Técnico:** [CONTEXTO_TECNICO]
 
 ---
 
@@ -21,7 +21,7 @@ Descreva o problema que exigiu esta decisão arquitetural e as forças que influ
 
 Descreva a decisão de forma clara, direta e inequívoca:
 
-> **Decidimos adotar [Opção Escolhida] para resolver [Problema Central], utilizando [Abordagem Específica].**
+> **Decidimos adotar [OPCAO_ESCOLHIDA] para resolver [PROBLEMA_CENTRAL], utilizando [ABORDAGEM_ESPECIFICA].**
 
 Explique os detalhes técnicos fundamentais que sustentam essa decisão e como ela se integra ao restante da arquitetura.
 

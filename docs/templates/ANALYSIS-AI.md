@@ -1,8 +1,8 @@
-# Análise Técnica do `[Nome do Projeto]` por [Nome da IA] ([Data])
+# Análise Técnica de [NOME_DO_PROJETO] por [NOME_DO_MODELO_IA] ([DATA_AVALIACAO])
 
-> **Avaliador:** [ex: Claude 3.5 Sonnet / GPT-4o / Antigravity]  
-> **Escopo da Análise:** [ex: Código-fonte, Schemas, Segurança, Resiliência]  
-> **Versão / Commit Avaliado:** `[hash-do-commit]`  
+> **Avaliador:** [NOME_DO_MODELO_IA]  
+> **Escopo da Análise:** [ESCOPO_DA_ANALISE]  
+> **Versão / Commit Avaliado:** `[HASH_DO_COMMIT]`  
 > **Status:** `Aberta` | `Em Resolução` | `Concluída`  
 
 ---
@@ -22,6 +22,7 @@
 ## 2. 🔍 Matriz de Achados e Riscos
 
 ### 🔴 Alto Impacto / Crítico
+
 *Problemas que causam parada em produção, falhas de segurança ou violação de integridade.*
 
 - **`[ACH-01]`: [Título do Achado]**
@@ -32,6 +33,7 @@
 ---
 
 ### 🟠 Médio Impacto
+
 *Gargalos de performance, fragilidades no tratamento de erros ou inconsistências de contrato.*
 
 - **`[ACH-02]`: [Título do Achado]**
@@ -42,6 +44,7 @@
 ---
 
 ### 🟡 Baixo Impacto / Melhorias de Código
+
 *Refatorações cosméticas, limpeza de código morto ou otimizações menores.*
 
 - **`[ACH-03]`: [Título do Achado]**

@@ -1,9 +1,9 @@
-# Backlog do Projeto — [Nome do Projeto]
+# Backlog do Projeto — [NOME_DO_PROJETO]
 
 > **Docs-as-Code — Planejamento Ágil, Especificações & Roadmap**  
-> Repositório: [`[usuario]/[nome-repositorio]`](https://github.com/[usuario]/[nome-repositorio])  
-> Quadro de Acompanhamento: [Link para o GitHub Project / Kanban]  
-> Versão Atual: `v0.1.0-alpha` &bull; **Última Atualização:** AAAA-MM-DD
+> Repositório: [`[ORGANIZACAO_OU_USUARIO]/[NOME_DO_PROJETO]`](https://github.com/[ORGANIZACAO_OU_USUARIO]/[NOME_DO_PROJETO])  
+> Quadro de Acompanhamento: [LINK_DO_PROJECT_OU_KANBAN]  
+> Versão Atual: `v0.1.0-alpha` &bull; **Última Atualização:** [DATA_ATUALIZACAO]
 
 ---
 

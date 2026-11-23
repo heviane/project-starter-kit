@@ -1,12 +1,12 @@
-# [Nome do Projeto]
+# [NOME_DO_PROJETO]
 
-> [Breve descrição em uma ou duas frases sobre o objetivo e o valor do projeto].
+> [DESCRICAO_DO_PROJETO]
 
 ---
 
 ## 🚀 Tecnologias e Ferramentas
 
-* **Linguagem / Runtime:** [ex: Java 17/21, Node.js 22, .NET 9, Python 3.12]
+* **Linguagem / Runtime:** [TECNOLOGIAS_UTILIZADAS]
 * **Framework:** [ex: Spring Boot 3, Express/NestJS, ASP.NET Core Minimal API, FastAPI]
 * **Banco de Dados / Armazenamento:** [ex: PostgreSQL, SQL Server, Redis, MongoDB]
 * **Testes & Qualidade:** [ex: JUnit 5 / AssertJ, Jest / Vitest, xUnit, Pytest]
@@ -33,6 +33,7 @@
 ## ⚙️ Pré-requisitos e Instalação
 
 ### Pré-requisitos:
+
 * [ex: Git >= 2.40]
 * [ex: Java JDK 17+ / Node.js >= 20.x / .NET SDK >= 9.0 / Python 3.12+]
 * [ex: Docker e Docker Compose]
@@ -40,17 +41,20 @@
 ### Passo a Passo para Execução Local:
 
 1. **Clone o repositório:**
+
    ```bash
-   git clone https://github.com/usuario/nome-do-projeto.git
-   cd nome-do-projeto
+   git clone https://github.com/[ORGANIZACAO_OU_USUARIO]/[NOME_DO_PROJETO].git
+   cd [NOME_DO_PROJETO]
    ```
 
 2. **Configure as variáveis de ambiente:**
+
    ```bash
    cp .env.example .env
    ```
 
 3. **Instale as dependências / Compile o projeto:**
+
    ```bash
    ./mvnw clean compile    # Java (Maven Wrapper)
    # ou: npm install       # Node.js
@@ -59,6 +63,7 @@
    ```
 
 4. **Inicie a aplicação em modo de desenvolvimento:**
+
    ```bash
    ./mvnw spring-boot:run  # Java (Spring Boot)
    # ou: npm run dev       # Node.js

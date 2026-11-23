@@ -47,6 +47,6 @@ set +a
 # 4. Execucao da aplicacao em desenvolvimento
 echo -e "\033[32m🚀 Iniciando a aplicação em modo de desenvolvimento...\033[0m"
 cd "$PROJECT_ROOT"
-DEV_COMMAND="[comando-execucao-local]"
+DEV_COMMAND="[COMANDO_RODAR_LOCAL]"
 echo -e "\033[90mExecutando: $DEV_COMMAND\033[0m"
 eval "$DEV_COMMAND"

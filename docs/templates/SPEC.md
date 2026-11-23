@@ -1,9 +1,9 @@
-# SPEC-[NUM]: [Título da Funcionalidade / Épico]
+# SPEC-[NUMERO_SPEC]: [TITULO_DA_FUNCIONALIDADE]
 
 > **Status:** `Rascunho` | `Em Revisão` | `Aprovado para Implementação` | `Implementado` | `Validado`  
-> **Item do Backlog Relacionado:** `[ID-DO-BACKLOG]` &bull; **ADRs Vinculadas:** `[ADR-XXX]`  
-> **Data de Criação:** AAAA-MM-DD &bull; **Última Atualização:** AAAA-MM-DD  
-> **Autor(a):** [Nome do Autor / Pair AI]
+> **Item do Backlog Relacionado:** `[ID_DO_BACKLOG]` &bull; **ADRs Vinculadas:** `[ADR_VINCULADA]`  
+> **Data de Criação:** [DATA_CRIACAO] &bull; **Última Atualização:** [DATA_ATUALIZACAO]  
+> **Autor(a):** [AUTOR_OU_RESPONSAVEL]
 
 ---
 

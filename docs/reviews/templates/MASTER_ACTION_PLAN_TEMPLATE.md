@@ -1,9 +1,9 @@
-# 📑 Dossiê Mestre de Análise Cruzada & Plano de Ação: `[Nome do Projeto]`
+# 📑 Dossiê Mestre de Análise Cruzada & Plano de Ação: `[NOME_DO_PROJETO]`
 
-> **Data de Consolidação:** `[YYYY-MM-DD]`  
-> **Agente Orquestrador / Consolidador:** `[ex: Google Antigravity]`  
-> **Pareceres Integrados:** `[Claude]`, `[ChatGPT]`, `[GitHub Copilot]`  
-> **Repositório Alvo:** `[ex: https://github.com/usuario/projeto]`  
+> **Data de Consolidação:** `[DATA_CONSOLIDACAO]`  
+> **Agente Orquestrador / Consolidador:** `[AGENTE_ORQUESTRADOR]`  
+> **Pareceres Integrados:** `[PARECERES_INTEGRADOS]`  
+> **Repositório Alvo:** `https://github.com/[ORGANIZACAO_OU_USUARIO]/[NOME_DO_PROJETO]`  
 > **Status:** `🟡 Em Execução` | `🟢 Concluído`
 
 ---

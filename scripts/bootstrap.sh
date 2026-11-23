@@ -81,11 +81,11 @@ case "$STACK_OPTION" in
     ;;
   *)
     STACK_NAME="Stack Customizada"
-    CMD_COMPILE="[comando de compilação]"
-    CMD_RUN="[comando para rodar localmente]"
-    CMD_TEST="[comando de testes]"
-    CMD_TEST_SINGLE="[comando de teste específico]"
-    CMD_BUILD="[comando de build de produção]"
+    CMD_COMPILE="[COMANDO_COMPILAR]"
+    CMD_RUN="[COMANDO_RODAR_LOCAL]"
+    CMD_TEST="[COMANDO_TESTAR]"
+    CMD_TEST_SINGLE="[COMANDO_TESTE_UNICO]"
+    CMD_BUILD="[COMANDO_BUILD]"
     ;;
 esac
 
@@ -126,42 +126,40 @@ if [ -f "README.md" ] && ! grep -q "AI-Assisted Project Starter Kit" README.md; 
 fi
 
 if [ "$SHOULD_GENERATE_README" = true ] && [ -f "docs/templates/README-PROJECT.md" ]; then
-  sed -e "s/\[Nome do Projeto\]/$PROJECT_NAME_ESC/g" \
-      -e "s/\[Breve descrição em uma ou duas frases sobre o objetivo e o valor do projeto\]\./$PROJECT_DESC_ESC/g" \
-      -e "s/\[usuario\]/$GITHUB_OWNER_ESC/g" \
-      -e "s/\[nome-repositorio\]/$PROJECT_NAME_ESC/g" \
-      -e "s/\[ex: Java 17\/21, Node\.js 22, \.NET 9, Python 3\.12\]/$STACK_NAME_ESC/g" \
+  sed -e "s/\[NOME_DO_PROJETO\]/$PROJECT_NAME_ESC/g" \
+      -e "s/\[DESCRICAO_DO_PROJETO\]/$PROJECT_DESC_ESC/g" \
+      -e "s/\[ORGANIZACAO_OU_USUARIO\]/$GITHUB_OWNER_ESC/g" \
+      -e "s/\[TECNOLOGIAS_UTILIZADAS\]/$STACK_NAME_ESC/g" \
       docs/templates/README-PROJECT.md > README.md
   echo -e "  \033[36m✓ README.md gerado com sucesso.\033[0m"
 fi
 
 # 3. AGENTS.md
 if [ -f "docs/templates/AGENTS.md" ]; then
-  sed -e "s/\[Nome do Projeto\]/$PROJECT_NAME_ESC/g" \
-      -e "s/\[breve descrição do propósito do software e tecnologia principal\]/$PROJECT_DESC_ESC ($STACK_NAME_ESC)/g" \
-      -e "s/\[Linguagem X, Framework Y, Gerenciador de Build Z\]/$STACK_NAME_ESC/g" \
-      -e "s/\[comando de compilação, ex: \.\/mvnw clean compile | npm install | dotnet build\]/$CMD_COMPILE_ESC/g" \
-      -e "s/\[comando para rodar localmente, ex: \.\/mvnw spring-boot:run | npm run dev\]/$CMD_RUN_ESC/g" \
-      -e "s/\[comando de testes, ex: \.\/mvnw clean test | npm test | pytest\]/$CMD_TEST_ESC/g" \
-      -e "s/\[comando para teste unitário único\]/$CMD_TEST_SINGLE_ESC/g" \
-      -e "s/\[comando de empacotamento, ex: \.\/mvnw clean package | npm run build\]/$CMD_BUILD_ESC/g" \
+  sed -e "s/\[NOME_DO_PROJETO\]/$PROJECT_NAME_ESC/g" \
+      -e "s/\[DESCRICAO_DO_PROJETO\]/$PROJECT_DESC_ESC ($STACK_NAME_ESC)/g" \
+      -e "s/\[TECNOLOGIAS_UTILIZADAS\]/$STACK_NAME_ESC/g" \
+      -e "s/\[COMANDO_COMPILAR\]/$CMD_COMPILE_ESC/g" \
+      -e "s/\[COMANDO_RODAR_LOCAL\]/$CMD_RUN_ESC/g" \
+      -e "s/\[COMANDO_TESTAR\]/$CMD_TEST_ESC/g" \
+      -e "s/\[COMANDO_TESTE_UNICO\]/$CMD_TEST_SINGLE_ESC/g" \
+      -e "s/\[COMANDO_BUILD\]/$CMD_BUILD_ESC/g" \
       docs/templates/AGENTS.md > AGENTS.md
   echo -e "  \033[36m✓ AGENTS.md configurado com as diretrizes da stack.\033[0m"
 fi
 
 # 4. docs/backlog.md
 if [ -f "docs/templates/BACKLOG.md" ]; then
-  sed -e "s/\[Nome do Projeto\]/$PROJECT_NAME_ESC/g" \
-      -e "s/\[usuario\]/$GITHUB_OWNER_ESC/g" \
-      -e "s/\[nome-repositorio\]/$PROJECT_NAME_ESC/g" \
-      -e "s/AAAA-MM-DD/$CURRENT_DATE/g" \
+  sed -e "s/\[NOME_DO_PROJETO\]/$PROJECT_NAME_ESC/g" \
+      -e "s/\[ORGANIZACAO_OU_USUARIO\]/$GITHUB_OWNER_ESC/g" \
+      -e "s/\[DATA_ATUALIZACAO\]/$CURRENT_DATE/g" \
       docs/templates/BACKLOG.md > docs/backlog.md
   echo -e "  \033[36m✓ docs/backlog.md inicializado.\033[0m"
 fi
 
 # 5. .github/CONTRIBUTING.md
 if [ -f ".github/CONTRIBUTING.md" ]; then
-  sed -e "s/\[Nome do Projeto\]/$PROJECT_NAME_ESC/g" .github/CONTRIBUTING.md > .github/CONTRIBUTING.md.tmp && mv .github/CONTRIBUTING.md.tmp .github/CONTRIBUTING.md
+  sed -e "s/\[NOME_DO_PROJETO\]/$PROJECT_NAME_ESC/g" .github/CONTRIBUTING.md > .github/CONTRIBUTING.md.tmp && mv .github/CONTRIBUTING.md.tmp .github/CONTRIBUTING.md
   echo -e "  \033[36m✓ .github/CONTRIBUTING.md configurado com o nome do projeto.\033[0m"
 fi
 
@@ -218,25 +216,25 @@ APP_ENV=local
 EOF
   echo -e "  \033[36m✓ .env.example criado.\033[0m"
 else
-  sed -e "s/\[Nome do Projeto\]/$PROJECT_NAME_ESC/g" .env.example > .env.example.tmp && mv .env.example.tmp .env.example
+  sed -e "s/\[NOME_DO_PROJETO\]/$PROJECT_NAME_ESC/g" .env.example > .env.example.tmp && mv .env.example.tmp .env.example
   echo -e "  \033[36m✓ .env.example configurado para o novo projeto.\033[0m"
 fi
 
 # 9. .vscode/tasks.json
 if [ -f ".vscode/tasks.json" ]; then
-  sed -e "s/\[comando-build\]/$CMD_BUILD_ESC/g" \
-      -e "s/\[comando-testes\]/$CMD_TEST_ESC/g" \
+  sed -e "s/\[COMANDO_BUILD\]/$CMD_BUILD_ESC/g" \
+      -e "s/\[COMANDO_TESTAR\]/$CMD_TEST_ESC/g" \
       .vscode/tasks.json > .vscode/tasks.json.tmp && mv .vscode/tasks.json.tmp .vscode/tasks.json
   echo -e "  \033[36m✓ .vscode/tasks.json configurado para a stack.\033[0m"
 fi
 
 # 10. scripts/run-local.*.example
 if [ -f "scripts/run-local.sh.example" ]; then
-  sed -e "s/\[comando-execucao-local\]/$CMD_RUN_ESC/g" \
+  sed -e "s/\[COMANDO_RODAR_LOCAL\]/$CMD_RUN_ESC/g" \
       scripts/run-local.sh.example > scripts/run-local.sh.example.tmp && mv scripts/run-local.sh.example.tmp scripts/run-local.sh.example
 fi
 if [ -f "scripts/run-local.ps1.example" ]; then
-  sed -e "s/\[comando-execucao-local\]/$CMD_RUN_ESC/g" \
+  sed -e "s/\[COMANDO_RODAR_LOCAL\]/$CMD_RUN_ESC/g" \
       scripts/run-local.ps1.example > scripts/run-local.ps1.example.tmp && mv scripts/run-local.ps1.example.tmp scripts/run-local.ps1.example
 fi
 if [ -f "scripts/run-local.sh.example" ] || [ -f "scripts/run-local.ps1.example" ]; then

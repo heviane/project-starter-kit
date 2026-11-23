@@ -47,7 +47,7 @@ Get-Content $EnvFile | Where-Object { $_ -match '^\s*([^#=]+)=(.*)$' } | ForEach
 Write-Host "🚀 Iniciando a aplicação em modo de desenvolvimento..." -ForegroundColor Green
 Push-Location $ProjectRoot
 try {
-    $devCommand = "[comando-execucao-local]"
+    $devCommand = "[COMANDO_RODAR_LOCAL]"
     Write-Host "Executando: $devCommand" -ForegroundColor Gray
     Invoke-Expression $devCommand
 } finally {

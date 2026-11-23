@@ -10,11 +10,11 @@
 Olá! Gostaria de submeter o repositório/projeto abaixo para sua avaliação técnica aprofundada como especialista sênior em engenharia de software e arquitetura.
 
 ## 📌 Contexto do Projeto
-- **Nome do Projeto / Repositório:** `[ex: usuario/projeto]`
-- **URL Pública:** `[link-do-repositório]`
-- **Propósito Principal:** `[Breve descrição do valor de negócio e funcionalidade]`
-- **Stack Tecnológica:** `[ex: Java 17, Spring Boot, PostgreSQL, Docker]`
-- **Branch / Commit Analisado:** `main` (`[hash-ou-tag]`)
+- **Nome do Projeto / Repositório:** `[ORGANIZACAO_OU_USUARIO]/[NOME_DO_PROJETO]`
+- **URL Pública:** `https://github.com/[ORGANIZACAO_OU_USUARIO]/[NOME_DO_PROJETO]`
+- **Propósito Principal:** `[DESCRICAO_DO_PROJETO]`
+- **Stack Tecnológica:** `[TECNOLOGIAS_UTILIZADAS]`
+- **Branch / Commit Analisado:** `main` (`[HASH_DO_COMMIT]`)
 
 ## 🎯 Escopo da Avaliação
 Por favor, avalie os seguintes aspectos em ordem de prioridade:
