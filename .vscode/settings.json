@@ -5,5 +5,16 @@
   "files.insertFinalNewline": true,
   "[powershell]": {
     "files.encoding": "utf8bom"
+  },
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    "files.trimTrailingWhitespace": false
   }
 }
