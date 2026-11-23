@@ -20,11 +20,11 @@
 
 Um **Milestone** é um ponto de referência estratégico que agrupa um conjunto de entregas em direção a uma versão ou objetivo maior (por exemplo: `v0.1.0 - Incepção & Fundação` ou `v1.0.0 - MVP`).
 
-- **Função prática:** Diferente de uma tarefa isolada (*Issue*), o Milestone atua como uma meta com barra de progresso visual percentual. Conforme as issues e pull requests vinculados são concluídos, o progresso avança até atingir 100%.
+- **Função prática:** Diferente de uma tarefa isolada (_Issue_), o Milestone atua como uma meta com barra de progresso visual percentual. Conforme as issues e pull requests vinculados são concluídos, o progresso avança até atingir 100%.
 
 ### Épico (Epic)
 
-Uma iniciativa ou grande bloco de trabalho que é amplo demais para ser implementado em uma única tarefa. No gerenciamento moderno, o épico é decomposto em histórias de usuário ou fatias verticais menores (ex.: *Épico 1: Arquitetura Técnica & Decisões Fundamentais*).
+Uma iniciativa ou grande bloco de trabalho que é amplo demais para ser implementado em uma única tarefa. No gerenciamento moderno, o épico é decomposto em histórias de usuário ou fatias verticais menores (ex.: _Épico 1: Arquitetura Técnica & Decisões Fundamentais_).
 
 ### Fatias Verticais (Vertical Slices)
 
@@ -34,7 +34,7 @@ Técnica de decomposição de funcionalidades em que cada incremento implementa 
 
 ### Walking Skeleton (Esqueleto Funcional)
 
-A menor implementação ponta a ponta (*end-to-end*) possível da arquitetura de um sistema, construída no início do projeto para interligar todas as camadas principais (banco, backend, rotas e pipeline de build). Não possui regras de negócio completas, mas prova que a infraestrutura, o deploy e a comunicação básica funcionam perfeitamente.
+A menor implementação ponta a ponta (_end-to-end_) possível da arquitetura de um sistema, construída no início do projeto para interligar todas as camadas principais (banco, backend, rotas e pipeline de build). Não possui regras de negócio completas, mas prova que a infraestrutura, o deploy e a comunicação básica funcionam perfeitamente.
 
 ### Docs-as-Code (Documentação como Código)
 
@@ -42,7 +42,7 @@ A prática de gerenciar documentação técnica (backlog, arquitetura, manuais, 
 
 ### WIP (Work in Progress)
 
-A quantidade de tarefas que foram iniciadas, mas ainda não estão finalizadas. Um dos princípios centrais do Kanban é limitar o WIP para evitar gargalos, alternância excessiva de contexto (*context switching*) e entregas incompletas.
+A quantidade de tarefas que foram iniciadas, mas ainda não estão finalizadas. Um dos princípios centrais do Kanban é limitar o WIP para evitar gargalos, alternância excessiva de contexto (_context switching_) e entregas incompletas.
 
 ### Definition of Done (DoD - Critério de Conclusão)
 
@@ -58,11 +58,11 @@ Conjunto de condições mínimas que uma especificação ou tarefa deve atender 
 
 ### SDD (Spec-Driven Development)
 
-*Desenvolvimento Orientado a Especificações.* Abordagem metodológica em que nenhuma linha de funcionalidade é codificada antes de uma especificação clara ([`docs/templates/SPEC.md`](./templates/SPEC.md)) descrevendo os requisitos funcionais, critérios de aceite em linguagem ubíqua (BDD/Gherkin) e modos de falha. Isso impede que o modelo de IA tome premissas equivocadas ou invente regras de negócio.
+_Desenvolvimento Orientado a Especificações._ Abordagem metodológica em que nenhuma linha de funcionalidade é codificada antes de uma especificação clara ([`docs/templates/SPEC.md`](./templates/SPEC.md)) descrevendo os requisitos funcionais, critérios de aceite em linguagem ubíqua (BDD/Gherkin) e modos de falha. Isso impede que o modelo de IA tome premissas equivocadas ou invente regras de negócio.
 
 ### ADR (Architecture Decision Record)
 
-*Registro de Decisão Arquitetural.* Documento curto e padronizado ([`docs/templates/ADR.md`](./templates/ADR.md)) que captura uma decisão técnica importante, o contexto e as forças que a motivaram, as alternativas avaliadas, os *trade-offs* (consequências positivas e negativas) aceitos pelo time e os gatilhos explícitos de reavaliação (*Review Triggers*).
+_Registro de Decisão Arquitetural._ Documento curto e padronizado ([`docs/templates/ADR.md`](./templates/ADR.md)) que captura uma decisão técnica importante, o contexto e as forças que a motivaram, as alternativas avaliadas, os _trade-offs_ (consequências positivas e negativas) aceitos pelo time e os gatilhos explícitos de reavaliação (_Review Triggers_).
 
 ### Human-in-the-Loop (HITL)
 
@@ -94,7 +94,7 @@ Fenômeno em que um modelo de IA gera informações factualmente incorretas, inv
 
 ### Pair Programming com IA
 
-Metodologia de trabalho colaborativo em que a pessoa desenvolvedora humana atua como condutora estratégica e revisora técnica (*Tech Lead / Navigator*), enquanto o agente de inteligência artificial opera como engenheiro de software sênior de suporte operacional (*Senior Pair / Driver*), acelerando implementações com alto rigor de qualidade.
+Metodologia de trabalho colaborativo em que a pessoa desenvolvedora humana atua como condutora estratégica e revisora técnica (_Tech Lead / Navigator_), enquanto o agente de inteligência artificial opera como engenheiro de software sênior de suporte operacional (_Senior Pair / Driver_), acelerando implementações com alto rigor de qualidade.
 
 ---
 
@@ -102,14 +102,15 @@ Metodologia de trabalho colaborativo em que a pessoa desenvolvedora humana atua 
 
 ### TDD (Test-Driven Development)
 
-*Desenvolvimento Guiado por Testes.* Prática em que o desenvolvedor (ou agente) escreve primeiro o teste automatizado que falha (*Red*), implementa a quantidade mínima de código para fazê-lo passar (*Green*) e, por fim, refatora o design preservando o comportamento funcional (*Refactor*).
+_Desenvolvimento Guiado por Testes._ Prática em que o desenvolvedor (ou agente) escreve primeiro o teste automatizado que falha (_Red_), implementa a quantidade mínima de código para fazê-lo passar (_Green_) e, por fim, refatora o design preservando o comportamento funcional (_Refactor_).
 
 ### Critérios de Aceite BDD (Given / When / Then)
 
 Padrão estruturado de escrita em linguagem ubíqua:
-* **Dado (*Given*):** O estado inicial ou pré-condição do sistema.
-* **Quando (*When*):** A ação, requisição ou evento executado.
-* **Então (*Then*):** O resultado esperado, código de retorno e efeitos observáveis.
+
+- **Dado (_Given_):** O estado inicial ou pré-condição do sistema.
+- **Quando (_When_):** A ação, requisição ou evento executado.
+- **Então (_Then_):** O resultado esperado, código de retorno e efeitos observáveis.
 
 ### Modos de Falha (Failure Modes)
 
@@ -125,8 +126,22 @@ Convenção padronizada para mensagens de commit no Git que utiliza prefixos sem
 
 ### Arquitetura Hexagonal (Ports & Adapters)
 
-Padrão arquitetural que visa isolar a lógica de negócio central (Core de Domínio) de tecnologias externas (frameworks web, bancos de dados, mensageria). A comunicação entre o Core e o mundo exterior é intermediada por contratos abstratos (*Portas*) e implementações técnicas concretas (*Adaptadores*).
+Padrão arquitetural que visa isolar a lógica de negócio central (Core de Domínio) de tecnologias externas (frameworks web, bancos de dados, mensageria). A comunicação entre o Core e o mundo exterior é intermediada por contratos abstratos (_Portas_) e implementações técnicas concretas (_Adaptadores_).
 
 ### ACL (Anti-Corruption Layer / Camada Anticorrupção)
 
 Padrão de integração que atua como um tradutor intermediário entre dois sistemas ou subsistemas com modelos conceituais distintos. Converte contratos externos para o modelo do novo domínio (e vice-versa), garantindo que débitos técnicos ou formatos legados não poluam a pureza do Core da aplicação.
+
+### SoC (Separation of Concerns / Separação de Preocupações)
+
+Princípio fundamental da arquitetura de software que postula a divisão de um sistema em partes distintas e modulares, onde cada componente aborda e resolve com exclusividade um único aspecto, responsabilidade ou problema técnico (ex.: apresentar dados na interface, processar regras de cálculo de negócio, persistir dados em banco ou gerenciar segurança criptográfica). É o alicerce teórico que sustenta a Arquitetura em Camadas, Clean Architecture, Microsserviços e o princípio SRP do SOLID.
+
+### SOLID (Princípios de Design Orientado a Objetos)
+
+Acrônimo mnemônico que consolida cinco diretrizes essenciais para criação de código manutenível, extensível e testável:
+
+- **S (Single Responsibility Principle - SRP):** Uma classe ou módulo deve ter um, e apenas um, motivo para mudar (aplicação direta de SoC no nível de classes e funções).
+- **O (Open/Closed Principle - OCP):** Entidades de software devem ser abertas para extensão, mas fechadas para modificação.
+- **L (Liskov Substitution Principle - LSP):** Subtipos devem ser substituíveis pelos seus tipos base sem quebrar o comportamento do programa.
+- **I (Interface Segregation Principle - ISP):** Clientes não devem ser forçados a depender de interfaces ou métodos que não utilizam.
+- **D (Dependency Inversion Principle - DIP):** Módulos de alto nível não devem depender de módulos de baixo nível; ambos devem depender de abstrações.
