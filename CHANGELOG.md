@@ -9,6 +9,8 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ### Added
 
+- Institucionalização da Regra de Ouro 15 (Marcadores Canônicos & Paridade Contratual em Scaffolding) em `AGENTS.md` e `docs/templates/AGENTS.md`.
+
 - Arquivo base `.env.example` na raiz do starter kit com suporte a cópia manual e hidratação dinâmica no bootstrap.
 - Diretrizes operacionais avançadas em `docs/templates/AGENTS.md` e `AGENTS.md` (portão de aprovação de spec, cobertura de modos de falha, preservação defensiva de ativos e integridade multiplataforma/encoding).
 - Arquivo base `.gitleaksignore` na raiz e suporte à inicialização limpa no bootstrap para gestão de falsos positivos históricos.

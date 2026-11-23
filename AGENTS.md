@@ -15,6 +15,7 @@
 ## 🎯 2. Metodologia Central: Spec-Driven Development (SDD)
 
 Antes de escrever qualquer código de funcionalidade:
+
 1. **Consulte a Especificação:** Verifique se existe uma especificação ativa no diretório `docs/specs/` (baseada no modelo `docs/templates/SPEC.md`).
 2. **Portão de Aprovação de Spec:** NUNCA inicie a codificação de uma funcionalidade se a especificação estiver marcada como `Rascunho` ou `Em Revisão`. Apenas especificações com status `Aprovado para Implementação` autorizam a escrita de código de produção.
 3. **Entenda os Critérios de Aceite & Modos de Falha:** Trabalhe estritamente orientado aos cenários de teste BDD/Gherkin descritos na spec e implemente testes cobrindo os Modos de Falha descritos na Seção 3 da spec (timeouts, concorrência, payloads inválidos, idempotência).
@@ -39,6 +40,7 @@ Antes de escrever qualquer código de funcionalidade:
 12. **Isolamento Estrito em Testes de Scaffolding (Sandbox Hygiene):** Testes automatizados ou manuais de geradores de projeto, scripts de bootstrap ou scaffolding NUNCA devem ser disparados a partir da raiz de um repositório ativo. Devem ser executados exclusivamente dentro de um diretório temporário isolado (`$env:TEMP` ou `/tmp`), com navegação explícita para o diretório (`Push-Location`/`cd`), e com bloco de limpeza compulsória (`finally`/`AfterAll`) garantindo zero efeitos colaterais no working tree.
 13. **Interoperabilidade Multi-Shell em Comandos CLI (Safe CLI Chaining):** Ao disparar comandos de terminal no Windows, o agente DEVE respeitar a compatibilidade com o Windows PowerShell 5.1 e PowerShell 7+, NUNCA utilizando o operador `&&` (inválido no PS 5.1 nativo). Utilize `; if ($?) { ... }` para encadeamento condicional seguro, prevenindo falhas de sintaxe e execuções parciais indevidas.
 14. **Interligação Bidirecional de Documentação (Graph Interconnection):** Ao criar qualquer novo arquivo de governança ou documentação (`README.md`, `SPEC.md`, `ADR.md`), o agente DEVE mapear os artefatos adjacentes ("pais" e "irmãos") na árvore documental e adicionar links cruzados bidirecionais, evitando ilhas documentais desconectadas do grafo de navegação.
+15. **Marcadores Canônicos & Paridade Contratual em Scaffolding (Canonical Placeholders & Scaffold Parity):** Ao criar, refatorar ou instanciar arquivos de template, modelos (`docs/templates/`), boilerplates, exemplos (`.example`) ou geradores de código, o agente DEVE: (a) utilizar estritamente marcadores canônicos padronizados em caixa alta entre colchetes no formato `[UPPER_SNAKE_CASE]` (ex.: `[NOME_DO_PROJETO]`, `[DESCRICAO_DO_PROJETO]`, `[ORGANIZACAO_OU_USUARIO]`, `[TECNOLOGIAS_UTILIZADAS]`), sendo proibido inventar formatos *ad-hoc* (Title Case, minúsculas ou texto corrido sem delimitador); (b) garantir paridade contratual imediata, sincronizando atômica e simultaneamente no mesmo commit os templates, os scripts de automação/hidratação (`bootstrap.ps1`, `bootstrap.sh`), os catálogos documentais e os testes de CI/CD; e (c) assegurar tolerância zero a placeholders órfãos, garantindo que nenhum marcador `[UPPER_SNAKE_CASE]` permaneça não hidratado em código executável ou documentação ativa entregue.
 
 ---
 
@@ -74,6 +76,7 @@ Todas as mensagens de commit sugeridas ou criadas pelo agente devem seguir rigor
 ```
 
 ### Tipos Permitidos:
+
 * `feat`: Nova funcionalidade para o usuário.
 * `fix`: Correção de bug.
 * `refactor`: Refatoração de código que não altera comportamento nem corrige bug.
