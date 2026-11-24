@@ -13,9 +13,10 @@
 - [3. 🛡️ Camada 2: Proteção de Infraestrutura de Código (Branch Protection)](#3-️-camada-2-proteção-de-infraestrutura-de-código-branch-protection)
 - [4. ⚡ Camada 3: Matriz de Permissões de Comandos (Allowlist vs. HITL)](#4--camada-3-matriz-de-permissões-de-comandos-allowlist-vs-hitl)
 - [5. 📦 Camada 4: Segregação Física de Contexto & Sandboxing (Containers)](#5--camada-4-segregação-física-de-contexto--sandboxing-containers)
-- [6. 📋 Checklist de Prontidão de Segurança em 5 Minutos](#6--checklist-de-prontidão-de-segurança-em-5-minutos)
-- [7. 🔄 Evolução Futura & Próximos Tópicos](#7--evolução-futura--próximos-tópicos)
-- [8. 🔗 Conexões & Governança](#8--conexões--governança)
+- [6. 🛡️ Camada 5: Prevenção de Artefatos Maliciosos & Cadeia de Suprimentos (Supply Chain Defense)](#6-️-camada-5-prevenção-de-artefatos-maliciosos--cadeia-de-suprimentos-supply-chain-defense)
+- [7. 📋 Checklist de Prontidão de Segurança em 5 Minutos](#7--checklist-de-prontidão-de-segurança-em-5-minutos)
+- [8. 🔄 Evolução Futura & Próximos Tópicos](#8--evolução-futura--próximos-tópicos)
+- [9. 🔗 Conexões & Governança](#9--conexões--governança)
 
 ---
 
@@ -27,11 +28,12 @@ O desenvolvimento de software assistido por agentes autônomos de inteligência 
 ┌────────────────────────────────────────────────────────────────────────┐
 │                      DEFESA EM PROFUNDIDADE (AI AGENTS)                │
 ├────────────────────────────────────────────────────────────────────────┤
-│  [CAMADA 4] Segregação Física & Sandboxing (Dev Containers / Docker)    │
-│    └─► [CAMADA 3] Matriz de Permissões & Allowlist (Comandos Seguros)  │
-│          └─► [CAMADA 2] Branch Protection no Git (Bloqueio da Main)    │
-│                └─► [CAMADA 1] Blindagem de Segredos (Zero Secrets)     │
-│                      └─► [NÚCLEO] Agente de IA em Operação             │
+│  [CAMADA 5] Segurança de Supply Chain & Artefatos (Prevenção Malware)   │
+│    └─► [CAMADA 4] Segregação Física & Sandboxing (Dev Containers)      │
+│          └─► [CAMADA 3] Matriz de Permissões & Allowlist (Comandos)    │
+│                └─► [CAMADA 2] Branch Protection no Git (Bloqueio Main) │
+│                      └─► [CAMADA 1] Blindagem de Segredos (Zero Leaks) │
+│                            └─► [NÚCLEO] Agente de IA em Operação       │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -146,7 +148,49 @@ A utilização da extensão oficial **VS Code Dev Containers** (`ms-vscode-remot
 
 ---
 
-## 6. 📋 Checklist de Prontidão de Segurança em 5 Minutos
+## 6. 🛡️ Camada 5: Prevenção de Artefatos Maliciosos & Cadeia de Suprimentos (Supply Chain Defense)
+
+> **Risco OWASP Mitigado:** _LLM Supply Chain Vulnerabilities_ & _LLM02: Sensitive Information Disclosure_.
+
+A introdução de agentes autônomos no fluxo de trabalho potencializa os riscos associados à cadeia de suprimentos de software (_Software Supply Chain_). Modelos de linguagem podem ser induzidos ou sofrer alucinações que levam à instalação de bibliotecas falsas ou infectadas, expondo o ambiente de desenvolvimento antes mesmo da primeira linha de código de negócio ser executada.
+
+### A. Vetores de Ameaça em Ambientes Assistidos por IA
+
+1. **Alucinação de Pacotes (_AI Package Hallucination / Slurping_):**  
+   Modelos generativos podem sugerir pacotes plausíveis que não existem nos registros públicos (ex.: npm, PyPI, NuGet). Agentes maliciosos monitoram alucinações frequentes de LLMs, registram esses nomes com artefatos maliciosos e aguardam instalações automatizadas por desenvolvedores ou agentes.
+2. **Abuso de Lifecycle Scripts (`preinstall`, `postinstall`, `setup.py`):**  
+   Ao baixar um pacote malicioso, scripts embutidos executam compulsoriamente comandos locais com privilégios do usuário ativo, capazes de varrer credenciais em `~/.ssh`, `~/.aws` ou variáveis de ambiente locais.
+3. **Typosquatting & Dependências Transitivas Ocultas:**  
+   Variações sutis de grafia de bibliotecas consagradas (ex.: `cross-env` vs. `crossenv`) ou injeção de código nocivo em subdependências de pacotes abandonados.
+
+### B. Salvaguardas Práticas e Arquitetura de Prevenção
+
+1. **Parcimônia de Dependências & Aprovação Prévia (HITL Mandatório):**  
+   Em conformidade estrita com a **Regra de Ouro nº 5 do `AGENTS.md`**, o agente é proibido de executar `npm install <pacote>`, `pip install <pacote>` ou equivalentes de forma autônoma. Qualquer adição de dependência exige justificativa técnica, validação de necessidade e consentimento humano explícito.
+2. **Desativação Preventiva de Scripts na Instalação (`--ignore-scripts`):**  
+   Para evitar que scripts maliciosos rodem no instante do download, recomenda-se a instalação com o argumento `--ignore-scripts`:
+
+   ```bash
+   # Instalação protegida contra execução de código embutido
+   npm install <pacote> --ignore-scripts
+   ```
+
+   _Dica de Governança:_ Em repositórios Node, configure o arquivo `.npmrc` na raiz com a diretiva `ignore-scripts=true`.
+3. **Lockfiles Rígidos e Hashes Criptográficos (`frozen-lockfile`):**  
+   Em esteiras automatizadas e auditorias locais, utilizar comandos determinísticos que validam a integridade e os hashes dos pacotes contra o arquivo de trava:
+   - **Node (npm):** `npm ci` (rejeita discrepâncias entre o `package.json` e o `package-lock.json`).
+   - **PNPM:** `pnpm install --frozen-lockfile`.
+   - **Python:** `pip install --require-hashes -r requirements.txt`.
+4. **Análise de Composição de Software (SCA) & Detecção Comportamental:**  
+   - **GitHub Dependabot:** Habilitado em todos os repositórios públicos e corporativos para varredura contínua de CVEs conhecidas.
+   - **OSV-Scanner:** Ferramenta open-source da Google para varredura ágil e de alta precisão contra vulnerabilidades de código aberto.
+   - **Varredura Comportamental Ativa:** Ferramentas modernas (ex.: Socket.dev, OpenSSF Scorecard, Trivy) que inspecionam o código dos pacotes em busca de acessos suspeitos à rede, leitura de variáveis de ambiente e ofuscação de binários.
+5. **Políticas Corporativas de Registry Privado & Quarentena (Produção):**  
+   Para clientes em produção, adota-se gerenciadores de repositório (Artifactory, Nexus, AWS CodeArtifact) com _firewall_ ativado: pacotes recém-publicados em registros públicos sofrem quarentena preventiva (ex.: 3 a 7 dias) antes da liberação para download pelas equipes.
+
+---
+
+## 7. 📋 Checklist de Prontidão de Segurança em 5 Minutos
 
 Antes de iniciar qualquer ciclo de desenvolvimento com agentes autônomos em um repositório, execute esta checagem rápida:
 
@@ -157,20 +201,21 @@ Antes de iniciar qualquer ciclo de desenvolvimento com agentes autônomos em um 
 | **3** | **Branch de Trabalho Ativa** | Certificar-se de que o trabalho será conduzido em uma branch de feature (`feat/...`), nunca na `main`. | [ ] |
 | **4** | **Ruleset Remoto Ativo** | Confirmar no GitHub se a branch `main` possui bloqueio de force-push e exigência de PR. | [ ] |
 | **5** | **Gitleaks Ativo em CI** | Garantir que o workflow `.github/workflows/ci.yml` contém a etapa de detecção de segredos. | [ ] |
+| **6** | **Higiene de Dependências** | Validar se `.npmrc` possui `ignore-scripts=true` ou se novas dependências possuem downloads e reputação comprovados. | [ ] |
 
 ---
 
-## 7. 🔄 Evolução Futura & Próximos Tópicos
+## 8. 🔄 Evolução Futura & Próximos Tópicos
 
 Este guia é um documento vivo que será expandido nas próximas iterações do starter kit com:
 
-- **Mitigação de Alucinação de Pacotes (_Package Hallucination_):** Diretrizes para verificação de dependências em registros oficiais (npm, Maven Central, NuGet, PyPI) antes de autorizar instalações sugeridas por IA.
 - **Modelos Canônicos de `.devcontainer/` por Stack:** Templates prontos para inicialização instantânea de Dev Containers para Java, .NET, Node e Python.
 - **Políticas de Governança de Tokens e Custos:** Diretrizes de rate-limiting e observabilidade de consumo de APIs de IA.
+- **Automação de Varredura de Supply Chain em CI:** Integração de linters comportamentais de pacotes (ex.: Socket.dev CLI) em workflows corporativos.
 
 ---
 
-## 8. 🔗 Conexões & Governança
+## 9. 🔗 Conexões & Governança
 
 - 📘 **Playbook de Engenharia com IA:** [`docs/playbook-engenharia-ia.md`](./playbook-engenharia-ia.md)
 - 🤖 **Contrato de IA do Repositório:** [`AGENTS.md`](../AGENTS.md)
