@@ -14,6 +14,7 @@
 Iniciar um novo projeto de software hoje não significa apenas configurar linters e editores: significa **alinhar a colaboração entre desenvolvedores humanos e agentes de IA com controle absoluto de qualidade**.
 
 Este repositório fornece a base operacional completa para garantir que:
+
 1. **Agentes de IA** (Antigravity, Copilot, Claude Code, Cursor, Windsurf) sigam padrões estritos de arquitetura, segurança, testes e commits antes de sugerir código.
 2. O time adote **Spec-Driven Development (SDD)**, com fatias verticais e critérios BDD/Gherkin antes da codificação.
 3. Decisões arquiteturais sejam formalizadas via **ADRs (Architecture Decision Records)** com gatilhos explícitos de reavaliação.
@@ -24,12 +25,15 @@ Este repositório fornece a base operacional completa para garantir que:
 ## 📂 O que está incluído?
 
 ### 🤖 1. Camada de Inteligência Artificial & Governança
+
 * **[`AGENTS.md`](./AGENTS.md):** Contrato operacional universal em duas camadas: Regras de Ouro Universais (*Human-in-the-Loop*, *Anti-Lazy Code*, *Minimal Diff*, *Conclusão por Evidências*) e seção plugável de regras de domínio.
 * **[`.github/copilot-instructions.md`](./.github/copilot-instructions.md):** Integração nativa para GitHub Copilot referenciando o `AGENTS.md`.
 * **[`docs/playbook-engenharia-ia.md`](./docs/playbook-engenharia-ia.md):** *The AI-Aided Software Engineering Playbook* — o guia em 5 fases para conduzir o agente do commit zero até a produção.
+* **[`docs/guia-seguranca-agentes-ia.md`](./docs/guia-seguranca-agentes-ia.md):** Guia de Segurança & Guardrails para Agentes de IA — padrões corporativos de defesa em profundidade, Zero Secrets, allowlist de comandos e sandboxing.
 * **[`docs/glossario-engenharia.md`](./docs/glossario-engenharia.md):** Glossário técnico com alinhamento conceitual sobre SDLC, Engenharia de Software Assistida por IA e Padrões de Qualidade.
 
 ### 📑 2. Modelos e Templates Refinados ([`docs/templates/`](./docs/templates/README.md))
+
 * **[`SPEC.md`](./docs/templates/SPEC.md):** Modelo completo para especificação guiada por requisitos (SDD) com fatias verticais, modos de falha (*Failure Modes*) e Definition of Done (DoD).
 * **[`ADR.md`](./docs/templates/ADR.md):** Registro de decisões arquiteturais com tabela de alternativas e gatilhos de reavaliação (*Review Triggers*).
 * **[`BACKLOG.md`](./docs/templates/BACKLOG.md):** Roadmap vivo Docs-as-Code com taxonomia de IDs (`SET-`, `CORE-`, `API-`, `OPS-`).
@@ -41,15 +45,18 @@ Este repositório fornece a base operacional completa para garantir que:
 * **[`README-PROJECT.md`](./docs/templates/README-PROJECT.md):** Template moderno e profissional para o README do seu novo projeto.
 
 ### ⚡ 3. Scripts de Inicialização Inteligente (`/scripts`)
+
 * **`scripts/bootstrap.ps1` (Windows / PowerShell):** Coleta interativa de metadados, hidratação automática de `README.md`, `AGENTS.md` e `docs/backlog.md`, com opção de autolimpeza dos scripts de bootstrap.
 * **`scripts/bootstrap.sh` (Linux / macOS / Bash):** Script equivalente em Bash para inicialização automatizada em sistemas Unix.
 
 ### 🛠️ 4. Configurações de Ambiente (`/.vscode`)
+
 * **`settings.json`:** Formatação automática ao salvar, quebra de linha LF, ruler e regras de encoding UTF-8.
 * **`extensions.json`:** Recomendações de extensões essenciais para produtividade e qualidade.
 * **`launch.json` & `tasks.json`:** Perfis de execução e compilação para depuração rápida.
 
 ### 🛡️ 5. Segurança, CI & Colaboração no GitHub
+
 * **`.github/workflows/ci.yml`:** Pipeline de CI com detecção de segredos via Gitleaks.
 * **`.editorconfig`:** Padronização multiplataforma de indentação e espaçamento.
 * **`.gitignore` Defensivo:** Bloqueio preemptivo de certificados (`*.p12`, `*.key`), segredos (`.env*`) e artefatos de múltiplas linguagens (Java, Node, Python, .NET).
@@ -65,17 +72,22 @@ Este repositório fornece a base operacional completa para garantir que:
 2. Dê um nome ao seu novo projeto e clone-o na sua máquina.
 3. Abra o terminal na raiz do novo projeto e execute o script de inicialização:
    * **No Windows (PowerShell):**
+
      ```powershell
      .\scripts\bootstrap.ps1
      ```
+
    * **No Linux/macOS (Bash):**
+
      ```bash
      chmod +x ./scripts/bootstrap.sh
      ./scripts/bootstrap.sh
      ```
+
 4. O script solicitará o nome, descrição e stack tecnológica, gerando os arquivos customizados e removendo os scripts de bootstrap para deixar o repositório limpo.
 
 ### Opção B: Cópia Manual para Projeto Existente
+
 1. Copie as pastas `.vscode/`, `.github/` e `docs/templates/` para a raiz do seu projeto.
 2. Copie o `AGENTS.md` para a raiz e adapte as seções de stack e regras de domínio.
 

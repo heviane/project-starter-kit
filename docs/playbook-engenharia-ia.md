@@ -141,3 +141,4 @@ O ecossistema do kit é composto de forma integrada por:
 1. **Governança & Templates:** Modelos estruturados em `docs/templates/` (`SPEC.md`, `ADR.md`, `BACKLOG.md`, `ANALYSIS-AI.md`, `AGENTS.md`, `CHANGELOG.md`).
 2. **Diretórios Canônicos:** O scaffolding em `docs/specs/` e `docs/adrs/`.
 3. **Playbook Metodológico:** A condução operacional rigorosa do agente de IA em todas as fases do ciclo de vida.
+4. **Guia de Segurança & Guardrails:** Padrões corporativos de defesa em profundidade e sandboxing em [`docs/guia-seguranca-agentes-ia.md`](./guia-seguranca-agentes-ia.md).
