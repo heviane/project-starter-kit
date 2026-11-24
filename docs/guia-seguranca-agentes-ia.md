@@ -133,14 +133,14 @@ A camada mais externa e resiliente de isolamento consiste em confinar a execuç�
 
 Em conformidade com a arquitetura estabelecida na ADR-0002, o ecossistema adota separação estrita de armazenamentos:
 
-- **Metadiretório de Código (`E:\Projects\GitHub`):** Contém exclusivamente projetos rastreados em Git e públicos/abertos.
-- **Cofre em Nuvem (`H:\My Drive\Workspace Root Local`):** Contém anotações pessoais, pesquisas de mercado, estratégias de carreira e dados privados que **nunca** devem ser acessados por agentes atuando em código público.
+- **Metadiretório de Código Local (ex.: `<workspace-root>/github`):** Contém exclusivamente projetos rastreados em Git e públicos/abertos.
+- **Cofre em Nuvem Segregado (ex.: `<cloud-vault>/workspace-privado`):** Contém anotações pessoais, pesquisas de mercado, estratégias de carreira e dados privados que **nunca** devem ser acessados por agentes atuando em código público.
 
 ### B. Sandboxing com VS Code Dev Containers (Padrão-Ouro de Isolamento)
 
 A utilização da extensão oficial **VS Code Dev Containers** (`ms-vscode-remote.remote-containers`) permite instanciar contêineres Docker dedicados para cada repositório:
 
-1. **Isolamento de Host:** O agente e o runtime da aplicação (Java, .NET, Node, Python) executam exclusivamente dentro do contêiner Linux. O agente **não tem acesso** aos discos físicos do Windows (`C:\`, `D:\`), arquivos pessoais ou unidades em nuvem.
+1. **Isolamento de Host:** O agente e o runtime da aplicação (Java, .NET, Node, Python) executam exclusivamente dentro do contêiner Linux. O agente **não tem acesso** aos discos físicos do host (sistemas de arquivos locais), arquivos pessoais ou unidades em nuvem.
 2. **Ambiente Efêmero e Descartável:** Em caso de corrupção de ambiente ou instalação indevida de pacotes pelo modelo, o contêiner pode ser destruído e reconstruído em poucos segundos a partir da definição declarativa (`.devcontainer/devcontainer.json`).
 3. **Autonomia com Segurança Máxima:** Dentro de um Dev Container devidamente isolado, é seguro conceder ao agente o modo de execução totalmente autônomo, pois o ambiente é uma "caixa de areia" estéril.
 
