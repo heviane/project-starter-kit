@@ -129,7 +129,7 @@ O agente deve prioritariamente rodar o comando no modo de simulação para audit
 
 A camada mais externa e resiliente de isolamento consiste em confinar a execução do agente de IA dentro de um ambiente descartável.
 
-### A. Segregação de Diretórios Locais ([ADR-0002](https://github.com/heviane/heviane/blob/main/meta-hub/adrs/0002-segregacao-dados-sensiveis-multi-root-workspaces.md))
+### A. Segregação de Diretórios Locais ([ADR-0002](https://github.com/heviane/heviane/blob/main/meta-hub/adrs/0002-sensitive-data-segregation-multi-root-workspaces.md))
 
 Em conformidade com a arquitetura estabelecida na ADR-0002, o ecossistema adota separação estrita de armazenamentos:
 
