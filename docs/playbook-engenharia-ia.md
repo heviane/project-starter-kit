@@ -52,7 +52,7 @@ flowchart LR
 - **O que fazer:**
   1. O humano apresenta o problema e as restrições: _"Precisamos assinar XML com RSA-SHA256 em memória sem salvar arquivo em disco. Como podemos estruturar isso?"_
   2. O agente pesquisa alternativas, compara prós/contras e propõe a melhor abordagem.
-  3. Formalizar a decisão em `docs/adrs/ADR-XXXX-[titulo].md` (usando o template refinado com gatilhos de reavaliação).
+  3. Formalizar a decisão em `docs/adrs/0001-[titulo].md` (usando o template com padrão canônico de 4 dígitos e gatilhos de reavaliação).
 - **Regra de Ouro da Fase 1:** **Decisão registrada é decisão imutável.** A IA em sessões futuras não tem permissão para trocar a stack ou padrão sem uma nova ADR formal.
 
 ---

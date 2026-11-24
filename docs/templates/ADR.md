@@ -1,9 +1,10 @@
 # ADR-[NUMERO_ADR]: [TITULO_DA_DECISAO]
 
-> **Status:** `Proposto` | `Aprovado` | `Substituído por ADR-XXX` | `Deprecado`  
+> **Status:** `Proposto` | `Aprovado` | `Substituído por ADR-0000` | `Deprecado`  
 > **Data:** [DATA_CRIACAO] &bull; **Última Atualização:** [DATA_ATUALIZACAO]  
 > **Decisores:** [NOMES_DOS_DECISORES]  
-> **Contexto Técnico:** [CONTEXTO_TECNICO]
+> **Contexto Técnico:** [CONTEXTO_TECNICO]  
+> *Convenção Canônica de Nomenclatura:* Salvar em `docs/adrs/0001-[slug-em-kebab-case].md` (numeração sequencial com 4 dígitos padronizados).
 
 ---
 
