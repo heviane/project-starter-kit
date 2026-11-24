@@ -51,6 +51,7 @@ Antes de escrever qualquer código de funcionalidade:
 * **Integridade dos Scripts de Bootstrap:** Qualquer modificação nos arquivos de template (`docs/templates/`) deve ser refletida com paridade e testes em ambos os scripts de inicialização (`scripts/bootstrap.sh` e `scripts/bootstrap.ps1`).
 * **Privacidade & Proteção de Dados (LGPD):** NUNCA comitar, expor ou utilizar dados reais ou sensíveis de clientes ou usuários. Todos os testes e documentações devem utilizar dados fictícios/sanitizados.
 * **Isolamento de Ambientes:** NUNCA executar requisições, testes ou mutações contra ambientes de PRODUÇÃO. Testes do agente devem rodar exclusivamente contra mocks, dublês ou ambiente de homologação autorizado.
+* **Auditoria de Pull Requests e Dependências Seguras:** Ao atuar no repositório, consulte os Pull Requests abertos via `gh pr list`. PRs com atualizações de dependências automatizadas (ex.: GitHub Actions, linters, segurança) com CI verde e escopo seguro (minor/patch) devem ser incorporados via **Squash Merge** e sincronizados localmente (`git pull`). PRs conflitantes ou que quebrem os scripts de bootstrap devem ser rejeitados com feedback técnico explícito.
 
 ---
 
@@ -96,6 +97,7 @@ Todas as mensagens de commit sugeridas ou criadas pelo agente devem seguir a esp
 
 ## 🚀 7. Comandos Rápidos do Projeto
 
+* **Auditoria de PRs Remotos:** `gh pr list`
 * **Validação de Sintaxe Bash:** `bash -n scripts/bootstrap.sh`
 * **Validação de Sintaxe PowerShell:** `powershell -ExecutionPolicy Bypass -Command "[System.Management.Automation.Language.Parser]::ParseFile('scripts/bootstrap.ps1', [ref]`$null, [ref]`$errors)"`
 * **Teste do Bootstrap (Modo Não-Interativo):** `bash scripts/bootstrap.sh --non-interactive` ou `powershell -File scripts/bootstrap.ps1 -NonInteractive -NoCleanup`
