@@ -52,6 +52,7 @@ Antes de escrever qualquer código de funcionalidade:
 * **Privacidade & Proteção de Dados (LGPD):** NUNCA comitar, expor ou utilizar dados reais ou sensíveis de clientes ou usuários. Todos os testes e documentações devem utilizar dados fictícios/sanitizados.
 * **Isolamento de Ambientes:** NUNCA executar requisições, testes ou mutações contra ambientes de PRODUÇÃO. Testes do agente devem rodar exclusivamente contra mocks, dublês ou ambiente de homologação autorizado.
 * **Auditoria de Pull Requests e Dependências Seguras:** Ao atuar no repositório, consulte os Pull Requests abertos via `gh pr list`. PRs com atualizações de dependências automatizadas (ex.: GitHub Actions, linters, segurança) com CI verde e escopo seguro (minor/patch) devem ser incorporados via **Squash Merge** e sincronizados localmente (`git pull`). PRs conflitantes ou que quebrem os scripts de bootstrap devem ser rejeitados com feedback técnico explícito.
+* **Nomenclatura Canônica em Inglês:** Nomes de pastas, diretórios e arquivos (`.md`, `.sh`, `.ps1`, `.json`, `.yaml`) DEVEM ser SEMPRE escritos em **inglês** em formato `kebab-case` (ex.: `project-starter-kit`, `quick-start.md`). Os conteúdos textuais das documentações permanecem em Português (pt-BR), preservando o rigor técnico dos termos padrão da indústria.
 
 ---
 
@@ -61,6 +62,9 @@ Antes de escrever qualquer código de funcionalidade:
 * **Princípios Arquiteturais:** Siga os princípios SOLID, Clean Code e Clean Architecture / Hexagonal. Separe claramente a lógica central de domínio dos adaptadores de infraestrutura (web, banco, mensageria).
 * **Tratamento Defensivo de Erros:** Evite blocos catch genéricos ou silenciosos. Capture exceções específicas e registre logs estruturados sem vazar dados sensíveis.
 * **Tipagem Estrita:** Utilize tipagem forte e estrita em todos os contratos de entrada e saída (DTOs, Records, Schemas de validação).
+* **Integridade de Testes (Anti-Test Tampering):** NUNCA ajustar ou flexibilizar asserções de testes existentes apenas para forçar aprovação de código com defeito. Testes automatizados expressam os critérios objetivos de aceitação da especificação (`SPEC.md`). Se um teste falhar, corrija a implementação em `src/`, NUNCA fragilize, comente ou mascare as asserções de teste.
+* **Prevenção de Deterioração Documental (Anti-Doc Rot):** NUNCA manter blocos extensos de código duplicados na documentação técnica (`docs/`) após sua implementação no código-fonte. A documentação pós-implementação deve focar no *porquê*, arquitetura e regras de negócio, referenciando os arquivos de código reais via links, combatendo a divergência de snippets (*snippet drift*).
+* **Eliminação de Código Zumbi (Zero Zombie Code):** NUNCA manter código morto, métodos comentados ou rascunhos abandonados no repositório. O histórico do Git é o arquivo definitivo; trechos obsoletos devem ser removidos cirurgicamente.
 
 ---
 
@@ -92,6 +96,7 @@ Todas as mensagens de commit sugeridas ou criadas pelo agente devem seguir a esp
 2. **Reversibilidade Limpa (Clean Revert):** Todo commit deve ser isolado e autocontido, permitindo `git revert <hash>` sem introduzir efeitos colaterais em arquivos não correlacionados.
 3. **Garantia de Pipeline Verde Contínuo (Always Green / Bisect-Safe):** Nenhum commit intermediário pode deixar o repositório quebrado. A cada commit individual, todos os testes e validações estáticas devem ser executados e aprovados com 100% verde.
 4. **Idioma Canônico & Modo Imperativo:** Todas as mensagens de commit DEVEM ser escritas em **inglês**, utilizando verbos no modo imperativo (`add`, `fix`, `sync`, `enforce`, `bump`, `polish`, `remove`), assegurando conformidade com padrões internacionais de engenharia e ferramentas de release automatizado.
+5. **Rastreabilidade de IA & Co-Autoria (Git Co-Authorship):** Todo commit sugerido ou gerado com o auxílio de um agente de IA DEVE incluir no rodapé da mensagem o trailer canônico do Git: `Co-authored-by: Google Antigravity <antigravity[bot]@google.com>` (ou do respectivo modelo/agente), assegurando transparência, proveniência de código e visibilidade nativa de co-autoria no GitHub.
 
 ---
 
