@@ -10,11 +10,14 @@ echo -e "\033[36m===============================================================
 echo ""
 
 NON_INTERACTIVE=${NON_INTERACTIVE:-false}
+FORCE=${FORCE:-false}
 for arg in "$@"; do
   case $arg in
     --non-interactive|-y)
       NON_INTERACTIVE=true
-      shift
+      ;;
+    --force|-f)
+      FORCE=true
       ;;
   esac
 done
@@ -22,11 +25,14 @@ done
 DEFAULT_NAME=$(basename "$PWD")
 DEFAULT_OWNER=$(git config user.name 2>/dev/null || echo "")
 [ -z "$DEFAULT_OWNER" ] && DEFAULT_OWNER="my-org"
+DEFAULT_EMAIL=$(git config user.email 2>/dev/null || echo "")
+[ -z "$DEFAULT_EMAIL" ] && DEFAULT_EMAIL="contato@exemplo.com"
 
 if [ "$NON_INTERACTIVE" = true ]; then
   PROJECT_NAME=${PROJECT_NAME:-$DEFAULT_NAME}
   PROJECT_DESC=${PROJECT_DESC:-"Sistema de alta qualidade desenvolvido com assistência de IA."}
   GITHUB_OWNER=${GITHUB_OWNER:-$DEFAULT_OWNER}
+  CONTACT_EMAIL=${CONTACT_EMAIL:-$DEFAULT_EMAIL}
   STACK_OPTION=${STACK_OPTION:-"1"}
 
   if [[ "$GITHUB_OWNER" =~ ^[Hh]eviane ]]; then
@@ -44,6 +50,9 @@ else
 
   read -rp "Usuário ou Organização do GitHub [$DEFAULT_OWNER]: " GITHUB_OWNER
   GITHUB_OWNER=${GITHUB_OWNER:-$DEFAULT_OWNER}
+
+  read -rp "E-mail de contato para Código de Conduta [$DEFAULT_EMAIL]: " CONTACT_EMAIL
+  CONTACT_EMAIL=${CONTACT_EMAIL:-$DEFAULT_EMAIL}
 
   if [[ "$GITHUB_OWNER" =~ ^[Hh]eviane ]]; then
     DEFAULT_PROJECT_LINK="https://github.com/users/heviane/projects/14"
@@ -83,7 +92,7 @@ case "$STACK_OPTION" in
     ;;
   3)
     STACK_NAME="Python 3.12+, FastAPI, Pytest"
-    CMD_COMPILE="poetry check"
+    CMD_COMPILE="poetry run python -m compileall src -q"
     CMD_RUN="poetry run uvicorn main:app --reload"
     CMD_TEST="poetry run pytest"
     CMD_TEST_SINGLE="poetry run pytest tests/test_especifico.py"
@@ -111,12 +120,13 @@ CURRENT_DATE=$(date +%Y-%m-%d)
 
 # Função para escapar caracteres especiais no sed (delimitador /)
 escape_sed() {
-  printf '%s' "$1" | sed -e 's/[\/&]/\\&/g'
+  printf '%s' "$1" | sed -e 's/[\\/&]/\\&/g'
 }
 
 PROJECT_NAME_ESC=$(escape_sed "$PROJECT_NAME")
 PROJECT_DESC_ESC=$(escape_sed "$PROJECT_DESC")
 GITHUB_OWNER_ESC=$(escape_sed "$GITHUB_OWNER")
+CONTACT_EMAIL_ESC=$(escape_sed "$CONTACT_EMAIL")
 LINK_PROJECT_ESC=$(escape_sed "$LINK_PROJECT")
 STACK_NAME_ESC=$(escape_sed "$STACK_NAME")
 CMD_COMPILE_ESC=$(escape_sed "$CMD_COMPILE")
@@ -134,13 +144,17 @@ touch docs/specs/.gitkeep docs/adrs/.gitkeep
 # 2. README.md
 SHOULD_GENERATE_README=true
 if [ -f "README.md" ] && ! grep -q "AI-Assisted Project Starter Kit" README.md; then
-  if [ "$NON_INTERACTIVE" = false ]; then
+  if [ "$FORCE" = true ]; then
+    SHOULD_GENERATE_README=true
+  elif [ "$NON_INTERACTIVE" = false ]; then
     read -rp "Arquivo README.md já existe e parece personalizado. Deseja sobrescrever? (s/N): " OVERWRITE_README
     OVERWRITE_README=${OVERWRITE_README:-"n"}
     if [[ ! "$OVERWRITE_README" =~ ^[sSyY]$ ]]; then
       SHOULD_GENERATE_README=false
       echo -e "  \033[33m! README.md existente mantido sem alterações.\033[0m"
     fi
+  else
+    SHOULD_GENERATE_README=false
   fi
 fi
 
@@ -181,6 +195,12 @@ fi
 if [ -f ".github/CONTRIBUTING.md" ]; then
   sed -e "s/\[NOME_DO_PROJETO\]/$PROJECT_NAME_ESC/g" .github/CONTRIBUTING.md > .github/CONTRIBUTING.md.tmp && mv .github/CONTRIBUTING.md.tmp .github/CONTRIBUTING.md
   echo -e "  \033[36m✓ .github/CONTRIBUTING.md configurado com o nome do projeto.\033[0m"
+fi
+
+# 5b. .github/CODE_OF_CONDUCT.md
+if [ -f ".github/CODE_OF_CONDUCT.md" ]; then
+  sed -e "s/\[EMAIL_DE_CONTATO\]/$CONTACT_EMAIL_ESC/g" .github/CODE_OF_CONDUCT.md > .github/CODE_OF_CONDUCT.md.tmp && mv .github/CODE_OF_CONDUCT.md.tmp .github/CODE_OF_CONDUCT.md
+  echo -e "  \033[36m✓ .github/CODE_OF_CONDUCT.md configurado com o e-mail de contato.\033[0m"
 fi
 
 # 6. CHANGELOG.md

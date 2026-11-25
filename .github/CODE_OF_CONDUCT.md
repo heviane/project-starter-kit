@@ -55,7 +55,7 @@ representante nomeado em um evento online ou offline.
 ## Aplicação
 
 Casos de comportamento abusivo, de assédio ou de outra forma inaceitável podem ser
-reportados aos líderes da comunidade responsáveis pela aplicação em [email-de-contato@dominio.com].
+reportados aos líderes da comunidade responsáveis pela aplicação em [EMAIL_DE_CONTATO].
 Todas as queixas serão revisadas e investigadas de forma rápida e justa.
 
 Todos os líderes da comunidade são obrigados a respeitar a privacidade e a segurança do

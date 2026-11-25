@@ -39,14 +39,17 @@ fi
 
 # 3. Carregamento seguro das variaveis do .env no processo atual
 echo -e "\033[36m📦 Carregando variáveis de ambiente de .env...\033[0m"
-set -a
-# shellcheck disable=SC1090
-source "$ENV_FILE"
-set +a
+while IFS='=' read -r key val || [ -n "$key" ]; do
+  [[ "$key" =~ ^[[:space:]]*# ]] && continue
+  [ -z "$key" ] && continue
+  clean_key=$(echo "$key" | tr -d '[:space:]')
+  clean_val=$(echo "$val" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e 's/^["'\'']\(.*\)["'\'']$/\1/')
+  export "$clean_key=$clean_val"
+done < "$ENV_FILE"
 
 # 4. Execucao da aplicacao em desenvolvimento
 echo -e "\033[32m🚀 Iniciando a aplicação em modo de desenvolvimento...\033[0m"
 cd "$PROJECT_ROOT"
 DEV_COMMAND="[COMANDO_RODAR_LOCAL]"
 echo -e "\033[90mExecutando: $DEV_COMMAND\033[0m"
-eval "$DEV_COMMAND"
+sh -c "$DEV_COMMAND"

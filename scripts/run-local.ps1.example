@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Script de exemplo para execução local com carregamento de ambiente (Windows PowerShell).
 .DESCRIPTION
@@ -49,7 +49,8 @@ Push-Location $ProjectRoot
 try {
     $devCommand = "[COMANDO_RODAR_LOCAL]"
     Write-Host "Executando: $devCommand" -ForegroundColor Gray
-    Invoke-Expression $devCommand
+    $scriptBlock = [scriptblock]::Create($devCommand)
+    & $scriptBlock
 } finally {
     Pop-Location
 }

@@ -10,9 +10,11 @@
 [CmdletBinding()]
 param(
     [switch]$NonInteractive,
+    [switch]$Force,
     [string]$ProjectName,
     [string]$ProjectDesc,
     [string]$GithubOwner,
+    [string]$ContactEmail,
     [string]$StackOption,
     [string]$LinkProject,
     [switch]$NoCleanup
@@ -29,11 +31,14 @@ Write-Host ""
 $defaultProjectName = (Get-Item .).Name
 $defaultOwner = git config user.name 2>$null
 if ([string]::IsNullOrWhiteSpace($defaultOwner)) { $defaultOwner = "my-org" }
+$defaultEmail = git config user.email 2>$null
+if ([string]::IsNullOrWhiteSpace($defaultEmail)) { $defaultEmail = "contato@exemplo.com" }
 
 if ($NonInteractive) {
     if ([string]::IsNullOrWhiteSpace($ProjectName)) { $projectName = $defaultProjectName } else { $projectName = $ProjectName }
     if ([string]::IsNullOrWhiteSpace($ProjectDesc)) { $projectDesc = "Sistema de alta qualidade desenvolvido com assistência de IA." } else { $projectDesc = $ProjectDesc }
     if ([string]::IsNullOrWhiteSpace($GithubOwner)) { $githubOwner = $defaultOwner } else { $githubOwner = $GithubOwner }
+    if ([string]::IsNullOrWhiteSpace($ContactEmail)) { $contactEmail = $defaultEmail } else { $contactEmail = $ContactEmail }
     if ([string]::IsNullOrWhiteSpace($StackOption)) { $stackOption = "1" } else { $stackOption = $StackOption }
 
     if ($githubOwner -match '^[Hh]eviane') {
@@ -51,6 +56,9 @@ if ($NonInteractive) {
 
     $githubOwner = Read-Host "Usuário ou Organização do GitHub [$defaultOwner]"
     if ([string]::IsNullOrWhiteSpace($githubOwner)) { $githubOwner = $defaultOwner }
+
+    $contactEmail = Read-Host "E-mail de contato para Código de Conduta [$defaultEmail]"
+    if ([string]::IsNullOrWhiteSpace($contactEmail)) { $contactEmail = $defaultEmail }
 
     if ($githubOwner -match '^[Hh]eviane') {
         $defaultProjectLink = "https://github.com/users/heviane/projects/14"
@@ -90,7 +98,7 @@ switch ($stackOption) {
     }
     "3" {
         $stackName = "Python 3.12+, FastAPI, Pytest"
-        $cmdCompile = "poetry check"
+        $cmdCompile = "poetry run python -m compileall src -q"
         $cmdRun = "poetry run uvicorn main:app --reload"
         $cmdTest = "poetry run pytest"
         $cmdTestSingle = "poetry run pytest tests/test_especifico.py"
@@ -126,21 +134,25 @@ if (-not (Test-Path "docs/adrs")) { New-Item -ItemType Directory -Path "docs/adr
 $readmeTemplatePath = "docs/templates/README-PROJECT.md"
 $shouldGenerateReadme = $true
 if ((Test-Path "README.md") -and -not (Select-String -Path "README.md" -Pattern "AI-Assisted Project Starter Kit" -Quiet)) {
-    if (-not $NonInteractive) {
+    if ($Force) {
+        $shouldGenerateReadme = $true
+    } elseif (-not $NonInteractive) {
         $overwriteReadme = Read-Host "Arquivo README.md já existe e parece personalizado. Deseja sobrescrever? (s/N)"
         if ($overwriteReadme -ne "s" -and $overwriteReadme -ne "S") {
             $shouldGenerateReadme = $false
             Write-Host "  ! README.md existente mantido sem alterações." -ForegroundColor Yellow
         }
+    } else {
+        $shouldGenerateReadme = $false
     }
 }
 
 if ($shouldGenerateReadme -and (Test-Path $readmeTemplatePath)) {
     $readmeContent = Get-Content $readmeTemplatePath -Raw -Encoding UTF8
-    $readmeContent = $readmeContent -replace '\[NOME_DO_PROJETO\]', $projectName
-    $readmeContent = $readmeContent -replace '\[DESCRICAO_DO_PROJETO\]', $projectDesc
-    $readmeContent = $readmeContent -replace '\[ORGANIZACAO_OU_USUARIO\]', $githubOwner
-    $readmeContent = $readmeContent -replace '\[TECNOLOGIAS_UTILIZADAS\]', $stackName
+    $readmeContent = $readmeContent.Replace('[NOME_DO_PROJETO]', $projectName)
+    $readmeContent = $readmeContent.Replace('[DESCRICAO_DO_PROJETO]', $projectDesc)
+    $readmeContent = $readmeContent.Replace('[ORGANIZACAO_OU_USUARIO]', $githubOwner)
+    $readmeContent = $readmeContent.Replace('[TECNOLOGIAS_UTILIZADAS]', $stackName)
     Set-Content -Path "README.md" -Value $readmeContent -Encoding UTF8
     Write-Host "  ✓ README.md gerado com sucesso." -ForegroundColor Cyan
 }
@@ -149,14 +161,14 @@ if ($shouldGenerateReadme -and (Test-Path $readmeTemplatePath)) {
 $agentsTemplatePath = "docs/templates/AGENTS.md"
 if (Test-Path $agentsTemplatePath) {
     $agentsContent = Get-Content $agentsTemplatePath -Raw -Encoding UTF8
-    $agentsContent = $agentsContent -replace '\[NOME_DO_PROJETO\]', $projectName
-    $agentsContent = $agentsContent -replace '\[DESCRICAO_DO_PROJETO\]', "$projectDesc ($stackName)"
-    $agentsContent = $agentsContent -replace '\[TECNOLOGIAS_UTILIZADAS\]', $stackName
-    $agentsContent = $agentsContent -replace '\[COMANDO_COMPILAR\]', $cmdCompile
-    $agentsContent = $agentsContent -replace '\[COMANDO_RODAR_LOCAL\]', $cmdRun
-    $agentsContent = $agentsContent -replace '\[COMANDO_TESTAR\]', $cmdTest
-    $agentsContent = $agentsContent -replace '\[COMANDO_TESTE_UNICO\]', $cmdTestSingle
-    $agentsContent = $agentsContent -replace '\[COMANDO_BUILD\]', $cmdBuild
+    $agentsContent = $agentsContent.Replace('[NOME_DO_PROJETO]', $projectName)
+    $agentsContent = $agentsContent.Replace('[DESCRICAO_DO_PROJETO]', "$projectDesc ($stackName)")
+    $agentsContent = $agentsContent.Replace('[TECNOLOGIAS_UTILIZADAS]', $stackName)
+    $agentsContent = $agentsContent.Replace('[COMANDO_COMPILAR]', $cmdCompile)
+    $agentsContent = $agentsContent.Replace('[COMANDO_RODAR_LOCAL]', $cmdRun)
+    $agentsContent = $agentsContent.Replace('[COMANDO_TESTAR]', $cmdTest)
+    $agentsContent = $agentsContent.Replace('[COMANDO_TESTE_UNICO]', $cmdTestSingle)
+    $agentsContent = $agentsContent.Replace('[COMANDO_BUILD]', $cmdBuild)
     Set-Content -Path "AGENTS.md" -Value $agentsContent -Encoding UTF8
     Write-Host "  ✓ AGENTS.md configurado com as diretrizes da stack." -ForegroundColor Cyan
 }
@@ -165,10 +177,10 @@ if (Test-Path $agentsTemplatePath) {
 $backlogTemplatePath = "docs/templates/BACKLOG.md"
 if (Test-Path $backlogTemplatePath) {
     $backlogContent = Get-Content $backlogTemplatePath -Raw -Encoding UTF8
-    $backlogContent = $backlogContent -replace '\[NOME_DO_PROJETO\]', $projectName
-    $backlogContent = $backlogContent -replace '\[ORGANIZACAO_OU_USUARIO\]', $githubOwner
-    $backlogContent = $backlogContent -replace '\[DATA_ATUALIZACAO\]', $currentDate
-    $backlogContent = $backlogContent -replace '\[LINK_DO_PROJECT_OU_KANBAN\]', $linkProject
+    $backlogContent = $backlogContent.Replace('[NOME_DO_PROJETO]', $projectName)
+    $backlogContent = $backlogContent.Replace('[ORGANIZACAO_OU_USUARIO]', $githubOwner)
+    $backlogContent = $backlogContent.Replace('[DATA_ATUALIZACAO]', $currentDate)
+    $backlogContent = $backlogContent.Replace('[LINK_DO_PROJECT_OU_KANBAN]', $linkProject)
     Set-Content -Path "docs/backlog.md" -Value $backlogContent -Encoding UTF8
     Write-Host "  ✓ docs/backlog.md inicializado." -ForegroundColor Cyan
 }
@@ -177,9 +189,18 @@ if (Test-Path $backlogTemplatePath) {
 $contributingPath = ".github/CONTRIBUTING.md"
 if (Test-Path $contributingPath) {
     $contributingContent = Get-Content $contributingPath -Raw -Encoding UTF8
-    $contributingContent = $contributingContent -replace '\[NOME_DO_PROJETO\]', $projectName
+    $contributingContent = $contributingContent.Replace('[NOME_DO_PROJETO]', $projectName)
     Set-Content -Path $contributingPath -Value $contributingContent -Encoding UTF8
     Write-Host "  ✓ .github/CONTRIBUTING.md configurado com o nome do projeto." -ForegroundColor Cyan
+}
+
+# 5b. Hidratação de .github/CODE_OF_CONDUCT.md
+$cocPath = ".github/CODE_OF_CONDUCT.md"
+if (Test-Path $cocPath) {
+    $cocContent = Get-Content $cocPath -Raw -Encoding UTF8
+    $cocContent = $cocContent.Replace('[EMAIL_DE_CONTATO]', $contactEmail)
+    Set-Content -Path $cocPath -Value $cocContent -Encoding UTF8
+    Write-Host "  ✓ .github/CODE_OF_CONDUCT.md configurado com o e-mail de contato." -ForegroundColor Cyan
 }
 
 # 6. Inicialização do CHANGELOG.md
