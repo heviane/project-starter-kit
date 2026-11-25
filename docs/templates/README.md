@@ -63,7 +63,7 @@ flowchart TD
 2. **Planejamento de Épicos:** Novas demandas nascem no `docs/backlog.md`. Se houver incerteza técnica, realiza-se uma análise prévia com `ANALYSIS-AI.md`.
 3. **Portão de Especificação (SDD):** Antes de codificar qualquer funcionalidade, copia-se `SPEC.md` para `docs/specs/SPEC-XXX.md`. A codificação só é iniciada após o status atingir `Aprovado para Implementação`.
 4. **Decisões Estruturais:** Se a implementação envolver trade-offs de bibliotecas, persistência, mensageria ou segurança, registra-se uma decisão com `ADR.md`.
-5. **Entrega & Release:** Ao fechar a entrega, o `CHANGELOG.md` e o `docs/backlog.md` são atualizados no mesmo ciclo de commit.
+5. **Entrega, Fechamento & Release:** Ao finalizar a implementação, executa-se o checklist compulsório em 4 fases formalizado em [`docs/post-implementation-checklist.md`](../post-implementation-checklist.md), atualizando `CHANGELOG.md` e `docs/backlog.md` no mesmo ciclo de commit.
 
 ---
 

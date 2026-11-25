@@ -101,8 +101,9 @@ flowchart LR
 
 ### 📍 Fase 5: Conclusão Baseada em Evidências & Release
 
-- **Quando acionar:** Antes de criar a tag de release ou realizar o deploy.
-- **Checklist de Fechamento (_Definition of Done_):**
+- **Quando acionar:** Antes de criar a tag de release, realizar o deploy ou dar por concluída qualquer tarefa de implementação.
+- **Protocolo Compulsório:** Para o checklist operacional detalhado em 4 fases (Quality Gates, Documentação Viva, Governança em Nuvem e Git Delivery) e scorecard de modernização para repositórios legados, consulte [`docs/post-implementation-checklist.md`](./post-implementation-checklist.md).
+- **Checklist Sintético de Fechamento (_Definition of Done_):**
   - [ ] Build completo e limpo (ex: `./mvnw clean compile` / `npm run build` / `dotnet build`).
   - [ ] Suíte de testes 100% verde (ex: `./mvnw clean test` / `npm test` / `dotnet test`).
   - [ ] Varredura do Gitleaks sem nenhum segredo ou dado de cliente detectado.
@@ -142,3 +143,4 @@ O ecossistema do kit é composto de forma integrada por:
 2. **Diretórios Canônicos:** O scaffolding em `docs/specs/` e `docs/adrs/`.
 3. **Playbook Metodológico:** A condução operacional rigorosa do agente de IA em todas as fases do ciclo de vida.
 4. **Guia de Segurança & Guardrails:** Padrões corporativos de defesa em profundidade e sandboxing em [`docs/guia-seguranca-agentes-ia.md`](./guia-seguranca-agentes-ia.md).
+5. **Protocolo de Conclusão de Tarefas (DoD):** O checklist pós-implementação em 4 fases e scorecard de maturidade em [`docs/post-implementation-checklist.md`](./post-implementation-checklist.md).

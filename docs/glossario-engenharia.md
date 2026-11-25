@@ -46,7 +46,7 @@ A quantidade de tarefas que foram iniciadas, mas ainda não estão finalizadas. 
 
 ### Definition of Done (DoD - Critério de Conclusão)
 
-Checklist acordado e mensurável que define quando uma tarefa ou especificação pode ser considerada oficialmente concluída. No ecossistema deste kit, inclui: suíte de testes automatizados verde, build limpo, ausência de segredos detectados por varredura de segurança, OpenAPI/README atualizados e status marcado no backlog.
+Checklist acordado e mensurável que define quando uma tarefa ou especificação pode ser considerada oficialmente concluída. No ecossistema deste kit, inclui: suíte de testes automatizados verde, build limpo, ausência de segredos detectados por varredura de segurança, OpenAPI/README atualizados e status marcado no backlog, conforme formalizado em [`docs/post-implementation-checklist.md`](./post-implementation-checklist.md).
 
 ### Definition of Ready (DoR - Critério de Prontidão)
 
@@ -95,6 +95,14 @@ Fenômeno em que um modelo de IA gera informações factualmente incorretas, inv
 ### Pair Programming com IA
 
 Metodologia de trabalho colaborativo em que a pessoa desenvolvedora humana atua como condutora estratégica e revisora técnica (_Tech Lead / Navigator_), enquanto o agente de inteligência artificial opera como engenheiro de software sênior de suporte operacional (_Senior Pair / Driver_), acelerando implementações com alto rigor de qualidade.
+
+### Definition of Done (DoD) do Agente
+
+Conjunto estrito de portões operacionais compulsórios que o agente de inteligência artificial deve cumprir e evidenciar antes de considerar qualquer alteração de código ou documentação finalizada. Abrange 4 fases obrigatórias: Quality Gates & Evidências (testes verdes e anti-tampering), Documentação Viva (sincronização de backlog, glossário e playbook), Governança em Nuvem (Project 14 e auditoria de PRs) e Entrega Git (Conventional Commits e trailer de co-autoria).
+
+### Post-Implementation Checklist (Protocolo de Conclusão de Tarefas)
+
+Instrumento canônico de governança operacional formalizado em [`docs/post-implementation-checklist.md`](./post-implementation-checklist.md). Serve tanto como lista de verificação passo a passo executada pelo agente após cada entrega quanto como régua de maturidade (_scorecard_) para auditoria e modernização técnica de repositórios legados do ecossistema.
 
 ---
 

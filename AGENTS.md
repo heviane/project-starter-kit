@@ -100,7 +100,18 @@ Todas as mensagens de commit sugeridas ou criadas pelo agente devem seguir a esp
 
 ---
 
-## 🚀 7. Comandos Rápidos do Projeto
+## ✅ 7. Checklist Pós-Implementação (Definition of Done)
+
+Antes de considerar qualquer tarefa finalizada, o agente DEVE seguir e evidenciar o [Protocolo de 4 Fases (`docs/post-implementation-checklist.md`)](./docs/post-implementation-checklist.md):
+
+1. **Fase 1 (Quality Gates):** Testes automatizados 100% verdes, *Anti-Test Tampering* (nenhuma asserção relaxada), linters sem erros, build determinístico e *Zero Secrets* (Gitleaks).
+2. **Fase 2 (Documentação Viva):** Atualizar `docs/backlog.md` (status `🟢`), avaliar novos termos em `docs/glossario-engenharia.md`, registrar lições em `docs/playbook-engenharia-ia.md`, atualizar `CHANGELOG.md` e eliminar código zumbi (*Zero Zombie Code* / *Anti-Doc Rot*).
+3. **Fase 3 (Governança & PRs):** Sincronizar com GitHub Project 14 (se aplicável) e auditar PRs remotos pendentes (`gh pr list`).
+4. **Fase 4 (Entrega Git):** Validação com a pessoa desenvolvedora (*Human-in-the-Loop*), commits atômicos em Conventional Commits (em inglês) e trailer compulsório `Co-authored-by`.
+
+---
+
+## 🚀 8. Comandos Rápidos do Projeto
 
 * **Auditoria de PRs Remotos:** `gh pr list`
 * **Validação de Sintaxe Bash:** `bash -n scripts/bootstrap.sh`
