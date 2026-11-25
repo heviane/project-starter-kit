@@ -2,9 +2,9 @@
 
 <!-- Descreva de forma clara o que este Pull Request implementa, corrige ou refatora. -->
 
-* **Issue Vinculada:** Closes #[NUM]
-* **Especificação Técnica (SDD):** `docs/specs/SPEC-XXXX-[nome].md` *(se aplicável)*
-* **ADR Vinculada:** `docs/adrs/0001-[nome].md` *(se aplicável)*
+- **Issue Vinculada:** Closes #[NUM]
+- **Especificação Técnica (SDD):** `docs/specs/SPEC-XXXX-[nome].md` *(se aplicável)*
+- **ADR Vinculada:** `docs/adrs/0001-[nome].md` *(se aplicável)*
 
 ---
 

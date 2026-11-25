@@ -12,9 +12,9 @@
 
 Descreva o problema que exigiu esta decisão arquitetural e as forças que influenciam a escolha (requisitos de negócio, restrições tecnológicas, prazos, custos, segurança, complexidade operacional).
 
-- _Força 1: [ex: Alta volumetria esperada com baixa latência]._
-- _Força 2: [ex: Necessidade de isolamento estrito de certificados em memória sem persistência em disco]._
-- _Força 3: [ex: Compatibilidade com infraestrutura existente ou nuvem pública]._
+- *Força 1: [ex: Alta volumetria esperada com baixa latência].*
+- *Força 2: [ex: Necessidade de isolamento estrito de certificados em memória sem persistência em disco].*
+- *Força 3: [ex: Compatibilidade com infraestrutura existente ou nuvem pública].*
 
 ---
 
@@ -30,7 +30,7 @@ Explique os detalhes técnicos fundamentais que sustentam essa decisão e como e
 
 ## 3. ⚖️ Consequências & Trade-offs
 
-Toda decisão arquitetural traz contrapartidas (_trade-offs_). Documente o impacto:
+Toda decisão arquitetural traz contrapartidas (*trade-offs*). Documente o impacto:
 
 ### Consequências Positivas (Ganhos):
 
@@ -67,6 +67,6 @@ Toda decisão arquitetural traz contrapartidas (_trade-offs_). Documente o impac
 
 Documente explicitamente as condições que exigirão que esta decisão seja reaberta e reavaliada no futuro:
 
-- _Gatilho 1: [ex: Se o volume diário ultrapassar 50.000 requisições simultâneas]._
-- _Gatilho 2: [ex: Se o sistema legado for descontinuado, tornando obsoleta a camada ACL]._
-- _Gatilho 3: [ex: Se houver mudança nos requisitos regulatórios ou nos contratos de integração externos]._
+- *Gatilho 1: [ex: Se o volume diário ultrapassar 50.000 requisições simultâneas].*
+- *Gatilho 2: [ex: Se o sistema legado for descontinuado, tornando obsoleta a camada ACL].*
+- *Gatilho 3: [ex: Se houver mudança nos requisitos regulatórios ou nos contratos de integração externos].*

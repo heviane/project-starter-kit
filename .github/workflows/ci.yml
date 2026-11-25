@@ -30,10 +30,42 @@ jobs:
           GITLEAKS_CONFIG: .gitleaks.toml
 
   # ----------------------------------------------------------------------------
-  # JOB 2: Validação Automatizada de Bootstrapping e Integridade
+  # JOB 2: Validação de Qualidade de Markdown (Docs & Templates)
   # ----------------------------------------------------------------------------
-  bootstrap-test:
-    name: Bootstrap & Scaffolding Validation
+  markdownlint:
+    name: Markdown Linting (markdownlint-cli2)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run markdownlint-cli2
+        run: npx --yes markdownlint-cli2 "**/*.md"
+
+  # ----------------------------------------------------------------------------
+  # JOB 3: Análise Estática de Shell Scripts (ShellCheck)
+  # ----------------------------------------------------------------------------
+  shellcheck:
+    name: ShellCheck (Bash Script Static Analysis)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        run: |
+          shellcheck scripts/bootstrap.sh scripts/run-local.sh.example
+
+  # ----------------------------------------------------------------------------
+  # JOB 4: Validação de Bootstrapping e Scaffolding (Linux / Bash)
+  # ----------------------------------------------------------------------------
+  bootstrap-test-linux:
+    name: Bootstrap & Scaffolding (Linux / Bash)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -46,8 +78,8 @@ jobs:
           cd /tmp/test-project
           bash scripts/bootstrap.sh --non-interactive
 
-          echo "Validando ausência de placeholders não hidratados..."
-          if grep -rn "\[NOME_DO_PROJETO\]" README.md AGENTS.md docs/backlog.md .env.example; then
+          echo "Validando ausência de placeholders não hidratados (Regra 15c)..."
+          if grep -rEn "\[[A-Z0-9_]{3,}\]" README.md AGENTS.md docs/backlog.md .env.example .github/CONTRIBUTING.md .github/CODE_OF_CONDUCT.md .vscode/tasks.json; then
             echo "❌ Erro: Foram encontrados placeholders não hidratados!"
             exit 1
           fi
@@ -57,4 +89,57 @@ jobs:
             exit 1
           fi
 
-          echo "✅ Bootstrap executado com sucesso e repositório limpo validado."
+          echo "✅ Bootstrap Linux executado com sucesso e repositório limpo validado."
+
+  # ----------------------------------------------------------------------------
+  # JOB 5: Validação de Bootstrapping e Scaffolding (Windows / PowerShell)
+  # ----------------------------------------------------------------------------
+  bootstrap-test-windows:
+    name: Bootstrap & Scaffolding (Windows / PowerShell)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Test bootstrap execution (PowerShell)
+        shell: pwsh
+        run: |
+          $testDir = Join-Path $env:TEMP "test-starter-kit-win"
+          Copy-Item -Path . -Destination $testDir -Recurse -Force
+          Push-Location $testDir
+          try {
+            .\scripts\bootstrap.ps1 -NonInteractive -NoCleanup
+
+            Write-Host "Validando ausência de placeholders não hidratados (Regra 15c)..."
+            $targetFiles = @(
+              "README.md",
+              "AGENTS.md",
+              "docs/backlog.md",
+              ".env.example",
+              ".github/CONTRIBUTING.md",
+              ".github/CODE_OF_CONDUCT.md",
+              ".vscode/tasks.json"
+            )
+            $orphansFound = $false
+            foreach ($file in $targetFiles) {
+              if (Test-Path $file) {
+                $matches = Select-String -Path $file -Pattern "\[[A-Z0-9_]{3,}\]"
+                if ($matches) {
+                  Write-Host "❌ Placeholders órfãos encontrados em $file : $($matches.Line)"
+                  $orphansFound = $true
+                }
+              }
+            }
+            if ($orphansFound) {
+              throw "Placeholders órfãos detectados após o bootstrap no Windows!"
+            }
+
+            if (-not (Test-Path "docs/specs") -or -not (Test-Path "docs/adrs")) {
+              throw "Pastas docs/specs ou docs/adrs não foram preservadas!"
+            }
+
+            Write-Host "✅ Bootstrap Windows executado com sucesso e repositório limpo validado."
+          } finally {
+            Pop-Location
+            Remove-Item -Path $testDir -Recurse -Force -ErrorAction SilentlyContinue
+          }
