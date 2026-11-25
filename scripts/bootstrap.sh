@@ -20,12 +20,21 @@ for arg in "$@"; do
 done
 
 DEFAULT_NAME=$(basename "$PWD")
+DEFAULT_OWNER=$(git config user.name 2>/dev/null || echo "")
+[ -z "$DEFAULT_OWNER" ] && DEFAULT_OWNER="my-org"
 
 if [ "$NON_INTERACTIVE" = true ]; then
   PROJECT_NAME=${PROJECT_NAME:-$DEFAULT_NAME}
   PROJECT_DESC=${PROJECT_DESC:-"Sistema de alta qualidade desenvolvido com assistência de IA."}
-  GITHUB_OWNER=${GITHUB_OWNER:-"heviane"}
+  GITHUB_OWNER=${GITHUB_OWNER:-$DEFAULT_OWNER}
   STACK_OPTION=${STACK_OPTION:-"1"}
+
+  if [[ "$GITHUB_OWNER" =~ ^[Hh]eviane ]]; then
+    DEFAULT_PROJECT_LINK="https://github.com/users/heviane/projects/14"
+  else
+    DEFAULT_PROJECT_LINK="https://github.com/$GITHUB_OWNER/$PROJECT_NAME/projects"
+  fi
+  LINK_PROJECT=${LINK_PROJECT:-$DEFAULT_PROJECT_LINK}
 else
   read -rp "Nome do novo projeto [$DEFAULT_NAME]: " PROJECT_NAME
   PROJECT_NAME=${PROJECT_NAME:-$DEFAULT_NAME}
@@ -33,8 +42,17 @@ else
   read -rp "Breve descrição do valor do software: " PROJECT_DESC
   PROJECT_DESC=${PROJECT_DESC:-"Sistema de alta qualidade desenvolvido com assistência de IA."}
 
-  read -rp "Usuário ou Organização do GitHub [heviane]: " GITHUB_OWNER
-  GITHUB_OWNER=${GITHUB_OWNER:-"heviane"}
+  read -rp "Usuário ou Organização do GitHub [$DEFAULT_OWNER]: " GITHUB_OWNER
+  GITHUB_OWNER=${GITHUB_OWNER:-$DEFAULT_OWNER}
+
+  if [[ "$GITHUB_OWNER" =~ ^[Hh]eviane ]]; then
+    DEFAULT_PROJECT_LINK="https://github.com/users/heviane/projects/14"
+  else
+    DEFAULT_PROJECT_LINK="https://github.com/$GITHUB_OWNER/$PROJECT_NAME/projects"
+  fi
+
+  read -rp "URL do GitHub Project ou Kanban [$DEFAULT_PROJECT_LINK]: " LINK_PROJECT
+  LINK_PROJECT=${LINK_PROJECT:-$DEFAULT_PROJECT_LINK}
 
   echo -e "\n\033[33mSelecione a Stack Tecnológica Principal:\033[0m"
   echo "  1) Java 17+ / Spring Boot 3 / Maven"
@@ -99,6 +117,7 @@ escape_sed() {
 PROJECT_NAME_ESC=$(escape_sed "$PROJECT_NAME")
 PROJECT_DESC_ESC=$(escape_sed "$PROJECT_DESC")
 GITHUB_OWNER_ESC=$(escape_sed "$GITHUB_OWNER")
+LINK_PROJECT_ESC=$(escape_sed "$LINK_PROJECT")
 STACK_NAME_ESC=$(escape_sed "$STACK_NAME")
 CMD_COMPILE_ESC=$(escape_sed "$CMD_COMPILE")
 CMD_RUN_ESC=$(escape_sed "$CMD_RUN")
@@ -153,6 +172,7 @@ if [ -f "docs/templates/BACKLOG.md" ]; then
   sed -e "s/\[NOME_DO_PROJETO\]/$PROJECT_NAME_ESC/g" \
       -e "s/\[ORGANIZACAO_OU_USUARIO\]/$GITHUB_OWNER_ESC/g" \
       -e "s/\[DATA_ATUALIZACAO\]/$CURRENT_DATE/g" \
+      -e "s/\[LINK_DO_PROJECT_OU_KANBAN\]/$LINK_PROJECT_ESC/g" \
       docs/templates/BACKLOG.md > docs/backlog.md
   echo -e "  \033[36m✓ docs/backlog.md inicializado.\033[0m"
 fi

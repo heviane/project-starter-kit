@@ -96,7 +96,7 @@ Todas as mensagens de commit sugeridas ou criadas pelo agente devem seguir a esp
 2. **Reversibilidade Limpa (Clean Revert):** Todo commit deve ser isolado e autocontido, permitindo `git revert <hash>` sem introduzir efeitos colaterais em arquivos não correlacionados.
 3. **Garantia de Pipeline Verde Contínuo (Always Green / Bisect-Safe):** Nenhum commit intermediário pode deixar o repositório quebrado. A cada commit individual, todos os testes e validações estáticas devem ser executados e aprovados com 100% verde.
 4. **Idioma Canônico & Modo Imperativo:** Todas as mensagens de commit DEVEM ser escritas em **inglês**, utilizando verbos no modo imperativo (`add`, `fix`, `sync`, `enforce`, `bump`, `polish`, `remove`), assegurando conformidade com padrões internacionais de engenharia e ferramentas de release automatizado.
-5. **Rastreabilidade de IA & Co-Autoria (Git Co-Authorship):** Todo commit sugerido ou gerado com o auxílio de um agente de IA DEVE incluir no rodapé da mensagem o trailer canônico do Git: `Co-authored-by: Google Antigravity <antigravity[bot]@google.com>` (ou do respectivo modelo/agente), assegurando transparência, proveniência de código e visibilidade nativa de co-autoria no GitHub.
+5. **Rastreabilidade de IA & Co-Autoria (Git Co-Authorship):** Todo commit sugerido ou gerado com o auxílio de um agente de IA DEVE incluir no rodapé da mensagem o trailer canônico do Git com a identidade do agente assistente: `Co-authored-by: [NOME_DO_AGENTE] <[EMAIL_DO_AGENTE]>` (ex.: `Google Antigravity <antigravity[bot]@google.com>`, `Claude <noreply@anthropic.com>`, `GitHub Copilot <copilot@github.com>`), assegurando transparência, proveniência de código e visibilidade nativa de co-autoria no GitHub.
 
 ---
 
@@ -106,7 +106,7 @@ Antes de considerar qualquer tarefa finalizada, o agente DEVE seguir e evidencia
 
 1. **Fase 1 (Quality Gates):** Testes automatizados 100% verdes, *Anti-Test Tampering* (nenhuma asserção relaxada), linters sem erros, build determinístico e *Zero Secrets* (Gitleaks).
 2. **Fase 2 (Documentação Viva):** Atualizar `docs/backlog.md` (status `🟢`), avaliar novos termos em `docs/glossario-engenharia.md`, registrar lições em `docs/playbook-engenharia-ia.md`, atualizar `CHANGELOG.md` e eliminar código zumbi (*Zero Zombie Code* / *Anti-Doc Rot*).
-3. **Fase 3 (Governança & PRs):** Sincronizar com GitHub Project 14 (se aplicável) e auditar PRs remotos pendentes (`gh pr list`).
+3. **Fase 3 (Governança & PRs):** Sincronizar com GitHub Project / Kanban configurado (se aplicável) e auditar PRs remotos pendentes (`gh pr list`).
 4. **Fase 4 (Entrega Git):** Validação com a pessoa desenvolvedora (*Human-in-the-Loop*), commits atômicos em Conventional Commits (em inglês) e trailer compulsório `Co-authored-by`.
 
 ---

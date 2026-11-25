@@ -14,6 +14,7 @@ param(
     [string]$ProjectDesc,
     [string]$GithubOwner,
     [string]$StackOption,
+    [string]$LinkProject,
     [switch]$NoCleanup
 )
 
@@ -26,12 +27,21 @@ Write-Host ""
 
 # 1. Coleta de Metadados
 $defaultProjectName = (Get-Item .).Name
+$defaultOwner = git config user.name 2>$null
+if ([string]::IsNullOrWhiteSpace($defaultOwner)) { $defaultOwner = "my-org" }
 
 if ($NonInteractive) {
     if ([string]::IsNullOrWhiteSpace($ProjectName)) { $projectName = $defaultProjectName } else { $projectName = $ProjectName }
     if ([string]::IsNullOrWhiteSpace($ProjectDesc)) { $projectDesc = "Sistema de alta qualidade desenvolvido com assistência de IA." } else { $projectDesc = $ProjectDesc }
-    if ([string]::IsNullOrWhiteSpace($GithubOwner)) { $githubOwner = "heviane" } else { $githubOwner = $GithubOwner }
+    if ([string]::IsNullOrWhiteSpace($GithubOwner)) { $githubOwner = $defaultOwner } else { $githubOwner = $GithubOwner }
     if ([string]::IsNullOrWhiteSpace($StackOption)) { $stackOption = "1" } else { $stackOption = $StackOption }
+
+    if ($githubOwner -match '^[Hh]eviane') {
+        $defaultProjectLink = "https://github.com/users/heviane/projects/14"
+    } else {
+        $defaultProjectLink = "https://github.com/$githubOwner/$projectName/projects"
+    }
+    if ([string]::IsNullOrWhiteSpace($LinkProject)) { $linkProject = $defaultProjectLink } else { $linkProject = $LinkProject }
 } else {
     $projectName = Read-Host "Nome do novo projeto [$defaultProjectName]"
     if ([string]::IsNullOrWhiteSpace($projectName)) { $projectName = $defaultProjectName }
@@ -39,8 +49,17 @@ if ($NonInteractive) {
     $projectDesc = Read-Host "Breve descrição do valor do software"
     if ([string]::IsNullOrWhiteSpace($projectDesc)) { $projectDesc = "Sistema de alta qualidade desenvolvido com assistência de IA." }
 
-    $githubOwner = Read-Host "Usuário ou Organização do GitHub [heviane]"
-    if ([string]::IsNullOrWhiteSpace($githubOwner)) { $githubOwner = "heviane" }
+    $githubOwner = Read-Host "Usuário ou Organização do GitHub [$defaultOwner]"
+    if ([string]::IsNullOrWhiteSpace($githubOwner)) { $githubOwner = $defaultOwner }
+
+    if ($githubOwner -match '^[Hh]eviane') {
+        $defaultProjectLink = "https://github.com/users/heviane/projects/14"
+    } else {
+        $defaultProjectLink = "https://github.com/$githubOwner/$projectName/projects"
+    }
+
+    $linkProject = Read-Host "URL do GitHub Project ou Kanban [$defaultProjectLink]"
+    if ([string]::IsNullOrWhiteSpace($linkProject)) { $linkProject = $defaultProjectLink }
 
     Write-Host "`nSelecione a Stack Tecnológica Principal:" -ForegroundColor Yellow
     Write-Host "  1) Java 17+ / Spring Boot 3 / Maven"
@@ -149,6 +168,7 @@ if (Test-Path $backlogTemplatePath) {
     $backlogContent = $backlogContent -replace '\[NOME_DO_PROJETO\]', $projectName
     $backlogContent = $backlogContent -replace '\[ORGANIZACAO_OU_USUARIO\]', $githubOwner
     $backlogContent = $backlogContent -replace '\[DATA_ATUALIZACAO\]', $currentDate
+    $backlogContent = $backlogContent -replace '\[LINK_DO_PROJECT_OU_KANBAN\]', $linkProject
     Set-Content -Path "docs/backlog.md" -Value $backlogContent -Encoding UTF8
     Write-Host "  ✓ docs/backlog.md inicializado." -ForegroundColor Cyan
 }

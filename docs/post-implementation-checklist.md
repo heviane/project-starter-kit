@@ -27,7 +27,23 @@ Adicionalmente, este protocolo atua como a **Régua de Auditoria e Scorecard de 
 
 ---
 
-## 📋 2. O Protocolo Mestre em 4 Fases (Definition of Done)
+## ⚖️ 2. Matriz de Proporcionalidade do DoD (Por Tipo de Tarefa)
+
+Para garantir máxima agilidade sem comprometer a qualidade e a segurança, os critérios de conclusão do DoD devem ser aplicados com **estrita proporcionalidade ao escopo da alteração**:
+
+| Tipo de Alteração | Fases & Critérios Obrigatórios do DoD | Critérios Dispensáveis |
+| :--- | :--- | :--- |
+| **Documentação pura (`.md`)** | Linters de Markdown (`markdownlint-cli2`), verificação de links, tolerância zero a placeholders órfãos e *Docs-as-Code* (`docs/backlog.md` ou `CHANGELOG.md` se aplicável). | Execução de build de binários e suíte de testes unitários de código funcional. |
+| **Scripts e automações (`.sh`, `.ps1`)** | Linters de script (`shellcheck`, parsers AST), testes funcionais em sandbox temporário (`$env:TEMP` / `/tmp`), *Sandbox Hygiene* e *Safe CLI*. | Build de código de aplicação comercial. |
+| **Código funcional (`src/`, `lib/`)** | Suíte de testes 100% verde (`Evidence-Based Completion`), *Anti-Test Tampering*, compilação e build determinísticos limpos e linters de linguagem. | - |
+| **Segurança e dependências** | Varredura Gitleaks (*Zero Secrets*), integridade de lockfiles e auditoria de vulnerabilidades/SCA. | - |
+| **Infraestrutura e CI/CD** | Validação sintática de workflows (`.github/workflows/`), testes de simulação e checagem de concorrência. | - |
+
+> 💡 *Nota Universal: A aprovação prévia humana (Human-in-the-Loop), Zero Secrets & Host Privacy, Conventional Commits e commits atômicos são universais e inegociáveis para qualquer tipo de alteração.*
+
+---
+
+## 📋 3. O Protocolo Mestre em 4 Fases (Definition of Done)
 
 Toda tarefa concluída deve satisfazer os critérios objetivos distribuídos nas quatro fases a seguir:
 
@@ -59,7 +75,7 @@ Esta fase assegura a robustez funcional, ausência de regressões e integridade 
 
 Esta fase combate a deterioração documental (*doc rot*) e mantém todos os artefatos de governança perfeitamente sincronizados no mesmo ciclo de trabalho.
 
-- [ ] **2.1. Backlog de Entregas (`docs/backlog.md` ou `meta-hub/backlog.md`):**
+- [ ] **2.1. Backlog de Entregas (`docs/backlog.md`):**
   - O item correspondente foi atualizado para o status concluído `🟢`.
   - Os critérios de aceite foram evidenciados e marcados.
 - [ ] **2.2. Glossário de Engenharia (`docs/glossario-engenharia.md`):**
@@ -83,14 +99,9 @@ Esta fase combate a deterioração documental (*doc rot*) e mantém todos os art
 
 Esta fase garante que a governança do repositório Git esteja perfeitamente espelhada nas ferramentas de gestão em nuvem e que dependências externas estejam seguras.
 
-- [ ] **3.1. Sincronização Contínua com GitHub Projects:**
-  - Havendo alteração de status, prioridade ou inclusão de novos itens no backlog, disparar a automação de reconciliação:
-
-    ```powershell
-    powershell -ExecutionPolicy Bypass -File meta-hub/scripts/sync-project-backlog.ps1 -SyncStatus -SyncPriority
-    ```
-
-  - Prevenção ativa de *drift* entre os arquivos Git locais e o quadro executivo (GitHub Project 14).
+- [ ] **3.1. Sincronização Contínua com GitHub Projects / Kanban (se configurado):**
+  - Havendo alteração de status, prioridade ou inclusão de novos itens no backlog (`docs/backlog.md`), mantenha o quadro de acompanhamento do projeto devidamente atualizado (via CLI `gh project`, automação própria ou atualização manual no quadro do repositório).
+  - Prevenção ativa de *drift* entre os arquivos Git locais e o quadro executivo (GitHub Projects ou Kanban adotado).
 - [ ] **3.2. Auditoria Contínua de Pull Requests e Dependências Remotas:**
   - Inspeção de PRs remotos pendentes via CLI do GitHub:
 
@@ -122,10 +133,10 @@ Esta fase consolida a entrega com rastreabilidade formal, integridade de histór
     ```
 
 - [ ] **4.4. Rastreabilidade de IA & Co-Autoria Obrigatória (*Git Co-Authorship*):**
-  - Inclusão compulsória do trailer no rodapé do commit para qualquer entrega gerada ou assistida por IA:
+  - Inclusão compulsória do trailer no rodapé do commit para qualquer entrega gerada ou assistida por IA (utilizando a identidade canônica do assistente ativo, ex.: `Google Antigravity <antigravity[bot]@google.com>`, `Claude <noreply@anthropic.com>` ou `GitHub Copilot <copilot@github.com>`):
 
     ```text
-    Co-authored-by: Google Antigravity <antigravity[bot]@google.com>
+    Co-authored-by: [NOME_DO_AGENTE] <[EMAIL_DO_AGENTE]>
     ```
 
 - [ ] **4.5. Limpeza de Árvore e Push Seguro:**
@@ -144,8 +155,8 @@ Para os repositórios criados antes da consolidação do `project-starter-kit`, 
 | :--- | :--- | :--- | :--- |
 | **Nível 1** | 🔴 *Legado Básico* | Apenas código compila. Sem testes automatizados, sem `AGENTS.md`, sem backlog estruturado. | Adicionar `AGENTS.md` canônico, `README.md` estruturado e pipeline mínimo de CI com linters. |
 | **Nível 2** | 🟡 *Em Transição* | Possui testes básicos e `README.md`, mas carece de `AGENTS.md`, backlog Docs-as-Code e varredura de segredos. | Instanciar governança do Starter Kit (`AGENTS.md`, `docs/backlog.md`, `.gitleaks.toml`). |
-| **Nível 3** | 🟢 *Governança Ativa* | Possui `AGENTS.md` alinhado, testes automatizados verdes, CI com Gitleaks e backlog sincronizado com Project 14. | Refinar documentação viva (`glossario-engenharia.md`, `playbook-engenharia-ia.md`) e convenções de commit. |
-| **Nível 4** | 💎 *AI-SEP Total* | Conformidade integral com as 4 Fases do DoD: suíte verde, anti-tampering, docs vivas, Project 14, co-autoria e zero segredos. | Manter paridade contínua e incorporar novas práticas do ecossistema. |
+| **Nível 3** | 🟢 *Governança Ativa* | Possui `AGENTS.md` alinhado, testes automatizados verdes, CI com Gitleaks e backlog sincronizado com GitHub Projects / Kanban. | Refinar documentação viva (`glossario-engenharia.md`, `playbook-engenharia-ia.md`) e convenções de commit. |
+| **Nível 4** | 💎 *AI-SEP Total* | Conformidade integral com as 4 Fases do DoD: suíte verde, anti-tampering, docs vivas, GitHub Projects / Kanban, co-autoria e zero segredos. | Manter paridade contínua e incorporar novas práticas do ecossistema. |
 
 ### Matriz Rápida de Diagnóstico (Gap Analysis)
 
@@ -153,7 +164,7 @@ Ao abrir uma sessão de auditoria em um repositório pré-starter kit, preencha 
 
 ```text
 [ ] 1. Possui AGENTS.md aderente às Regras de Ouro Universais?
-[ ] 2. Possui docs/backlog.md integrado com o GitHub Project 14?
+[ ] 2. Possui docs/backlog.md integrado com GitHub Projects / Kanban?
 [ ] 3. Possui pipeline de CI com testes automatizados e Gitleaks?
 [ ] 4. Possui documentação viva (glossário, specs, adrs)?
 [ ] 5. Aplica Conventional Commits com trailer de Co-authored-by?
@@ -174,7 +185,7 @@ Utilize este bloco sintetizado na descrição de Pull Requests ou fechamento de 
 - [ ] **Zero Secrets:** Varredura preventiva com Gitleaks sem segredos ou credenciais.
 - [ ] **Docs-as-Code:** Backlog atualizado para 🟢 Concluído e critérios de aceite validados.
 - [ ] **Documentação Viva:** Glossário, Playbook ou Changelog atualizados (se aplicável).
-- [ ] **Cloud Sync:** Sincronização executada com o GitHub Project 14 (se aplicável).
+- [ ] **Cloud Sync:** Sincronização executada com o GitHub Project / Kanban (se configurado).
 - [ ] **Git Delivery:** Commit atômico em Conventional Commits com trailer `Co-authored-by`.
 ```
 
@@ -187,4 +198,3 @@ Utilize este bloco sintetizado na descrição de Pull Requests ou fechamento de 
 - 📖 **Conceitos & Nomenclaturas:** [`docs/glossario-engenharia.md`](./glossario-engenharia.md)
 - 📑 **Catálogo de Modelos:** [`docs/templates/README.md`](./templates/README.md)
 - 🤖 **Contrato Operacional de IA:** [`AGENTS.md`](../AGENTS.md)
-- 🏢 **Meta-Hub Central de Governança:** [`heviane/heviane/meta-hub`](https://github.com/heviane/heviane/tree/main/meta-hub)

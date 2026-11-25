@@ -7,6 +7,13 @@
 
 ---
 
+> [!TIP]
+> **Como Vincular ao seu GitHub Project ou Kanban:**
+>
+> 1. Para novos projetos derivados, crie um **GitHub Project** na sua organização/conta ou no repositório (`https://github.com/orgs/[ORGANIZACAO_OU_USUARIO]/projects` ou `https://github.com/[ORGANIZACAO_OU_USUARIO]/[NOME_DO_PROJETO]/projects`).  
+> 2. Cole a URL do projeto gerado no campo `Quadro de Acompanhamento` acima.  
+> 3. Durante o bootstrapping (`bootstrap.sh` ou `bootstrap.ps1`), a URL informada ou sugerida será automaticamente hidratada no seu `docs/backlog.md`.
+
 ## 📌 Sumário Executivo & Maturidade
 
 Descreva de forma concisa o propósito deste backlog, a proposta de valor do software e a abordagem metodológica adotada (**Docs-as-Code**, **Spec-Driven Development — SDD** e **TDD**).
