@@ -37,7 +37,7 @@ O desenvolvimento de software assistido por agentes autônomos de inteligência 
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-O objetivo central desta arquitetura é assegurar o princípio do **_Blast Radius Zero_ (Raio de Destruição Zero)**: mesmo que o modelo de IA sofra uma alucinação severa, interprete incorretamente um comando ou execute código defeituoso, as salvaguardas concêntricas impedem que o dano atinja a máquina pessoal da pessoa desenvolvedora, os repositórios remotos de produção ou credenciais confidenciais.
+O objetivo central desta arquitetura é assegurar o princípio de **Redução da Superfície de Ataque e Contenção de Danos (_Blast Radius Minimization_)**: mesmo que o modelo de IA sofra uma alucinação severa, interprete incorretamente um comando ou execute código defeituoso, as salvaguardas concêntricas minimizam substancialmente o impacto e contêm potenciais danos contra o host, credenciais sensíveis e repositórios remotos.
 
 ---
 

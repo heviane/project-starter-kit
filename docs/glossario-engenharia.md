@@ -104,6 +104,14 @@ Conjunto estrito de portões operacionais compulsórios que o agente de intelig�
 
 Instrumento canônico de governança operacional formalizado em [`docs/post-implementation-checklist.md`](./post-implementation-checklist.md). Serve tanto como lista de verificação passo a passo executada pelo agente após cada entrega quanto como régua de maturidade (_scorecard_) para auditoria e modernização técnica de repositórios legados do ecossistema.
 
+### AI-SEP (AI-Assisted Software Engineering Platform / Paradigm)
+
+Paradigma metodológico e plataforma operacional de engenharia de software assistida por inteligência artificial. Unifica o desenvolvimento orientado a especificações (_Spec-Driven Development_), controle humano contínuo (_Human-in-the-Loop_), portões rigorosos de qualidade pós-implementação (DoD) e governança em documentação viva (_Docs-as-Code_), transformando assistentes de IA em engenheiros de software seniores de paridade técnica.
+
+### MARF (Multi-Agent Review Framework)
+
+Estrutura formal e manual operacional descritos em [`docs/reviews/README.md`](./reviews/README.md) para conduzir revisões e auditorias técnicas com múltiplos modelos independentes de inteligência artificial (ChatGPT, Claude, Copilot, Antigravity). Opera em 5 fases (Briefing, Consolidação Trilateral, Decisão Humana, Execução Iterativa em Lotes e Arquivamento), eliminando alucinações individuais por meio do confronto crítico e deliberação humana.
+
 ---
 
 ## 3. Qualidade, Testes & Padrões de Código
@@ -153,3 +161,11 @@ Acrônimo mnemônico que consolida cinco diretrizes essenciais para criação de
 - **L (Liskov Substitution Principle - LSP):** Subtipos devem ser substituíveis pelos seus tipos base sem quebrar o comportamento do programa.
 - **I (Interface Segregation Principle - ISP):** Clientes não devem ser forçados a depender de interfaces ou métodos que não utilizam.
 - **D (Dependency Inversion Principle - DIP):** Módulos de alto nível não devem depender de módulos de baixo nível; ambos devem depender de abstrações.
+
+### Blast Radius (Raio de Destruição / Superfície de Dano)
+
+O alcance ou impacto potencial máximo de uma falha, alucinação de modelo, execução incorreta de comando ou vulnerabilidade de segurança. O paradigma de engenharia com agentes de IA adota o princípio de **Redução da Superfície de Ataque e Contenção de Danos (_Blast Radius Minimization_)**, utilizando ambientes isolados (Dev Containers, sandboxes temporários), credenciais protegidas via variáveis de ambiente e aprovação prévia humana obrigatória (_Human-in-the-Loop_).
+
+### Zero Zombie Code (Eliminação Compulsória de Código Zumbi)
+
+Diretriz estrita de higiene de base de código que proíbe manter código morto, trechos comentados, métodos órfãos, rascunhos temporários ou dependências depreciadas no repositório. O histórico do Git é o registro definitivo de auditoria; qualquer resíduo inativo deve ser cirurgicamente removido no ciclo do commit.

@@ -79,3 +79,13 @@ reviews/
 ```
 
 > **Nota de Segurança:** Caso as análises contenham dados sensíveis, logs de produção ou dados reais de clientes, armazene a pasta `reviews/` em uma unidade externa privada/em nuvem com backup seguro, em conformidade com o princípio de segregação física de segredos.
+
+---
+
+## 🔗 4. Grafo de Rastreabilidade & Conexões
+
+* 🤖 **Contrato Operacional de IA:** [`AGENTS.md`](../../AGENTS.md)
+* 📑 **Catálogo Geral de Modelos:** [`docs/templates/README.md`](../templates/README.md)
+* 🧭 **Metodologia de Condução:** [`docs/playbook-engenharia-ia.md`](../playbook-engenharia-ia.md)
+* 📖 **Glossário de Engenharia:** [`docs/glossario-engenharia.md`](../glossario-engenharia.md)
+* ✅ **Protocolo de Conclusão (DoD):** [`docs/post-implementation-checklist.md`](../post-implementation-checklist.md)

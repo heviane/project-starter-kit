@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![CI](https://github.com/heviane/project-starter-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/heviane/project-starter-kit/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/version-v0.1.0--mvp-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-v0.1.0-blue.svg)](CHANGELOG.md)
 [![Security: Gitleaks](https://img.shields.io/badge/Security-Gitleaks-green.svg)](.gitleaks.toml)
 
 ---
